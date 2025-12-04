@@ -65,7 +65,14 @@ img {
     display: block;
 }
 
-
+.text-center {
+    text-align: center;
+}
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
 /* Navigation */
 
 #navbar{
@@ -77,8 +84,8 @@ img {
     backdrop-filter: blur(12px);
      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
      z-index: 1000;
-      transition: all 0.3s ease;
-       padding: 1rem 0;
+    transition: all 0.3s ease;
+    padding: 1rem 0;
 }
 .nav-wrapper{
     display: flex;
@@ -264,4 +271,25 @@ img {
     background: transparent;
     border: 2px solid var(--text-light);
     color: var(--text-main);
+}
+
+/* --- Section Headers --- */
+.sub-heading {
+    display: block;
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+.section-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+.header-desc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
 }
