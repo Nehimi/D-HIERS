@@ -293,3 +293,81 @@ img {
     max-width: 600px;
     margin: 0 auto;
 }
+ /* About / Context Section (Bento Grid) */
+ .bento-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+     grid-template-rows: auto auto;
+    gap: 1.5rem;
+     margin-top: 3rem;
+ }
+.bento-box{
+      background: var(--bg-white);
+     border-radius: var(--radius-xl);
+     padding:2rem;
+     box-shadow: var(--shadow-sm);
+     border: 1px solid rgba(0, 0, 0, 0.03);
+     position: relative;
+     overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+}
+.beto-box:hover{
+    transform: translateY(-5px);
+     box-shadow: var(--shadow-lg);
+}
+.icon-wrapper {
+    width: 50px;
+    height: 50px;
+    background: rgba(15, 118, 110, 0.1);
+    color: var(--primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.box-bg-icon {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 10rem;
+    color: rgba(255, 255, 255, 0.1);
+    transform: rotate(-15deg);
+}
+.bento-box ul li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+.bento-box ul li::before {
+    content: '•';
+    color: var(--primary);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+.row-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.stat-circle {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+.circular-chart {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+.circle-bg {
+    fill: none;
+    stroke: #eee;
+    stroke-width: 3.8;
+}
