@@ -545,7 +545,32 @@ img {
     border-bottom: 1px solid #f1f5f9;
 }
 .avatar-circle{
-    width:60px;
+       width: 60px;
     height: 60px;
     border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+   
+}
+.avatar-circle.color-2 {
+    background: #0ea5e9;
+}
+.avatar-circle.color-3 {
+    background: #8b5cf6;
+}
+
+.avatar-circle.color-4 {
+    background: #f59e0b;
+}
+
+.avatar-circle.color-5 {
+    background: #ec4899;
+}
+
+.avatar-circle.color-6 {
+    background: #64748b;
 }
