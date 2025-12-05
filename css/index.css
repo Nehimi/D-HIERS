@@ -64,9 +64,35 @@ img {
     height: auto;
     display: block;
 }
+.bg-gradient-1 {
+    position: fixed;
+    top: -10%;
+    right: -5%;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(60px);
+}
+
+.bg-gradient-2 {
+    position: fixed;
+    bottom: -10%;
+    left: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(80px);
+}
 
 .text-center {
     text-align: center;
+}
+.section-padding {
+    padding: 6rem 0;
 }
 .container {
     max-width: 1280px;
@@ -370,4 +396,70 @@ img {
     fill: none;
     stroke: #eee;
     stroke-width: 3.8;
+}
+     /* Workflow Section */
+     .timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 4rem auto 0;
+}
+.timeline::before{
+    content:'';
+    position:absolute;
+    top: 0;
+    bottom: 0;
+    left: 60px;
+    width: 2px;
+    background: #e2e8f0;
+}
+.timeline-item {
+    position: relative;
+    padding-left: 120px;
+    margin-bottom: 3rem;
+
+}
+.timeline-marker{
+    position: absolute;
+      left: 0;
+    top: 0;
+    font-size: 3rem;
+    font-weight: 900;
+ color: rgba(15, 118, 110, 0.1);
+   line-height: 1;
+}
+.timeline-content{
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+     display: flex;
+     gap: 1.5rem;
+     border: 1px solid #f1f5f9;
+      transition: all 0.3s ease;
+}
+.timeline-content:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+.t-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--bg-body);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+.role-badge{
+    padding:0.25rem 0.75rem;
+     background: #e0f2fe;
+      color: #0369a1;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+       margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
 }
