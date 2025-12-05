@@ -135,15 +135,29 @@ img {
 }
 
 .brand-icon {
-    width: 40;
-    height: 40px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border-radius: 10px;
+    width: 48px;
+    height: 48px;
+    background: white;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-size: 1.2rem;
+    padding: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(15, 118, 110, 0.1);
+    transition: all 0.3s ease;
+}
+
+.brand-icon:hover {
+    box-shadow: 0 4px 12px rgba(15, 118, 110, 0.2);
+    border-color: rgba(15, 118, 110, 0.3);
+}
+
+.brand-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .brand-text {
@@ -380,7 +394,6 @@ img {
 
 .bento-box:hover {
     transform: translateY(-3px);
-    /* Subtle lift */
     box-shadow: var(--shadow-xl);
     border-color: rgba(15, 118, 110, 0.1);
 }
