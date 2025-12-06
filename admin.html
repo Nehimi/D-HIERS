@@ -76,7 +76,9 @@
         <div class="content-wrapper">
             <div class="page-header">
                 <h1>System Overview</h1>
-                <a href="create_account.html" class="btn btn-primary">Add New User</a>
+                <a href="create_account.html" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Add New User
+                </a>
             </div>
 
             <!-- Stats Cards -->
@@ -88,76 +90,74 @@
                     <div class="stat-details">
                         <h3>Total Users</h3>
                         <p class="number">124</p>
-                        <span class="trend positive"><i class="fa-solid fa-arrow-up"></i>12% this month</span>
+                        <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> 12% this month</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon color-2">
+                        <i class="fa-solid fa-user-nurse"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Active HEWs</h3>
+                        <p class="number">45</p>
+                        <span class="trend neutral">Lich-Amba, Arada, Lereba</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon color-3">
+                        <i class="fa-solid fa-file-circle-check"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Reports Today</h3>
+                        <p class="number">89</p>
+                        <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> 5% vs yesterday</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon color-4">
+                        <i class="fa-solid fa-server"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>System Status</h3>
+                        <p class="number">99.9%</p>
+                        <span class="trend positive">Operational</span>
                     </div>
                 </div>
             </div>
-            <div class="stat-card">
-                <div class="stat-icon color-2">
-                    <i class="fa-solid fa-nurse"></i>
-                </div>
-                <div class="stat-details">
-                    <h3>Active HEWs</h3>
-                    <p class="number">45</p>
-                    <span class="trend neutral">Lich-Amba, Arada, Lereba</span>
-                </div>
-            </div>
 
-            <div class="stat-card">
-                <div class="stat-icon color-3">
-                    <i class="fa-solid fa-file-circle-check"></i>
-                </div>
-                <div class="stat-details">
-                    <h3>Reports Today</h3>
-                    <p class="number">89</p>
-                    <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> 5% vs yesterday</span>
-                </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon color-4">
-                    <i class="fa-solid fa-server"></i>
-                </div>
-                <div class="stat-details">
-                    <h3>System Status</h3>
-                    <p class="number">99.9%</p>
-                    <span class="trend positive">Operational</span>
-                </div>
-            </div>
-        </div>
-        <!-- Recent Activity & Quick Actions -->
-        <div class="dashboard-grid">
-            <!-- Recent Users Table -->
-            <div class="card-panel table-section">
-                <div class="panel-header">
-                    <h2>Recent User Activity</h2>
-                    <a href="user_managment.html" class="view-all">View All</a>
-                </div>
-                <div class="table-wrapper">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>User</th>
-                                <th>Role</th>
-                                <th>Kebele</th>
-                                <th>Status</th>
-                                <th>Last Login</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td data-label="User" class="primary-cell">
-                                    <div class="user-cell">
-                                        <div class="avatar-xs color-1">H</div>
-                                        <span>Teshale sule</span>
-                                    </div>
-                                </td>
-                                <td data-label="Role"><span class="role-tag hew">HEW</span></td>
-                                <td data-label="Kebele">Lich-Amba</td>
-                                <td data-label="Status"><span class="status-tag active">Active</span></td>
-                                <td data-label="Last Login">2 mins ago</td>
-                            </tr>
-                                 <tr>
+            <!-- Recent Activity & Quick Actions -->
+            <div class="dashboard-grid">
+                <!-- Recent Users Table -->
+                <div class="card-panel table-section">
+                    <div class="panel-header">
+                        <h2>Recent User Activity</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Role</th>
+                                    <th>Kebele</th>
+                                    <th>Status</th>
+                                    <th>Last Login</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="User" class="primary-cell">
+                                        <div class="user-cell">
+                                            <div class="avatar-xs color-1">H</div>
+                                            <span>Sara Tadesse</span>
+                                        </div>
+                                    </td>
+                                    <td data-label="Role"><span class="role-tag hew">HEW</span></td>
+                                    <td data-label="Kebele">Lich-Amba</td>
+                                    <td data-label="Status"><span class="status-tag active">Active</span></td>
+                                    <td data-label="Last Login">2 mins ago</td>
+                                </tr>
+                                <tr>
                                     <td data-label="User" class="primary-cell">
                                         <div class="user-cell">
                                             <div class="avatar-xs color-2">A</div>
@@ -169,7 +169,7 @@
                                     <td data-label="Status"><span class="status-tag active">Active</span></td>
                                     <td data-label="Last Login">1 hour ago</td>
                                 </tr>
-                                   <tr>
+                                <tr>
                                     <td data-label="User" class="primary-cell">
                                         <div class="user-cell">
                                             <div class="avatar-xs color-3">M</div>
@@ -181,17 +181,57 @@
                                     <td data-label="Status"><span class="status-tag offline">Offline</span></td>
                                     <td data-label="Last Login">Yesterday</td>
                                 </tr>
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- System Health / Quick Config -->
+                <div class="card-panel side-panel">
+                    <div class="panel-header">
+                        <h2>Quick Actions</h2>
+                    </div>
+                    <div class="action-list">
+                        <button class="action-item">
+                            <div class="action-icon"><i class="fa-solid fa-user-plus"></i></div>
+                            <div class="action-text">
+                                <strong>Create Account</strong>
+                                <span>Register new staff member</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                        <button class="action-item">
+                            <div class="action-icon"><i class="fa-solid fa-key"></i></div>
+                            <div class="action-text">
+                                <strong>Reset Password</strong>
+                                <span>Unlock user account</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                        <button class="action-item">
+                            <div class="action-icon"><i class="fa-solid fa-database"></i></div>
+                            <div class="action-text">
+                                <strong>Backup Data</strong>
+                                <span>Manual system backup</span>
+                            </div>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="system-health">
+                        <h3>Storage Usage</h3>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%"></div>
+                        </div>
+                        <div class="progress-labels">
+                            <span>65% Used</span>
+                            <span>500GB Total</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-
-
-
     </main>
-
 </body>
 
 </html>
