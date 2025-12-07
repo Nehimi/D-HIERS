@@ -672,3 +672,42 @@ img {
 .avatar-xs.color-3 {
     background: linear-gradient(135deg, #8b5cf6, #a78bfa);
 }
+/* --- Role Tags --- */
+.role-tag {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.role-tag.hew {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.role-tag.coord {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.role-tag.hmis {
+    background: #fce7f3;
+    color: #9f1239;
+}
+
+.role-tag.supervisor {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.role-tag.linkage {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.role-tag.admin {
+    background: #fee2e2;
+    color: #991b1b;
+}
