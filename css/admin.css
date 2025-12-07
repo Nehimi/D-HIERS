@@ -573,3 +573,102 @@ img {
 .trend i {
     font-size: 0.7rem;
 }
+/* --- Dashboard Grid --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+/* --- Card Panel --- */
+.card-panel {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f1f5f9;
+}
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+.panel-header h2 {
+    font-size: 1.25rem;
+    color: var(--text-main);
+    font-weight: 700;
+}
+.view-all {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+.view-all:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+.table-wrapper {
+    overflow-x: auto;
+    margin: -0.5rem;
+    padding: 0.5rem;
+}
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.data-table thead {
+    background: #f8fafc;
+}
+.data-table th {
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #e2e8f0;
+}
+.data-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+.data-table tbody tr {
+    transition: all 0.2s ease;
+}
+.data-table tbody tr:hover {
+    background: #f8fafc;
+}
+.user-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.avatar-xs {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+.avatar-xs.color-1 {
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+}
+
+.avatar-xs.color-2 {
+    background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+}
+
+.avatar-xs.color-3 {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+}
