@@ -127,5 +127,145 @@
                     </div>
                 </div>
             </div>
+                        <!-- Users Table -->
+            <div class="card-panel">
+                <div class="table-header">
+                    <h2>All Users</h2>
+                    <div class="table-actions">
+                        <button class="btn-icon" id="refreshBtn" title="Refresh">
+                            <i class="fa-solid fa-rotate"></i>
+                        </button>
+                        <button class="btn-icon" id="exportBtn" title="Export to CSV">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="selectAll">
+                                </th>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Role</th>
+                                <th>Kebele</th>
+                                <th>Status</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <!-- Default users will be here -->
+                            <tr>
+                                <td data-label="Select"><input type="checkbox" class="row-checkbox"></td>
+                                <td data-label="User" class="primary-cell">
+                                    <div class="user-cell">
+                                        <div class="avatar-xs color-1">S</div>
+                                        <div>
+                                            <div class="user-name">Sara Tadesse</div>
+                                            <div class="user-id">HEW-2024-001</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Email">sara.tadesse@dheirs.et</td>
+                                <td data-label="Phone">+251 911 234567</td>
+                                <td data-label="Role"><span class="role-tag hew">HEW</span></td>
+                                <td data-label="Kebele">Lich-Amba</td>
+                                <td data-label="Status"><span class="status-tag active">Active</span></td>
+                                <td data-label="Created">2 weeks ago</td>
+                                <td data-label="Actions">
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Delete">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Select"><input type="checkbox" class="row-checkbox"></td>
+                                <td data-label="User" class="primary-cell">
+                                    <div class="user-cell">
+                                        <div class="avatar-xs color-2">A</div>
+                                        <div>
+                                            <div class="user-name">Abebe Kebede</div>
+                                            <div class="user-id">COORD-2024-002</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Email">abebe.kebede@dheirs.et</td>
+                                <td data-label="Phone">+251 911 345678</td>
+                                <td data-label="Role"><span class="role-tag coord">Coordinator</span></td>
+                                <td data-label="Kebele">Arada</td>
+                                <td data-label="Status"><span class="status-tag active">Active</span></td>
+                                <td data-label="Created">1 month ago</td>
+                                <td data-label="Actions">
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Delete">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td data-label="Select"><input type="checkbox" class="row-checkbox"></td>
+                                <td data-label="User" class="primary-cell">
+                                    <div class="user-cell">
+                                        <div class="avatar-xs color-3">M</div>
+                                        <div>
+                                            <div class="user-name">Marta Yilma</div>
+                                            <div class="user-id">HMIS-2024-003</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td data-label="Email">marta.yilma@dheirs.et</td>
+                                <td data-label="Phone">+251 911 456789</td>
+                                <td data-label="Role"><span class="role-tag hmis">HMIS Officer</span></td>
+                                <td data-label="Kebele">PHCU HQ</td>
+                                <td data-label="Status"><span class="status-tag offline">Inactive</span></td>
+                                <td data-label="Created">3 months ago</td>
+                                <td data-label="Actions">
+                                    <div class="action-buttons">
+                                        <button class="btn-icon" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="btn-icon" title="Delete">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="table-footer">
+                    <div class="showing-info">
+                        Showing <strong id="showingStart">1</strong> to <strong id="showingEnd">3</strong> of <strong
+                            id="showingTotal">3</strong> users
+                    </div>
+                    <div class="pagination">
+                        <button class="page-btn" disabled>
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
 </body>
 </html>
