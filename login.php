@@ -49,7 +49,7 @@ if ($result->num_rows == 1) {
         break;
 
       case "coordinator":
-        header("Location: dashboard_coordinator.php");
+        header("Location: HEW-COORDNATOR\Review_HEW_Report.html");
         break;
 
       case "hmis":
@@ -65,7 +65,7 @@ if ($result->num_rows == 1) {
         break;
 
       case "admin":
-        header("Location: dashboard_admin.php");
+        header("Location: admin.html");
         break;
     }
 
