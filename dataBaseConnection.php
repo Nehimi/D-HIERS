@@ -4,11 +4,11 @@ $user = "root";
 $password = "";
 $database = "LichAmba_database";
 
-$dataBaseConnetion = mysqli_connect($server, $user, $password, $database) or die(mysqli_error($dataBaseConnetion));
+$dataBaseConnection = mysqli_connect($server, $user, $password, $database) or die(mysqli_error($dataBaseConnection));
 
 
-if ($dataBaseConnetion->connect_error) {
-  die("Connection failed: " . $dataBaseConnetion->connect_error);
+if ($dataBaseConnection->connect_error) {
+  die("Connection failed: " . $dataBaseConnection->connect_error);
 }
 
 echo "Database connected successfully!";

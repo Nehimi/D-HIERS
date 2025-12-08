@@ -22,7 +22,7 @@ if (strpos($userId, "HEW") === 0) {
 }
 
 
-$stmt = $dataBaseConnetion->prepare("SELECT * FROM users WHERE userId = ?");
+$stmt = $dataBaseConnection->prepare("SELECT * FROM users WHERE userId = ?");
 $stmt->bind_param("s", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
