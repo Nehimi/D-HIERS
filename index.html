@@ -8,6 +8,7 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
@@ -37,7 +38,7 @@
             </div>
 
             <div class="nav-actions">
-                <a href="login.html" class="btn btn-primary">
+                <a onclick="openPopup()" class="btn btn-primary">
                     <span>Login Portal</span>
                     <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 </a>
@@ -385,6 +386,28 @@
         </div>
 
     </footer>
+
+
+
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()"><i class="fa-solid fa-close"></i></span>
+
+            <h1 class="logintitle text-gradient">Login Portal</h1>
+            <form method="POST" action="login.php">
+                <label for="">UserId</label>
+                <input name="userId" required autofocus type="text" placeholder="Enter Id">
+                <label for="">Password</label>
+                <input required name="password" type="password" placeholder="Enter Password">
+                <a class="forgotlink" href="#">Forgot password?</a>
+                <button name="login" type="submit" class="submit-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <script src="login.js" defer></script>
     <script src="js/script.js"></script>
 </body>
 
