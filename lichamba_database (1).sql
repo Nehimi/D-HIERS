@@ -6,23 +6,22 @@
 -- Generation Time: Dec 08, 2025 at 04:07 PM
 -- Server version: 9.1.0
 -- PHP Version: 8.3.14
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
+;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
+;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */
+;
+/*!40101 SET NAMES utf8mb4 */
+;
 --
 -- Database: `lichamba_database`
 --
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `users`
 --
@@ -44,17 +43,54 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `emali` (`emali`),
   UNIQUE KEY `phone_no` (`phone_no`),
   UNIQUE KEY `userId` (`userId`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE = MyISAM AUTO_INCREMENT = 4 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci;
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `emali`, `phone_no`, `userId`, `role`, `kebele`, `status`, `password`, `confirmPassword`) VALUES
-(3, 'Samuel', 'Weldemeskel', 'samuel@lichamba.health.et', 2147483647, 'HEW04', 'hew', 'lich-amba', 'active', '$2y$10$Me4ZpaW5v7/P35sPg0sLUedq99HoyXTqSQuqbcrNYg3V9UqIQzS4C', '$2y$10$Me4ZpaW5v7/P35sPg0sLUedq99HoyXTqSQuqbcrNYg3V9UqIQzS4C'),
-(2, 'Eyu', 'sami', 'eyu@gmail.com', 92934567, 'ADMIN05', 'admin', 'lich-amba', 'active', '$2y$10$w/GaGMBXFTxOhDlhJKL6ye6JIilekpWxkZFlF37Gcs5AXTn.XA4xO', '$2y$10$w/GaGMBXFTxOhDlhJKL6ye6JIilekpWxkZFlF37Gcs5AXTn.XA4xO');
+INSERT INTO `users` (
+    `id`,
+    `first_name`,
+    `last_name`,
+    `emali`,
+    `phone_no`,
+    `userId`,
+    `role`,
+    `kebele`,
+    `status`,
+    `password`,
+    `confirmPassword`
+  )
+VALUES (
+    3,
+    'Samuel',
+    'Weldemeskel',
+    'samuel@lichamba.health.et',
+    2147483647,
+    'HEW04',
+    'hew',
+    'lich-amba',
+    'active',
+    '$2y$10$Me4ZpaW5v7/P35sPg0sLUedq99HoyXTqSQuqbcrNYg3V9UqIQzS4C',
+    '$2y$10$Me4ZpaW5v7/P35sPg0sLUedq99HoyXTqSQuqbcrNYg3V9UqIQzS4C'
+  ),
+  (
+    2,
+    'Eyu',
+    'sami',
+    'eyu@gmail.com',
+    92934567,
+    'ADMIN05',
+    'admin',
+    'lich-amba',
+    'active',
+    '$2y$10$w/GaGMBXFTxOhDlhJKL6ye6JIilekpWxkZFlF37Gcs5AXTn.XA4xO',
+    '$2y$10$w/GaGMBXFTxOhDlhJKL6ye6JIilekpWxkZFlF37Gcs5AXTn.XA4xO'
+  );
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
+;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
+;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
+;
