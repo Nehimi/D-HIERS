@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <title>Create Account | D-HEIRS</title>
     <link rel="stylesheet" href="css/admin.css">
 </head>
+
 <body class="dashboard-body">
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -25,7 +27,7 @@
                 <i class="fa-solid fa-grid-2"></i>
                 <span>Create Account</span>
             </a>
-            <a href="User_managment.html" class="nav-item">
+            <a href="user_management.html" class="nav-item">
                 <i class="fa-solid fa-users-gear"></i>
                 <span>User Management</span>
             </a>
@@ -71,7 +73,7 @@
                 </div>
             </div>
         </Header>
-    <!-- Form Content -->
+        <!-- Form Content -->
         <div class="content-wrapper">
             <div class="page-header">
                 <div>
@@ -85,7 +87,7 @@
 
             <!-- Form Card -->
             <div class="form-card">
-                <form id="createAccountForm" class="account-form">
+                <form action="create_account.php" method="POST" id="createAccountForm" class="account-form">
 
                     <!-- Personal Information Section -->
                     <div class="form-section">
@@ -95,22 +97,22 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="firstName">First Name <span class="required">*</span></label>
-                                <input type="text" id="firstName" placeholder="e.g., Sara" required>
+                                <input name="first_name" type="text" id="firstName" placeholder="e.g., Sara" required>
                             </div>
                             <div class="form-group">
                                 <label for="lastName">Last Name <span class="required">*</span></label>
-                                <input type="text" id="lastName" placeholder="e.g., Tadesse" required>
+                                <input name="last_name" type="text" id="lastName" placeholder="e.g., Tadesse" required>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="email">Email Address</label>
-                                <input type="email" id="email" placeholder="user@lichamba.health.et">
+                                <input name="emali" type="email" id="email" placeholder="user@lichamba.health.et">
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone Number <span class="required">*</span></label>
-                                <input type="tel" id="phone" placeholder="+251 " required>
+                                <input name="phone_no" type="tel" id="phone" placeholder="+251 " required>
                             </div>
                         </div>
                     </div>
@@ -123,12 +125,12 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="userId">User ID <span class="required">*</span></label>
-                                <input type="text" id="userId" placeholder="e.g., HEW-001" required>
+                                <input name="userId" type="text" id="userId" placeholder="e.g., HEW-001" required>
                                 <small class="help-text">Format: ROLE-XXX (e.g., HEW-001, COORD-012)</small>
                             </div>
                             <div class="form-group">
                                 <label for="role">Role <span class="required">*</span></label>
-                                <select id="role" required>
+                                <select name="role" id="role" required>
                                     <option value="">Select Role</option>
                                     <option value="hew">Health Extension Worker (HEW)</option>
                                     <option value="coordinator">HEW Coordinator</option>
@@ -143,7 +145,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="kebele">Assigned Kebele <span class="required">*</span></label>
-                                <select id="kebele" required>
+                                <select name="kebele" id="kebele" required>
                                     <option value="">Select Kebele</option>
                                     <option value="lich-amba">Lich-Amba</option>
                                     <option value="arada">Arada</option>
@@ -153,7 +155,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="status">Account Status <span class="required">*</span></label>
-                                <select id="status" required>
+                                <select name="status" id="status" required>
                                     <option value="active">Active</option>
                                     <option value="inactive">Inactive</option>
                                     <option value="pending">Pending Approval</option>
@@ -171,7 +173,8 @@
                             <div class="form-group">
                                 <label for="password">Initial Password <span class="required">*</span></label>
                                 <div class="input-wrapper">
-                                    <input type="password" id="password" placeholder="••••••••" required>
+                                    <input name="password" type="password" id="password" placeholder="••••••••"
+                                        required>
                                     <button type="button" class="toggle-password">
                                         <i class="fa-solid fa-eye"></i>
                                     </button>
@@ -182,7 +185,8 @@
                             <div class="form-group">
                                 <label for="confirmPassword">Confirm Password <span class="required">*</span></label>
                                 <div class="input-wrapper">
-                                    <input type="password" id="confirmPassword" placeholder="••••••••" required>
+                                    <input name="confirmPassword" type="password" id="confirmPassword"
+                                        placeholder="••••••••" required>
                                 </div>
                             </div>
                         </div>
@@ -190,14 +194,14 @@
                         <div class="form-row">
                             <div class="form-group checkbox-group">
                                 <label class="checkbox-container">
-                                    <input type="checkbox" id="forcePasswordChange">
+                                    <input name="forcepassword" type="checkbox" id="forcePasswordChange">
                                     <span class="checkmark"></span>
                                     Force password change on first login
                                 </label>
                             </div>
                             <div class="form-group checkbox-group">
                                 <label class="checkbox-container">
-                                    <input type="checkbox" id="sendEmail">
+                                    <input name="sendEmail" type="checkbox" id="sendEmail">
                                     <span class="checkmark"></span>
                                     Send credentials via email
                                 </label>
@@ -218,6 +222,7 @@
             </div>
         </div>
     </main>
-    <script src="js/admin/script.js"></script>
+    <!-- <script src="js/admin/script.js"></script> -->
 </body>
+
 </html>
