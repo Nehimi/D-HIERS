@@ -45,7 +45,7 @@ if ($result->num_rows == 1) {
     switch ($row['role']) {
 
       case "hew":
-        header("Location: dashboard_hew.php");
+        header("Location: HEW\HEW html\hew_dashboard.html");
         break;
 
       case "coordinator":

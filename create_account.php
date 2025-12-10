@@ -278,7 +278,7 @@ if (isset($_GET['edit'])) {
                 <i class="fa-solid fa-pen"></i> Update Account
               </button>
             <?php else: ?>
-              <button type="submit" class="btn btn-primary">
+              <button name="create_user" type="submit" class="btn btn-primary">
                 <i class="fa-solid fa-user-plus"></i> Create Account
               </button>
             <?php endif; ?>
@@ -321,7 +321,7 @@ if (isset($_POST['create_user'])) {
 
   // password validation (CREATE MODE ONLY)
   if (empty($password) || empty($confirm)) {
-    echo "Please enter both password and confirm password.";
+    echo "<script>alert('Please enter both password and confirm password.'); window.history.back();</script>";
     exit;
   }
 
