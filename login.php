@@ -45,11 +45,11 @@ if ($result->num_rows == 1) {
     switch ($row['role']) {
 
       case "hew":
-        header("Location: HEW\HEW html\hew_dashboard.html");
+        header("Location: http://localhost/D-HEIRS/D-HIERS/HEW/HEW%20html/hew_dashboard.html");
         break;
 
       case "coordinator":
-        header("Location: HEW-COORDNATOR\Review_HEW_Report.html");
+        header("Location: HEW-COORDNATOR/Review_HEW_Report.html");
         break;
 
       case "hmis":

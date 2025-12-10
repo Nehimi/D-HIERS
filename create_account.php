@@ -43,7 +43,7 @@ if (isset($_GET['edit'])) {
         <i class="fa-solid fa-users-gear"></i>
         <span>User Management</span>
       </a>
-      <a href="kebele_config.html" class="nav-item">
+      <a href="kebele_config.php" class="nav-item">
         <i class="fa-solid fa-map-location-dot"></i>
         <span>Kebele Config</span>
       </a>
