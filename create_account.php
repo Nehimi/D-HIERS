@@ -183,13 +183,14 @@ if (isset($_GET['edit'])) {
             </div>
           </div>
 
+
+
           <!-- Security Section -->
           <div class="form-section">
-            <h3 class="section-title">
-              <i class="fa-solid fa-lock"></i> Security Settings
-            </h3>
-
             <?php if (!isset($_GET['edit'])): ?>
+              <h3 class="section-title">
+                <i class="fa-solid fa-lock"></i> Security Settings
+              </h3>
               <div class="form-row">
                 <div class="form-group">
                   <label for="password">Initial Password <span class="required">*</span></label>
@@ -294,13 +295,18 @@ if (isset($_GET['edit'])) {
 <?php
 include 'dataBaseConnection.php';
 
+$user = null;
+
+// LOAD USER IF EDIT MODE
 if (isset($_GET['edit'])) {
   $id = $_GET['edit'];
   $result = mysqli_query($dataBaseConnection, "SELECT * FROM users WHERE id='$id'");
   $user = mysqli_fetch_assoc($result);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// CREATE MODE
+
+if (isset($_POST['create_user'])) {
 
   $firstName = $_POST['first_name'];
   $lastName = $_POST['last_name'];
@@ -310,11 +316,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $role = $_POST['role'];
   $kebele = $_POST['kebele'];
   $status = $_POST['status'];
+  $password = $_POST['password'];
+  $confirm = $_POST['confirmPassword'];
 
-  $password = $_POST['password'] ?? '';
-  $confirm = $_POST['confirmPassword'] ?? '';
-
-
+  // password validation (CREATE MODE ONLY)
   if (empty($password) || empty($confirm)) {
     echo "Please enter both password and confirm password.";
     exit;
@@ -325,15 +330,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
   }
 
-
   $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-
-
-
+  // INSERT QUERY
   $sql = "INSERT INTO users 
-            (first_name, last_name, emali, phone_no, userId, role, kebele, status, password) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+          (first_name, last_name, emali, phone_no, userId, role, kebele, status, password)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   $stmt = $dataBaseConnection->prepare($sql);
 
@@ -359,7 +361,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     echo "Error: " . $stmt->error;
   }
-} else if (isset($_POST['update_data'])) {
+
+}
+
+// =========================
+// UPDATE MODE
+// =========================
+else if (isset($_POST['update_data'])) {
 
   $id = $_POST['id'];
   $firstName = $_POST['first_name'];
@@ -371,46 +379,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $kebele = $_POST['kebele'];
   $status = $_POST['status'];
 
-  // Fetch current user data
+  // Fetch current user password
   $check = mysqli_query($dataBaseConnection, "SELECT * FROM users WHERE id = '$id'");
   $data = mysqli_fetch_assoc($check);
 
-  // If new password is provided, old password must be correct
+  // IF new password is provided:
   if (!empty($_POST['new_password'])) {
 
-    // 1. Old password incorrect → STOP update
     if (!password_verify($_POST['old_password'], $data['password'])) {
       echo "<script>alert('Old password is incorrect!'); window.history.back();</script>";
       exit();
     }
 
-    // 2. Hash new password
     $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
 
-    // 3. Update including password
+    // Update including password
     $update = "
-            UPDATE users SET 
-                first_name='$firstName',
-                last_name='$lastName',
-                emali='$email',
-                phone_no='$phone',
-                userId='$userId',
-                role='$role',
-                kebele='$kebele',
-                status='$status',
-                password='$new_password'
-                password='$new_password'
-            WHERE id='$id'
-        ";
-
-    mysqli_query($dataBaseConnection, $update);
-
-    echo "<script>alert('✔ Password Updated Successfully'); window.location='user_management.php';</script>";
-    exit();
-  }
-
-  // IF new_password is empty → update profile ONLY
-  $update = "
         UPDATE users SET 
             first_name='$firstName',
             last_name='$lastName',
@@ -419,9 +403,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             userId='$userId',
             role='$role',
             kebele='$kebele',
-            status='$status'
+            status='$status',
+            password='$new_password'
         WHERE id='$id'
     ";
+
+    mysqli_query($dataBaseConnection, $update);
+
+    echo "<script>alert('✔ Password Updated Successfully'); window.location='user_management.php';</script>";
+    exit();
+  }
+
+  // UPDATE WITHOUT PASSWORD
+  $update = "
+      UPDATE users SET 
+          first_name='$firstName',
+          last_name='$lastName',
+          emali='$email',
+          phone_no='$phone',
+          userId='$userId',
+          role='$role',
+          kebele='$kebele',
+          status='$status'
+      WHERE id='$id'
+  ";
 
   mysqli_query($dataBaseConnection, $update);
 
