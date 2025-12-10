@@ -42,7 +42,7 @@ if (isset($_GET['delete'])) {
         <i class="fa-solid fa-grid-2"></i>
         <span>Dashboard</span>
       </a>
-      <a href="user_management.html" class="nav-item active">
+      <a href="user_management.php" class="nav-item active">
         <i class="fa-solid fa-users-gear"></i>
         <span>User Management</span>
       </a>
