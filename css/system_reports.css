@@ -1,0 +1,128 @@
+/* System Configuration Specific Styles */
+
+/* Grid Layout for Configuration Panels */
+.config-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.config-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.card-header h2 i {
+    color: var(--primary);
+    font-size: 1.1rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+    flex: 1;
+}
+
+/* Form Styles */
+.assignment-form h3,
+.recent-assignments h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+}
+
+.form-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.form-select,
+.form-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-main);
+    width: 100%;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.form-select:focus,
+.form-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
+.full-width {
+    width: 100%;
+    justify-content: center;
+}
+
+.mt-4 {
+    margin-top: 2rem;
+}
+
+.small-table th,
+.small-table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.text-danger {
+    color: #ef4444;
+}
+
+.text-danger:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .config-grid {
+        grid-template-columns: 1fr;
+    }
+}
