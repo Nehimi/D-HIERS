@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const actionText = this.querySelector('strong').textContent;
 
             if (actionText === 'Create Account') {
-                window.location.href = 'create_account.html';
+                window.location.href = 'create_account.php';
             } else if (actionText === 'Reset Password') {
                 alert('Password reset functionality coming soon!');
             } else if (actionText === 'Backup Data') {
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (viewAllLink) {
         viewAllLink.addEventListener('click', function (e) {
             e.preventDefault();
-            window.location.href = 'user_management.html';
+            window.location.href = 'user_management.php';
         });
     }
 });
