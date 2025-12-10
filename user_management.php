@@ -1,7 +1,16 @@
 <?php
 session_start();
 include "dataBaseConnection.php";
+
+if (isset($_GET['delete'])) {
+  $id = $_GET['delete'];
+  mysqli_query($dataBaseConnection, "DELETE FROM users WHERE id='$id'");
+  echo "
+<script>alert('User deleted'); window.location.href = 'user_management.php';</script>";
+}
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +95,7 @@ include "dataBaseConnection.php";
           <h1>User Management</h1>
           <p class="page-subtitle">Manage all system users, roles, and permissions</p>
         </div>
-        <a href="create_account.html" class="btn btn-primary">
+        <a href="create_account.php" class="btn btn-primary">
           <i class="fa-solid fa-user-plus"></i> Add New User
         </a>
       </div>
@@ -184,10 +193,14 @@ include "dataBaseConnection.php";
                 echo "<td>
                 <form class='action-buttons' method='post'>
                     <input type='hidden' name='id' value='" . $row['id'] . "'>
-                    <button type='submit' name='update_data' class='btn-icon'><i class='fa-solid fa-pen'></i></button>
-        
-                  <button type = 'submit' name = 'delete_data' class = 'btn-icon'><i class='fa-solid fa-trash'></i></button>
+
+                    <a href='create_account.php?edit={$row['id']}' class='btn-icon'>
+                        <i class='fa-solid fa-pen'></i>
+                    </a>
       
+                  <a href='user_management.php?delete={$row['id']}' class='btn-icon' onclick=\"return confirm('Are you sure you want to delete this user?');\">
+                  <i class='fa-solid fa-trash'></i>
+                  </a>
                 </form>
                 </td>";
                 echo "</tr>";
