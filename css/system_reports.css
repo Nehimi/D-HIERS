@@ -1,0 +1,220 @@
+/* System Reports Specific Styles */
+
+.mb-4 {
+    margin-bottom: 2rem;
+}
+
+.text-muted {
+    color: var(--text-muted, #64748b);
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
+
+/* Report Form */
+.report-gen-card .card-body {
+    padding-bottom: 2rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.form-row .form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    height: 100%;
+    padding-top: 0.5rem;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+}
+
+/* Simple Bar Chart Visualization */
+.chart-placeholder {
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 1rem;
+}
+
+.simple-bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 1.5rem;
+    height: 100%;
+}
+
+.bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.bar {
+    width: 30px;
+    background: #e2e8f0;
+    border-radius: 4px 4px 0 0;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.bar.highlight,
+.bar:hover {
+    background: var(--primary, #0f766e);
+    opacity: 1;
+    transform: scaleY(1.05);
+    transform-origin: bottom;
+}
+
+.bar-group span {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Stat Summary */
+.stat-summary {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-item .label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.stat-item .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+/* Progress List */
+.progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0.5rem 0;
+}
+
+.progress-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.progress-track {
+    width: 100%;
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.5s ease-in-out;
+}
+
+.progress-fill.success {
+    background: #10b981;
+}
+
+.progress-fill.warning {
+    background: #fbbf24;
+}
+
+.progress-fill.danger {
+    background: #ef4444;
+}
+
+/* File Cells in Table */
+.file-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.file-icon {
+    font-size: 1.25rem;
+}
+
+.file-icon.pdf {
+    color: #ef4444;
+}
+
+.file-icon.csv {
+    color: #10b981;
+}
+
+.file-icon.excel {
+    color: #15803d;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
