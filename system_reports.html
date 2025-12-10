@@ -81,6 +81,69 @@
                 </a>
             </div>
         </header>
+          <!-- Dashboard Content -->
+        <div class="content-wrapper">
+            <div class="page-header">
+                <div>
+                    <h1>System Reports</h1>
+                    <p class="page-subtitle">Generate and view system performance and health data reports</p>
+                </div>
+                <div class="header-actions">
+                    <a href="add_report.html" class="btn btn-primary">
+                        <i class="fa-solid fa-file-export"></i> New Report
+                    </a>
+                </div>
+            </div>
+
+            <!-- Report Generation Section -->
+            <div class="config-card mb-4 report-gen-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-filter"></i> Generate Custom Report</h2>
+                </div>
+                <div class="card-body">
+                    <form class="report-form form-grid">
+                        <div class="form-row footer-links-like">
+                            <div class="form-group">
+                                <label>Report Type</label>
+                                <select class="form-select">
+                                    <option>User Activity Summary</option>
+                                    <option>Health Post Performance</option>
+                                    <option>Disease Surveillance</option>
+                                    <option>System Usage Stats</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Date Range</label>
+                                <select class="form-select">
+                                    <option>This Week</option>
+                                    <option>This Month</option>
+                                    <option>Last 3 Months</option>
+                                    <option>Custom Range</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Format</label>
+                                <div class="radio-group">
+                                    <label class="radio-item">
+                                        <input type="radio" name="format" checked> PDF
+                                    </label>
+                                    <label class="radio-item">
+                                        <input type="radio" name="format"> CSV
+                                    </label>
+                                    <label class="radio-item">
+                                        <input type="radio" name="format"> Excel
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-secondary">
+                                <i class="fa-solid fa-bolt"></i> Generate Report
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
     </main>
 
     <script src="../js/script.js"></script>
