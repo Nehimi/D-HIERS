@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Reports | D-HEIRS</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/system_reports.css">
+</head>
+
+<body class="dashboard-body">
+
+   <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-icon">
+                <img src="images/logo.png" alt="">
+            </div>
+            <div class="brand-text">
+                D-HEIRS
+                <span>Admin Portal</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="admin.html" class="nav-item">
+                <i class="fa-solid fa-grid-2"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="user_management.html" class="nav-item">
+                <i class="fa-solid fa-users-gear"></i>
+                <span>User Management</span>
+            </a>
+            <a href="kebele_config.html" class="nav-item ">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>Kebele Config</span>
+            </a>
+            <a href="audit_logs.html" class="nav-item">
+                <i class="fa-solid fa-file-shield"></i>
+                <span>Audit Logs</span>
+            </a>
+            <a href="system_reports.html" class="nav-item active">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>System Reports</span>
+            </a>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <a href="index.html" class="nav-item logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="dashboard-header">
+            <div class="header-search">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="globalSearch" placeholder="Search reports...">
+            </div>
+
+            <div class="header-actions">
+                <a href="messages.html" class="icon-btn">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="badge-dot"></span>
+                </a>
+                <a href="admin_profile.html" class="user-profile" style="cursor: pointer; text-decoration: none;">
+                    <img src="images/avatar.png" alt="Admin" class="avatar-sm">
+                    <div class="user-info">
+                        <span class="name">Dr. Admin</span>
+                        <span class="role">System Administrator</span>
+                    </div>
+                </a>
+            </div>
+        </header>
+          <!-- Dashboard Content -->
+        <div class="content-wrapper">
+            <div class="page-header">
+                <div>
+                    <h1>System Reports</h1>
+                    <p class="page-subtitle">Generate and view system performance and health data reports</p>
+                </div>
+                <div class="header-actions">
+                    <a href="add_report.html" class="btn btn-primary">
+                        <i class="fa-solid fa-file-export"></i> New Report
+                    </a>
+                </div>
+            </div>
+
+            <!-- Report Generation Section -->
+            <div class="config-card mb-4 report-gen-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-filter"></i> Generate Custom Report</h2>
+                </div>
+                <div class="card-body">
+                    <form class="report-form form-grid">
+                        <div class="form-row footer-links-like">
+                            <div class="form-group">
+                                <label>Report Type</label>
+                                <select class="form-select">
+                                    <option>User Activity Summary</option>
+                                    <option>Health Post Performance</option>
+                                    <option>Disease Surveillance</option>
+                                    <option>System Usage Stats</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Date Range</label>
+                                <select class="form-select">
+                                    <option>This Week</option>
+                                    <option>This Month</option>
+                                    <option>Last 3 Months</option>
+                                    <option>Custom Range</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Format</label>
+                                <div class="radio-group">
+                                    <label class="radio-item">
+                                        <input type="radio" name="format" checked> PDF
+                                    </label>
+                                    <label class="radio-item">
+                                        <input type="radio" name="format"> CSV
+                                    </label>
+                                    <label class="radio-item">
+                                        <input type="radio" name="format"> Excel
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-secondary">
+                                <i class="fa-solid fa-bolt"></i> Generate Report
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+             <!-- Report Summaries Grid -->
+                    <div class="config-grid reports-overview">
+
+                <div class="config-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-users-viewfinder"></i> User Activity</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart-placeholder">
+                            <!-- CSS Bar Chart Simulation -->
+                            <div class="simple-bar-chart">
+                                <div class="bar-group">
+                                    <div class="bar" style="height: 60%;" title="Mon: 60%"></div>
+                                    <span>Mon</span>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar" style="height: 80%;" title="Tue: 80%"></div>
+                                    <span>Tue</span>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar" style="height: 45%;" title="Wed: 45%"></div>
+                                    <span>Wed</span>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar highlight" style="height: 90%;" title="Thu: 90%"></div>
+                                    <span>Thu</span>
+                                </div>
+                                <div class="bar-group">
+                                    <div class="bar" style="height: 70%;" title="Fri: 70%"></div>
+                                    <span>Fri</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stat-summary">
+                            <div class="stat-item">
+                                <span class="label">Active Users</span>
+                                <span class="value">45</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="label">Logins Today</span>
+                                <span class="value">128</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="config-card">
+                    <div class="card-header">
+                        <h2><i class="fa-solid fa-hospital-user"></i> Report Submission Status</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress-list">
+                            <div class="progress-item">
+                                <div class="progress-info">
+                                    <span>Lich-Amba kebele</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div class="progress-fill success" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-info">
+                                    <span>Arada Kebele</span>
+                                    <span>60%</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div class="progress-fill warning" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-info">
+                                    <span>Lereba Kebele</span>
+                                    <span>40%</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div class="progress-fill danger" style="width: 40%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm mt-3 text-muted">Conversion rate of weekly HEW reports.</p>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
