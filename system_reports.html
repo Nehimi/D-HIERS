@@ -145,90 +145,82 @@
                     </form>
                 </div>
             </div>
-             <!-- Report Summaries Grid -->
-                    <div class="config-grid reports-overview">
-
-                <div class="config-card">
-                    <div class="card-header">
-                        <h2><i class="fa-solid fa-users-viewfinder"></i> User Activity</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="chart-placeholder">
-                            <!-- CSS Bar Chart Simulation -->
-                            <div class="simple-bar-chart">
-                                <div class="bar-group">
-                                    <div class="bar" style="height: 60%;" title="Mon: 60%"></div>
-                                    <span>Mon</span>
-                                </div>
-                                <div class="bar-group">
-                                    <div class="bar" style="height: 80%;" title="Tue: 80%"></div>
-                                    <span>Tue</span>
-                                </div>
-                                <div class="bar-group">
-                                    <div class="bar" style="height: 45%;" title="Wed: 45%"></div>
-                                    <span>Wed</span>
-                                </div>
-                                <div class="bar-group">
-                                    <div class="bar highlight" style="height: 90%;" title="Thu: 90%"></div>
-                                    <span>Thu</span>
-                                </div>
-                                <div class="bar-group">
-                                    <div class="bar" style="height: 70%;" title="Fri: 70%"></div>
-                                    <span>Fri</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="stat-summary">
-                            <div class="stat-item">
-                                <span class="label">Active Users</span>
-                                <span class="value">45</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="label">Logins Today</span>
-                                <span class="value">128</span>
-                            </div>
-                        </div>
-                    </div>
+<!-- Recent Generated Reports Table -->
+            <div class="config-card mt-4">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-clock-rotate-left"></i> Recent Reports</h2>
+                    <a href="#" class="btn-text">View All History</a>
                 </div>
-
-                <div class="config-card">
-                    <div class="card-header">
-                        <h2><i class="fa-solid fa-hospital-user"></i> Report Submission Status</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="progress-list">
-                            <div class="progress-item">
-                                <div class="progress-info">
-                                    <span>Lich-Amba kebele</span>
-                                    <span>85%</span>
-                                </div>
-                                <div class="progress-track">
-                                    <div class="progress-fill success" style="width: 85%"></div>
-                                </div>
-                            </div>
-                            <div class="progress-item">
-                                <div class="progress-info">
-                                    <span>Arada Kebele</span>
-                                    <span>60%</span>
-                                </div>
-                                <div class="progress-track">
-                                    <div class="progress-fill warning" style="width: 60%"></div>
-                                </div>
-                            </div>
-                            <div class="progress-item">
-                                <div class="progress-info">
-                                    <span>Lereba Kebele</span>
-                                    <span>40%</span>
-                                </div>
-                                <div class="progress-track">
-                                    <div class="progress-fill danger" style="width: 40%"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <p class="text-sm mt-3 text-muted">Conversion rate of weekly HEW reports.</p>
+                <div class="card-body">
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Report Name</th>
+                                    <th>Type</th>
+                                    <th>Generated By</th>
+                                    <th>Date</th>
+                                    <th>Size</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="primary-cell">
+                                        <div class="file-cell">
+                                            <i class="fa-solid fa-file-pdf file-icon pdf"></i>
+                                            <span>Oct_User_Activity.pdf</span>
+                                        </div>
+                                    </td>
+                                    <td>User Activity</td>
+                                    <td>Dr. Admin</td>
+                                    <td>Oct 25, 2023</td>
+                                    <td>2.4 MB</td>
+                                    <td><span class="status-badge status-success">Ready</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fa-solid fa-download"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="primary-cell">
+                                        <div class="file-cell">
+                                            <i class="fa-solid fa-file-csv file-icon csv"></i>
+                                            <span>Health_Post_Perf_Q3.csv</span>
+                                        </div>
+                                    </td>
+                                    <td>Performance</td>
+                                    <td>Abebe Kebede</td>
+                                    <td>Oct 24, 2023</td>
+                                    <td>156 KB</td>
+                                    <td><span class="status-badge status-success">Ready</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fa-solid fa-download"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="primary-cell">
+                                        <div class="file-cell">
+                                            <i class="fa-solid fa-file-excel file-icon excel"></i>
+                                            <span>Disease_Surveillance_W42.xlsx</span>
+                                        </div>
+                                    </td>
+                                    <td>Surveillance</td>
+                                    <td>System (Auto)</td>
+                                    <td>Oct 23, 2023</td>
+                                    <td>1.1 MB</td>
+                                    <td><span class="status-badge status-success">Ready</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fa-solid fa-download"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+
+        </div>
     </main>
 
     <script src="../js/script.js"></script>
