@@ -38,11 +38,11 @@ if (isset($_GET['delete'])) {
       </div>
     </div>
     <nav class="sidebar-nav">
-      <a href="admin.html" class="nav-item active">
+      <a href="admin.html" class="nav-item ">
         <i class="fa-solid fa-grid-2"></i>
         <span>Dashboard</span>
       </a>
-      <a href="user_management.html" class="nav-item">
+      <a href="user_management.html" class="nav-item active">
         <i class="fa-solid fa-users-gear"></i>
         <span>User Management</span>
       </a>
@@ -54,7 +54,7 @@ if (isset($_GET['delete'])) {
         <i class="fa-solid fa-file-shield"></i>
         <span>Audit Logs</span>
       </a>
-      <a href="System_report.html" class="nav-item">
+      <a href="system_reports.html" class="nav-item">
         <i class="fa-solid fa-chart-pie"></i>
         <span>System Reports</span>
       </a>

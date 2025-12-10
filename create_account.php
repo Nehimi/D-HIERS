@@ -35,7 +35,7 @@ if (isset($_GET['edit'])) {
       </div>
     </div>
     <nav class="sidebar-nav">
-      <a href="admin.html" class="nav-item active">
+      <a href="create_account.php" class="nav-item active">
         <i class="fa-solid fa-grid-2"></i>
         <span>Create Account</span>
       </a>
@@ -51,7 +51,7 @@ if (isset($_GET['edit'])) {
         <i class="fa-solid fa-file-shield"></i>
         <span>Audit Logs</span>
       </a>
-      <a href="System_report.html" class="nav-item">
+      <a href="system_report.html" class="nav-item">
         <i class="fa-solid fa-chart-pie"></i>
         <span>System Reports</span>
       </a>
