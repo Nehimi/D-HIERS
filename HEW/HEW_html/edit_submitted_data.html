@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enter Health Data | D-HEIRS</title>
+  <title>Edit Submitted Data | D-HEIRS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Main HEW CSS -->
-  <link rel="stylesheet" href="../HEW css/hew.css">
-  <link rel="stylesheet" href="../HEW_css/hew_health.css">
-  <link rel="stylesheet" href="../HEW css/hew_style.css">
-  <script src="../HEW js/enter_health_data.js"></script>
-
+  <link rel="stylesheet" href="../HEW_css/hew.css">
+  <link rel="stylesheet" href="../HEW_css/hew_style.css">
+  <script src="../HEW_js/edit_submitted_data.js"></script>
+  <link rel="stylesheet" href="../HEW_css/edit_submitted_data.css">
 </head>
 
 <body class="dashboard-body">
@@ -36,15 +35,15 @@
         <i class="fa-solid fa-users-gear"></i>
         <span>Register Household</span>
       </a>
-      <a href="enter_health_data.html" class="nav-item active">
+      <a href="enter_health_data.html" class="nav-item">
         <i class="fa-solid fa-stethoscope"></i>
         <span>Enter Health Data</span>
       </a>
-      <a href="edit_submitted_data.html" class="nav-item">
+      <a href="edit_submitted_data.html" class="nav-item active">
         <i class="fa-solid fa-file-pen"></i>
         <span>Edit Submitted Data</span>
       </a>
-      <a href="Submit Reports.html" class="nav-item">
+      <a href="submit_reports.html" class="nav-item">
         <i class="fa-solid fa-chart-pie"></i>
         <span>Submit Reports</span>
       </a>
@@ -61,20 +60,20 @@
   <!-- Main Content -->
   <main class="main-content">
     <header class="dashboard-header">
-      <h2>Enter Health Data</h2>
+      <h2>Edit Submitted Data</h2>
     </header>
 
     <section class="form-section">
       <!-- Step 1: Check household ID -->
       <div id="id-check-section" class="form-container">
-        <label for="householdId">Enter Registered Household ID:</label>
+        <label for="householdId">Enter Household ID to Edit:</label>
         <input type="text" id="householdId" placeholder="e.g. HH-001" required>
-        <button id="checkIdBtn" class="btn-primary"><i class="fa fa-check"></i> Check ID</button>
+        <button id="checkIdBtn" class="btn-primary"><i class="fa fa-search"></i> Fetch Data</button>
       </div>
 
-      <!-- Step 2: Health data form (hidden at first) -->
-      <form id="healthDataForm" class="form-container hidden">
-        <h3>Health Data for Household: <span id="displayId"></span></h3>
+      <!-- Step 2: Edit form (hidden until ID is found) -->
+      <form id="editDataForm" class="form-container hidden">
+        <h3>Editing Data for Household: <span id="displayId"></span></h3>
 
         <div class="form-group">
           <label for="serviceType">Health Service Type</label>
@@ -87,19 +86,20 @@
             <option value="disease_surveillance">Disease Surveillance</option>
           </select>
         </div>
-    <div class="form-group">
-        <label for="totalServed">Total Number of People Served</label>
-        <input type="number" id="totalServed" name="totalServed" placeholder="Enter total number" min="1" required>
-     </div>
+
+        <div class="form-group">
+          <label for="totalServed">Total Number of People Served</label>
+          <input type="number" id="totalServed" name="totalServed" placeholder="Enter updated total" min="1" required>
+        </div>
 
         <div class="form-group">
           <label for="notes">Service Details / Notes</label>
-          <textarea id="notes" rows="4" placeholder="Enter service details..." required></textarea>
+          <textarea id="notes" rows="4" placeholder="Update service details..." required></textarea>
         </div>
 
         <div class="form-actions">
           <button type="submit" class="btn-primary">
-            <i class="fa fa-save"></i> Save Health Data
+            <i class="fa fa-save"></i> Save Changes
           </button>
           <button type="button" class="btn-secondary" onclick="window.location.href='hew_dashboard.html'">
             <i class="fa fa-arrow-left"></i> Back to Dashboard
