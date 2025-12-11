@@ -55,7 +55,7 @@ $_SESSION['role'] = $row['role'];
 switch ($row['role']) {
 
   case "hew":
-    header("Location: HEW/HEW html/hew_dashboard.html");
+    header("Location: HEW/HEW_html/hew_dashboard.html");
     exit();
 
   case "coordinator":

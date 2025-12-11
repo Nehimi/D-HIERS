@@ -1,18 +1,24 @@
+<?php
+session_start();
+include "../../dataBaseConnection.php";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>D-HEIRS | HEW Dashboard</title>
 
   <!-- Font Awesome -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Main CSS -->
   <link rel="stylesheet" href="../HEW_css/hew.css" />
   <link rel="stylesheet" href="../HEW_css/hew_style.css" />
   <link rel="stylesheet" href="../HEW_css/hew_dashbord.css" />
+
 
   <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -33,11 +39,11 @@
     </div>
 
     <nav class="sidebar-nav">
-      <a href="hew_dashboard.html" class="nav-item active">
+      <a href="hew_dashboard.php" class="nav-item active">
         <i class="fa-solid fa-grid-2"></i>
         <span>Dashboard</span>
       </a>
-      <a href="register_household.html" class="nav-item">
+      <a href="register_household.php" class="nav-item">
         <i class="fa-solid fa-users-gear"></i>
         <span>Register Household</span>
       </a>
@@ -102,49 +108,62 @@
       </section>
 
       <!-- Bottom Section -->
-      <section class="bottom-section">
-        <div class="recent">
-          <h3>Recent Health Data Entries</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Household ID</th>
-                <th>Service</th>
-                <th>Date</th>
-                <th>People Served</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>HH-001</td>
-                <td>Immunization</td>
-                <td>2025-12-09</td>
-                <td>12</td>
-              </tr>
-              <tr>
-                <td>HH-024</td>
-                <td>Sanitation</td>
-                <td>2025-12-08</td>
-                <td>18</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" id="selectAll">
+              </th>
+              <th>region</th>
+              <th>zone</th>
+              <th>Woreda</th>
+              <th>kebele</th>
+              <th>householdId</th>
+              <th>memberName</th>
+              <th>age</th>
+              <th>sex</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <?php
+            $sql = mysqli_query($dataBaseConnection, "SELECT * FROM household ORDER BY id DESC");
+            while ($row = mysqli_fetch_assoc($sql)) {
+              echo "<tr>";
+              echo "<td data-label='Select'>" . "<input type = 'checkbox' class = 'row-checkbox'>" . "</td>";
+              echo "<td data-label='User' class='primary-cell'>" . $row['region'] . "</td>";
+              echo "<td>" . $row['zone'] . "</td>";
+              echo "<td>" . $row['woreda'] . "</td>";
+              echo "<td>" . $row['kebele'] . "</td>";
+              echo "<td>" . $row['householdId'] . "</td>";
+              echo "<td>" . $row['memberName'] . "</td>";
+              echo "<td>" . $row['age'] . "</td>";
+              echo "<td>" . $row['sex'] . "</td>";
+              echo "<td>
+                <form class='action-buttons' method='post'>
+                    <input type='hidden' name='id' value='" . $row['id'] . "'>
 
-        <div class="alerts">
-          <h3>Alerts</h3>
-          <ul>
-            <li>⚠️ 2 households missing data updates</li>
-            <li>📅 Next immunization campaign in 3 days</li>
-            <li>🔔 1 report pending submission</li>
-          </ul>
-        </div>
-      </section>
+                    <a href='kebele_config.php?edit={$row['id']}' class='btn-icon'>
+                        <i class='fa-solid fa-pen'></i>
+                    </a>
+      
+                  <a href='user_management.php?delete={$row['id']}' class='btn-icon' onclick=\"return confirm('Are you sure you want to delete this user?');\">
+                  <i class='fa-solid fa-trash'></i>
+                  </a>
+                </form>
+                </td>";
+              echo "</tr>";
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
 
       <!-- Quick Actions -->
       <section class="quick-actions">
         <h3>Quick Actions</h3>
-        <button onclick="window.location.href='register_household.html'">
+        <button onclick="window.location.href='register_household.php'">
           ➕ Register Household
         </button>
         <button onclick="window.location.href='enter_health_data.html'">
@@ -157,4 +176,5 @@
     </div>
   </main>
 </body>
+
 </html>

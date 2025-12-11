@@ -28,11 +28,11 @@
     </div>
 
     <nav class="sidebar-nav">
-      <a href="hew_dashboard.html" class="nav-item">
+      <a href="hew_dashboard.php" class="nav-item">
         <i class="fa-solid fa-grid-2"></i>
         <span>Dashboard</span>
       </a>
-      <a href="register_household.html" class="nav-item">
+      <a href="register_household.php" class="nav-item">
         <i class="fa-solid fa-users-gear"></i>
         <span>Register Household</span>
       </a>
@@ -68,7 +68,7 @@
       <!-- Step 1: Check household ID -->
       <div id="id-check-section" class="form-container">
         <label for="householdId">Enter Registered Household ID:</label>
-        <input type="text" id="householdId" placeholder="e.g. HH-001" required>
+        <input name="householdId" type="text" id="householdId" placeholder="e.g. HH-001" required>
         <button id="checkIdBtn" class="btn-primary"><i class="fa fa-check"></i> Check ID</button>
       </div>
       <form id="healthDataForm" class="form-container hidden">
@@ -76,7 +76,7 @@
 
         <div class="form-group">
           <label for="serviceType">Health Service Type</label>
-          <select id="serviceType" required>
+          <select name="serviceType" id="serviceType" required>
             <option value="">-- Select Service --</option>
             <option value="maternal_health">Maternal Health</option>
             <option value="child_health">Child Health</option>
@@ -92,7 +92,7 @@
 
         <div class="form-group">
           <label for="notes">Service Details / Notes</label>
-          <textarea id="notes" rows="4" placeholder="Enter service details..." required></textarea>
+          <textarea name="details" id="notes" rows="4" placeholder="Enter service details..." required></textarea>
         </div>
 
         <div class="form-actions">

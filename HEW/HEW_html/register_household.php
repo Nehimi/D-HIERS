@@ -1,5 +1,13 @@
+<?php
+session_start();
+include "../../dataBaseConnection.php";
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,11 +31,11 @@
       </div>
     </div>
     <nav class="sidebar-nav">
-      <a href="hew_dashboard.html" class="nav-item">
+      <a href="hew_dashboard.php" class="nav-item">
         <i class="fa-solid fa-grid-2"></i>
         <span>Dashboard</span>
       </a>
-      <a href="register_household.html" class="nav-item active">
+      <a href="register_household.php" class="nav-item active">
         <i class="fa-solid fa-users-gear"></i>
         <span>Register Household</span>
       </a>
@@ -59,9 +67,9 @@
     </header>
 
     <section class="form-section">
-      <form id="householdForm" class="form-container">
-        
-        
+      <form method="POST" action="register_household.php" id="householdForm" class="form-container">
+
+
         <h3 class="form-title">Address Information</h3>
         <div class="form-group">
           <label for="region">Region</label>
@@ -88,7 +96,7 @@
           </select>
         </div>
 
-        
+
         <h3 class="form-title">Family Member Information</h3>
         <div class="form-group">
           <label for="householdId">Household ID</label>
@@ -114,9 +122,9 @@
           </select>
         </div>
 
-        
+
         <div class="form-actions">
-          <button type="submit" class="btn-primary">
+          <button name="SaveFamily" type="submit" class="btn-primary">
             <i class="fa fa-save"></i> Save Family Member
           </button>
 
@@ -128,4 +136,36 @@
     </section>
   </main>
 </body>
+
 </html>
+
+
+<?php
+include "../../dataBaseConnection.php";
+
+if (isset($_POST['SaveFamily'])) {
+  $region = $_POST['region'];
+  $zone = $_POST['zone'];
+  $woreda = $_POST['woreda'];
+  $kebele = $_POST['kebele'];
+  $householdId = $_POST['householdId'];
+  $memberName = $_POST['memberName'];
+  $age = $_POST['age'];
+  $sex = $_POST['sex'];
+
+  $sql = "INSERT INTO household(region, zone, woreda, kebele, householdId, memberName, age, sex) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  $stmt = $dataBaseConnection->prepare($sql);
+
+  if (!$stmt) {
+    die("prepare failed: " . $dataBaseConnection->error);
+  }
+
+  $stmt->bind_param("ssssssis", $region, $zone, $woreda, $kebele, $householdId, $memberName, $age, $sex);
+
+  if ($stmt->execute()) {
+    echo "<script>alert('Household Add Successfully!'); window.location='register_household.php'; </script>";
+  } else {
+    echo "Error: " . $stmt->error;
+  }
+}
+?>
