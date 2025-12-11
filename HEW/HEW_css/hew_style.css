@@ -1,0 +1,125 @@
+
+
+.form-actions {
+  margin-top: 15px;
+  text-align: right;
+}
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background-color: var(--primary, #0f766e);
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #e2e8f0;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background-color: #cbd5e1;
+}
+
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary, #0f766e);
+  box-shadow: 0 0 5px rgba(15, 118, 110, 0.3);
+}
+
+
+/* --- Form Buttons --- */
+.form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+/* Primary Button (Save Family Member) */
+.btn-primary {
+  background: linear-gradient(135deg, #0f766e, #14b8a6); /* teal gradient */
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(15, 118, 110, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #115e59, #0d9488);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(13, 148, 136, 0.35);
+}
+
+/* Secondary Button (Back to Dashboard) */
+.btn-secondary {
+  background: linear-gradient(135deg, #2563eb, #3b82f6); /* blue gradient */
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.3);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(29, 78, 216, 0.35);
+}
+
+/* Icons inside buttons */
+.btn-primary i,
+.btn-secondary i {
+  margin-right: 8px;
+}
+.form-title {
+  color: #0f766e;
+  font-size: 1.2rem;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  border-left: 4px solid #0ea5e9;
+  padding-left: 8px;
+}

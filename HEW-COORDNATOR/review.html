@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review HEW Reports</title>
+</head>
+<body style="background-color: aqua;">
+  
+    <div style="display: flex; justify-content:  flex-end;">
+    <div style="display: flex;gap: 12px;padding-right:10px;align-items:center; padding-top: 12px; border: none ; border-radius: 5px;">
+        <a href="review.html" style="background-color: orange ;border-radius: 82px; text-decoration: none;" id="tesh">Review HEW Reports</a>
+        <a href="monitor.html"style="background-color: orange ;border-radius: 32px; text-decoration: none;">Monitor HEW Activity </a>
+        <a href="forwad.html"style="background-color: orange ;border-radius: 32px; text-decoration: none;">Forward Reports</a>
+        <a href="validate.html"style="background-color: orange ;border-radius: 32px; text-decoration: none;">Validate Collected Data</a>
+</div>
+</div>
+<script>
+<button onclick ="changeText()">click me</button>
+function changeText(){
+const sule=Document.getElementById('tesh');
+console.log("funnction excuted");
+}
+</script>
+  <div style="margin:auto; text-align:center;; 
+  gap:12px; text-decoration:none;" >
+    <h1>Review HEW Reports</h1>
+  </div>
+   <div style="margin:auto; text-align:center; background-color:lightblue; 
+  gap:12px; text-decoration:none;" >
+<img src="teshe.jpg" style="width: 80%;">
+<br>
+<div style="text-align: center;margin: auto;">
+
+<h3>Here HEW Coordanators hava authority to access,review HEW Reports in LICH-AMBA Health care unit
+  in  three kebale sent by HEWs </h3>
+<p> HEW Coordanators are access HEW report data that may be:</p>
+<li>Data abuot houeshold numbers</li>
+<li> Data abuot HIV Addis patients </li>
+<li> Data about numbers of new born childern </li>
+</div>
+<div style="border: 1px ;background-color: palegreen;margin: auto;width: 50%;"> 
+  <form style="margin: auto;text-align: center;">
+    
+<h4> To review the data first choose kebale </h4>
+<select>
+<option> Lich-amba</option>
+<option>Arade</option>
+<option>Lereba</option>
+</select>
+<p> choose data to review</p>
+<select required>
+<option> household data</option>
+<option> HIV Addis patients Data</option>
+<option> Numbers of new born childern</option>
+<option>data of family plan</option>
+<option>Data of sanitation</option>
+</select><br>
+<input type="button" name="submit" value="open" style="border-radius: 19px;color: orange;"><br>
+<input  placeholder="Review choosen data  "><br>
+<input type="button" name="submit" value="submit">
+</form>
+</div>
+<br>
+
+
+</div>  
+</body>
+</html>
