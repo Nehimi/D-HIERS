@@ -2,8 +2,13 @@
 session_start();
 include("dataBaseConnection.php");
 
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+  die("Invalid Request!");
+}
+
 $userId = $_POST['userId'];
 $password = $_POST['password'];
+
 
 if (strpos($userId, "HEW") === 0) {
   $detected_role = "hew";
@@ -21,61 +26,57 @@ if (strpos($userId, "HEW") === 0) {
   die("Invalid ID format!");
 }
 
-
 $stmt = $dataBaseConnection->prepare("SELECT * FROM users WHERE userId = ?");
 $stmt->bind_param("s", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// If user exists
-if ($result->num_rows == 1) {
+if ($result->num_rows !== 1) {
+  die("User not found!");
+}
 
-  $row = $result->fetch_assoc();
+$row = $result->fetch_assoc();
 
-  if ($row['role'] !== $detected_role) {
-    die("Role mismatch! Please check your User ID.");
-  }
+/* Check Role */
+if ($row['role'] !== $detected_role) {
+  die("Role mismatch! Please check your User ID.");
+}
 
-  if (password_verify($password, $row['password'])) {
+/* Verify Password */
+if (!password_verify($password, $row['password'])) {
+  die("Incorrect Password!");
+}
 
-    $_SESSION['userId'] = $row['userId'];
-    $_SESSION['role'] = $row['role'];
-    $_SESSION['fullname'] = $row['fullname'];
+/* Store Session */
+$_SESSION['userId'] = $row['userId'];
+$_SESSION['role'] = $row['role'];
 
-    switch ($row['role']) {
+/* Redirect According to Role */
+switch ($row['role']) {
 
-      case "hew":
-        header("Location: http://localhost/D-HEIRS/D-HIERS/HEW/HEW%20html/hew_dashboard.html");
-        break;
-
-      case "coordinator":
-        header("Location: HEW-COORDNATOR/Review_HEW_Report.html");
-        break;
-
-      case "hmis":
-        header("Location: dashboard_hmis.php");
-        break;
-
-      case "linkage":
-        header("Location: dashboard_linkage.php");
-        break;
-
-      case "supervisor":
-        header("Location: dashboard_supervisor.php");
-        break;
-
-      case "admin":
-        header("Location: admin.html");
-        break;
-    }
-
+  case "hew":
+    header("Location: HEW/HEW html/hew_dashboard.html");
     exit();
 
-  } else {
-    echo "Incorrect Password!";
-  }
+  case "coordinator":
+    header("Location: HEW-COORDNATOR/Review_HEW_Report.html");
+    exit();
 
-} else {
-  echo "User not found!";
+  case "hmis":
+    header("Location: dashboard_hmis.php");
+    exit();
+
+  case "linkage":
+    header("Location: dashboard_linkage.php");
+    exit();
+
+  case "supervisor":
+    header("Location: dashboard_supervisor.php");
+    exit();
+
+  case "admin":
+    header("Location: admin.html");
+    exit();
 }
+
 ?>
