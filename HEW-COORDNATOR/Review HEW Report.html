@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>java script</title>
+</head>
+<body>
+    <h3>write</h3>
+    <form id="frl" action="/action_page.html">
+first name:<input type="text" name="fname" value="Abebae">
+        last name:<input type="text" name="fname" value="Abebae">
+    </form>
+   <p id="send">welcome</p>
+   <p id="ts"></p>
+   <p id="ns"></p>
+   <p id="de">thank</p>
+   <p id="me">jesus</p>
+   <script>
+
+document.getElementById('send').innerHTML=5+7;
+alert("i am deligent");
+console.log("God hear me");
+let x;
+x= add(3,6);
+document.getElementById('ts').innerHTML=x;
+function add(a,b){
+
+   return a+b; }
+   let y;
+   y=add(2,6);
+document.getElementById('ns').innerHTML=y;
+function add(a,b){
+    return a+b;
+}
+if(new Date().getHours()>14){
+    document.getElementById('de').innerHTML="good days";
+}
+let s;
+for(let i=0;i<5;i++)
+{
+s +="the number is "+i+"<br>"; 
+document.getElementById('me').innerHTML=s;
+}
+   </script>
+</body>
+</html>
