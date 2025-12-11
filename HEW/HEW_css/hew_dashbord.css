@@ -1,0 +1,121 @@
+.dashboard-container {
+  padding: 1rem 2rem;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  text-align: center;
+  transition: 0.3s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.card i {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+.card h3 {
+  font-size: 1.1rem;
+  color: #333;
+}
+.card p {
+  font-size: 1.4rem;
+  color: var(--primary-dark);
+  font-weight: bold;
+}
+
+.charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.charts canvas {
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.bottom-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+th, td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+th {
+  background: var(--primary);
+  color: #fff;
+}
+tr:hover {
+  background: #f9f9f9;
+}
+
+.alerts {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.alerts ul {
+  list-style: none;
+  padding: 0;
+}
+.alerts li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.quick-actions {
+  margin-top: 2rem;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.quick-actions button {
+  margin: 0.5rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.7rem 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.quick-actions button:hover {
+  background: var(--primary-dark);
+}
+
+@media (max-width: 900px) {
+  .charts, .bottom-section {
+    grid-template-columns: 1fr;
+  }
+}
