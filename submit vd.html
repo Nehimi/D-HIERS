@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="submit vd.css"> 
+</head>
+<body style="background-color:whitesmoke;">
+<a href="Dashboard.html" style="text-align:right; color:rgb(143, 50, 205);">Back</a>
+<main class="data-submission-page">
+    <h2>📤 Submit Validated Data to HMIS Officer</h2>
+
+    <section class="submission-reports card">
+        <h3>Reports Ready for Submission (Validated/Converted)</h3>
+        <form id="submission-form">
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all"></th>
+                        <th>Report ID</th>
+                        <th>Reporting Period</th>
+                        <th>Status</th>
+                        <th>Summary View</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-report-id="R-202510-001">
+                        <td><input type="checkbox" name="reports" value="R-202510-001"></td>
+                        <td>R-202510-001</td>
+                        <td>October 2025</td>
+                        <td class="status-ready">Ready for Submission</td>
+                        <td><a href="#" class="view-link">View Draft</a></td>
+                    </tr>
+                    <tr data-report-id="R-202509-002">
+                        <td><input type="checkbox" name="reports" value="R-202509-002"></td>
+                        <td>R-202509-002</td>
+                        <td>September 2025</td>
+                        <td class="status-ready">Ready for Submission</td>
+                        <td><a href="#" class="view-link">View Draft</a></td>
+                    </tr>
+                    <tr data-report-id="R-202508-003">
+                        <td><input type="checkbox" name="reports" value="R-202508-003"></td>
+                        <td>R-202508-003</td>
+                        <td>August 2025</td>
+                        <td class="status-submitted">Submitted to HMIS Officer</td>
+                        <td><a href="#" class="view-link">View Final</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="submission-actions">
+                <button type="submit" id="submit-button" class="btn btn-primary">
+                    Submit Selected Report(s) to HMIS Officer
+                </button>
+            </div>
+        </form>
+    </section>
+    <div id="error-message" class="error-message hidden">
+        
+    </div>
+</main>
+</body>
+</html>

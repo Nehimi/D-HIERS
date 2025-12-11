@@ -1,0 +1,107 @@
+
+.export-reports-page {
+    padding: 20px;
+}
+
+.available-reports {
+    border-left-color: #0d6efd; 
+}
+
+.status-generated {
+    font-weight: bold;
+    color: #17a2b8; 
+}
+
+.btn-export {
+    background-color: #0d6efd; 
+    color: white;
+}
+
+.btn-export:hover {
+    background-color: #0a58ca;
+}
+
+
+.modal {
+    position: fixed;
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content h4 {
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.format-options {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Format Buttons */
+.btn-pdf, .btn-excel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    font-size: 1.1em;
+    flex-grow: 1;
+}
+
+.btn-pdf {
+    background-color: #dc3545; 
+    color: white;
+}
+
+.btn-excel {
+    background-color: #28a646; 
+    color: white;
+}
+
+.btn-pdf img, .btn-excel img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    filter: invert(1);
+}
