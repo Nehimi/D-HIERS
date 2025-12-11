@@ -5,15 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/table-responsive.css">
     <title>Admin | D-HEIRS</title>
 </head>
 
 <body class="dashboard-body">
     <!-- Sidebar -->
-    <aside class="sidbar">
+    <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand-icon">
-                <img src="images/logo.png" alt="D-HEIRS logo">
+                <img src="images/logo.png" alt="">
             </div>
             <div class="brand-text">
                 D-HEIRS
@@ -25,11 +27,11 @@
                 <i class="fa-solid fa-grid-2"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="User_managment.html" class="nav-item">
-                <i class="fa-solid fa-users-grear"></i>
+            <a href="user_management.php" class="nav-item">
+                <i class="fa-solid fa-users-gear"></i>
                 <span>User Management</span>
             </a>
-            <a href="kebele_config.html" class="nav-item">
+            <a href="kebele_config.php" class="nav-item">
                 <i class="fa-solid fa-map-location-dot"></i>
                 <span>Kebele Config</span>
             </a>
@@ -37,7 +39,7 @@
                 <i class="fa-solid fa-file-shield"></i>
                 <span>Audit Logs</span>
             </a>
-            <a href="System_report.html" class="nav-item">
+            <a href="system_reports.html" class="nav-item">
                 <i class="fa-solid fa-chart-pie"></i>
                 <span>System Reports</span>
             </a>
@@ -76,7 +78,7 @@
         <div class="content-wrapper">
             <div class="page-header">
                 <h1>System Overview</h1>
-                <a href="create_account.html" class="btn btn-primary">
+                <a href="create_account.php" class="btn btn-primary">
                     <i class="fa-solid fa-plus"></i> Add New User
                 </a>
             </div>
@@ -223,11 +225,17 @@
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: 65%"></div>
                         </div>
-                        
+                        <div class="progress-labels">
+                            <span>65% Used</span>
+                            <span>500GB Total</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+     <script src="js/admin/dashboard.js"></script>
+     <script src="js/admin/script.js"></script>
 </body>
+
 </html>
