@@ -245,7 +245,6 @@ if (isset($_GET['edit'])) {
               </div>
             <?php endif; ?>
 
-
             <?php if (isset($_GET['edit'])): ?>
               <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
             <?php endif; ?>
