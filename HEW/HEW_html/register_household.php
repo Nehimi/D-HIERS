@@ -53,7 +53,7 @@ include "../../dataBaseConnection.php";
       </a>
     </nav>
     <div class="sidebar-footer">
-      <a href="index.html" class="nav-item logout">
+      <a href="../../index.html" class="nav-item logout">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
         <span>Logout</span>
       </a>
