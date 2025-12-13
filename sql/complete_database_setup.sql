@@ -48,6 +48,34 @@ CREATE TABLE audit_logs (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- 4. Create Household Table (UPDATED with address fields)
+DROP TABLE IF EXISTS household;
+CREATE TABLE household (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    region VARCHAR(100) NOT NULL,
+    zone VARCHAR(100) NOT NULL,
+    woreda VARCHAR(100) NOT NULL,
+    householdId VARCHAR(50) UNIQUE NOT NULL,
+    memberName VARCHAR(255) NOT NULL,
+    age INT,
+    sex VARCHAR(10),
+    kebele VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- 5. Create Health Data Table
+DROP TABLE IF EXISTS health_data;
+CREATE TABLE health_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    householdId VARCHAR(50) NOT NULL,
+    serviceType VARCHAR(100) NOT NULL,
+    totalServed INT NOT NULL,
+    details TEXT,
+    visitDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (householdId) REFERENCES household(householdId) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Insert Default Kebeles
 INSERT INTO kebele (kebeleName, kebeleCode, woreda, zone, population, households, healthPostName, status) VALUES
 ('Lich-Amba', 'KB-001', 'Libo Kemkem', 'South Gondar', 5000, 1200, 'Lich-Amba Health Post', 'active'),
@@ -66,4 +94,8 @@ SELECT
 UNION ALL
 SELECT 'kebele', COUNT(*) FROM kebele
 UNION ALL  
-SELECT 'audit_logs', COUNT(*) FROM audit_logs;
+SELECT 'audit_logs', COUNT(*) FROM audit_logs
+UNION ALL
+SELECT 'household', COUNT(*) FROM household
+UNION ALL
+SELECT 'health_data', COUNT(*) FROM health_data;
