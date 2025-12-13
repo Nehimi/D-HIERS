@@ -29,7 +29,7 @@ include 'dataBaseConnection.php';
         </div>
 
         <nav class="sidebar-nav">
-            <a href="admin.html" class="nav-item">
+            <a href="admin.php" class="nav-item">
                 <i class="fa-solid fa-grid-2"></i>
                 <span>Dashboard</span>
             </a>
@@ -41,7 +41,7 @@ include 'dataBaseConnection.php';
                 <i class="fa-solid fa-map-location-dot"></i>
                 <span>Kebele Config</span>
             </a>
-            <a href="audit_logs.html" class="nav-item">
+            <a href="audit_logs.php" class="nav-item">
                 <i class="fa-solid fa-file-shield"></i>
                 <span>Audit Logs</span>
             </a>
@@ -191,7 +191,7 @@ if (isset($_POST['kebeleReg'])) {
     $zone = $_POST['zone'];
     $population = $_POST['population'];
     $households = $_POST['households'];
-    $healthPostName = $_COOKIE['healthPostName'];
+    $healthPostName = $_POST['healthPostName'];
     $status = $_POST['status'];
 
     $sql = "INSERT INTO kebele(kebeleName, kebeleCode, woreda, zone, population, households, healthPostName, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
