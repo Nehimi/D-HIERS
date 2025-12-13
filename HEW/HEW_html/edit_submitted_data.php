@@ -40,7 +40,7 @@
         <i class="fa-solid fa-stethoscope"></i>
         <span>Enter Health Data</span>
       </a>
-      <a href="edit_submitted_data.html" class="nav-item active">
+      <a href="edit_submitted_data.php" class="nav-item active">
         <i class="fa-solid fa-file-pen"></i>
         <span>Edit Submitted Data</span>
       </a>
@@ -66,34 +66,33 @@
         <i class="fa-solid fa-search"></i>
         <input type="text" placeholder="Search system...">
       </div>
-
+      
       <div class="header-actions">
         <button class="icon-btn">
           <i class="fa-solid fa-bell"></i>
           <span class="badge-dot"></span>
         </button>
         <div class="user-profile">
-          <img src="../image/avatar.png" alt="HEW" class="avatar-sm">
-          <div class="user-info">
-            <span class="name">Semira Kedir</span>
-            <span class="role">Health Ext. Worker</span>
-          </div>
+            <img src="../image/avatar.png" alt="HEW" class="avatar-sm">
+            <div class="user-info">
+                <span class="name">Semira Kedir</span>
+                <span class="role">Health Ext. Worker</span>
+            </div>
         </div>
       </div>
     </header>
 
     <section class="form-section">
-      <div class="page-title-area">
-        <h1>Find & Edit Household</h1>
-        <p>Search by Household ID to view details and update records</p>
-      </div>
+        <div class="page-title-area">
+            <h1>Find & Edit Household</h1>
+            <p>Search by Household ID to view previously registered data</p>
+        </div>
 
       <!-- Step 1: Check household ID -->
       <div id="id-check-section" class="form-container search-container">
-        <!-- <label for="householdId">Enter Household ID to Edit:</label> -->
         <div class="input-with-icon">
-          <i class="fa-solid fa-magnifying-glass"></i>
-          <input type="text" id="householdId" placeholder="Enter Household ID (e.g., HH-001)" required>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="householdId" placeholder="Enter Household ID (e.g., HH-001)" required>
         </div>
         <button id="checkIdBtn" class="btn-primary">Search</button>
       </div>
@@ -106,35 +105,45 @@
       <!-- Step 2: Edit form (hidden until ID is found) -->
       <form id="editDataForm" class="form-container hidden">
         <div class="form-header">
-          <h3>Editing Data</h3>
-          <span id="displayId" class="badge-id"></span>
+            <h3>Editing Household Data</h3> 
+            <span id="displayId" class="badge-id"></span>
         </div>
 
         <div class="form-grid">
-          <div class="form-group">
-            <label for="serviceType">Health Service Type</label>
-            <div class="select-wrapper">
-              <select id="serviceType" required>
-                <option value="">-- Select Service --</option>
-                <option value="maternal_health">Maternal Health</option>
-                <option value="child_health">Child Health</option>
-                <option value="immunization">Immunization</option>
-                <option value="sanitation">Sanitation</option>
-                <option value="disease_surveillance">Disease Surveillance</option>
-              </select>
-              <i class="fa-solid fa-chevron-down arrow-icon"></i>
+            <div class="form-group full-width">
+                <label for="memberName">Full Name</label>
+                <input type="text" id="memberName" name="memberName" required>
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="totalServed">Total Number of People Served</label>
-            <input type="number" id="totalServed" name="totalServed" placeholder="Enter updated total" min="1" required>
-          </div>
-        </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="0" required>
+            </div>
 
-        <div class="form-group full-width">
-          <label for="notes">Service Details / Notes</label>
-          <textarea id="notes" rows="4" placeholder="Update service details..." required></textarea>
+            <div class="form-group">
+                <label for="sex">Sex</label>
+                <div class="select-wrapper">
+                    <select id="sex" required>
+                        <option value="">-- Select Sex --</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="kebele">Kebele</label>
+                <div class="select-wrapper">
+                    <select id="kebele" required>
+                        <option value="">-- Select Kebele --</option>
+                        <option value="Lich-Amba">Lich-Amba</option>
+                        <option value="Arada">Arada</option>
+                        <option value="Lereba">Lereba</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                </div>
+            </div>
         </div>
 
         <div class="form-actions">

@@ -39,15 +39,15 @@ include "../../dataBaseConnection.php";
         <i class="fa-solid fa-users-gear"></i>
         <span>Register Household</span>
       </a>
-      <a href="enter_health_data.html" class="nav-item">
+      <a href="enter_health_data.php" class="nav-item">
         <i class="fa-solid fa-map-location-dot"></i>
         <span>Enter Health Data</span>
       </a>
-      <a href="edit_submitted_data.html" class="nav-item">
+      <a href="edit_submitted_data.php" class="nav-item">
         <i class="fa-solid fa-file-shield"></i>
         <span>Edit Submitted Data</span>
       </a>
-      <a href="submit_reports.html" class="nav-item">
+      <a href="submit_reports.php" class="nav-item">
         <i class="fa-solid fa-chart-pie"></i>
         <span>Submit Reports</span>
       </a>
@@ -128,7 +128,7 @@ include "../../dataBaseConnection.php";
             <i class="fa fa-save"></i> Save Family Member
           </button>
 
-          <button type="button" class="btn-secondary" onclick="window.location.href='hew_dashboard.html'">
+          <button type="button" class="btn-secondary" onclick="window.location.href='hew_dashboard.php'">
             <i class="fa fa-arrow-left"></i> Back
           </button>
         </div>
