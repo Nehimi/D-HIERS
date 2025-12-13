@@ -1,3 +1,6 @@
+<?php
+include 'dataBaseConnection.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/admin.css">
     <link rel="stylesheet" href="css/table-responsive.css">
-
     <title>Admin | D-HEIRS</title>
 </head>
 
@@ -24,7 +26,7 @@
             </div>
         </div>
         <nav class="sidebar-nav">
-            <a href="admin.html" class="nav-item active">
+            <a href="admin.php" class="nav-item active">
                 <i class="fa-solid fa-grid-2"></i>
                 <span>Dashboard</span>
             </a>
@@ -36,7 +38,7 @@
                 <i class="fa-solid fa-map-location-dot"></i>
                 <span>Kebele Config</span>
             </a>
-            <a href="audit_logs.html" class="nav-item">
+            <a href="audit_logs.php" class="nav-item">
                 <i class="fa-solid fa-file-shield"></i>
                 <span>Audit Logs</span>
             </a>
@@ -86,14 +88,25 @@
 
             <!-- Stats Cards -->
             <div class="stats-grid">
+                <?php
+                // Get statistics
+                $totalUsersQuery = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as total FROM users");
+                $totalUsers = mysqli_fetch_assoc($totalUsersQuery)['total'];
+                
+                $activeHEWsQuery = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as total FROM users WHERE role='hew' AND status='active'");
+                $activeHEWs = mysqli_fetch_assoc($activeHEWsQuery)['total'];
+                
+                // Placeholder for reports - you can update this when you have a reports table
+                $reportsToday = 89;
+                ?>
                 <div class="stat-card">
                     <div class="stat-icon color-1">
                         <i class="fa-solid fa-users"></i>
                     </div>
                     <div class="stat-details">
                         <h3>Total Users</h3>
-                        <p class="number">124</p>
-                        <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> 12% this month</span>
+                        <p class="number"><?php echo $totalUsers; ?></p>
+                        <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> Active in system</span>
                     </div>
                 </div>
                 <div class="stat-card">
@@ -102,7 +115,7 @@
                     </div>
                     <div class="stat-details">
                         <h3>Active HEWs</h3>
-                        <p class="number">45</p>
+                        <p class="number"><?php echo $activeHEWs; ?></p>
                         <span class="trend neutral">Lich-Amba, Arada, Lereba</span>
                     </div>
                 </div>
@@ -112,7 +125,7 @@
                     </div>
                     <div class="stat-details">
                         <h3>Reports Today</h3>
-                        <p class="number">89</p>
+                        <p class="number"><?php echo $reportsToday; ?></p>
                         <span class="trend positive"><i class="fa-solid fa-arrow-up"></i> 5% vs yesterday</span>
                     </div>
                 </div>
@@ -130,11 +143,10 @@
 
             <!-- Recent Activity & Quick Actions -->
             <div class="dashboard-grid">
-                <!-- Recent Users Table -->
                 <div class="card-panel table-section">
                     <div class="panel-header">
                         <h2>Recent User Activity</h2>
-                        <a href="#" class="view-all">View All</a>
+                        <a href="user_management.php" class="view-all">View All</a>
                     </div>
                     <div class="table-wrapper">
                         <table class="data-table">
@@ -148,42 +160,51 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td data-label="User" class="primary-cell">
-                                        <div class="user-cell">
-                                            <div class="avatar-xs color-1">H</div>
-                                            <span>Sara Tadesse</span>
-                                        </div>
-                                    </td>
-                                    <td data-label="Role"><span class="role-tag hew">HEW</span></td>
-                                    <td data-label="Kebele">Lich-Amba</td>
-                                    <td data-label="Status"><span class="status-tag active">Active</span></td>
-                                    <td data-label="Last Login">2 mins ago</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="User" class="primary-cell">
-                                        <div class="user-cell">
-                                            <div class="avatar-xs color-2">A</div>
-                                            <span>Abebe Kebede</span>
-                                        </div>
-                                    </td>
-                                    <td data-label="Role"><span class="role-tag coord">Coordinator</span></td>
-                                    <td data-label="Kebele">Arada</td>
-                                    <td data-label="Status"><span class="status-tag active">Active</span></td>
-                                    <td data-label="Last Login">1 hour ago</td>
-                                </tr>
-                                <tr>
-                                    <td data-label="User" class="primary-cell">
-                                        <div class="user-cell">
-                                            <div class="avatar-xs color-3">M</div>
-                                            <span>Marta Yilma</span>
-                                        </div>
-                                    </td>
-                                    <td data-label="Role"><span class="role-tag hmis">HMIS Officer</span></td>
-                                    <td data-label="Kebele">PHCU HQ</td>
-                                    <td data-label="Status"><span class="status-tag offline">Offline</span></td>
-                                    <td data-label="Last Login">Yesterday</td>
-                                </tr>
+                                <?php
+                                // Get recent 5 users
+                                $recentUsersQuery = mysqli_query($dataBaseConnection, "SELECT * FROM users ORDER BY id DESC LIMIT 5");
+                                $userIndex = 0;
+                                $colorClasses = ['color-1', 'color-2', 'color-3'];
+                                
+                                while ($user = mysqli_fetch_assoc($recentUsersQuery)) {
+                                    $colorClass = $colorClasses[$userIndex % 3];
+                                    $initial = strtoupper(substr($user['first_name'], 0, 1));
+                                    $fullName = htmlspecialchars($user['first_name'] . ' ' . $user['last_name']);
+                                    
+                                    // Format role
+                                    $roleClass = strtolower($user['role']);
+                                    $roleDisplay = ucfirst($user['role']);
+                                    if ($roleClass == 'hew') $roleDisplay = 'HEW';
+                                    if ($roleClass == 'coordinator') $roleClass = 'coord';
+                                    
+                                    // Format kebele
+                                    $kebeleDisplay = ucwords(str_replace('-', ' ', $user['kebele']));
+                                    
+                                    // Format status
+                                    $statusClass = strtolower($user['status']);
+                                    $statusDisplay = ucfirst($user['status']);
+                                    
+                                    echo "<tr>";
+                                    echo "<td data-label='User' class='primary-cell'>";
+                                    echo "<div class='user-cell'>";
+                                    echo "<div class='avatar-xs $colorClass'>$initial</div>";
+                                    echo "<span>$fullName</span>";
+                                    echo "</div>";
+                                    echo "</td>";
+                                    echo "<td data-label='Role'><span class='role-tag $roleClass'>$roleDisplay</span></td>";
+                                    echo "<td data-label='Kebele'>$kebeleDisplay</td>";
+                                    echo "<td data-label='Status'><span class='status-tag $statusClass'>$statusDisplay</span></td>";
+                                    echo "<td data-label='Last Login'>Recently added</td>";
+                                    echo "</tr>";
+                                    
+                                    $userIndex++;
+                                }
+                                
+                                // If no users found
+                                if ($userIndex == 0) {
+                                    echo "<tr><td colspan='5' style='text-align: center;'>No users found</td></tr>";
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -235,7 +256,6 @@
             </div>
         </div>
     </main>
-    <script src="js/toast.js"></script>
     <script src="js/admin/dashboard.js"></script>
     <script src="js/admin/script.js"></script>
 </body>

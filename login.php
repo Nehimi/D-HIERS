@@ -59,7 +59,7 @@ switch ($row['role']) {
     exit();
 
   case "coordinator":
-    header("Location: HEW-COORDNATOR/Review_HEW_Report.html");
+    header("Location: HEW-COORDNATOR/Review_HEW_Report.php");
     exit();
 
   case "hmis":

@@ -12,8 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbarScroll();
     initScrollAnimations();
     initPasswordToggle();
-    initUserManagement();
+    // initUserManagement(); // Disabled: Using PHP backend now
     initNotificationDropdown();
+
+    // Custom Logout Dialog
+    initLogoutModal();
 });
 
 // Mobile Sidebar for Dashboard Pages
@@ -187,142 +190,113 @@ function initPasswordToggle() {
     });
 }
 
-// User Management
-function initUserManagement() {
-    const userTableBody = document.getElementById('userTableBody');
-    if (userTableBody) {
-        loadUsers();
-    }
-
-    const createAccountForm = document.getElementById('createAccountForm');
-    if (createAccountForm) {
-        createAccountForm.addEventListener('submit', handleCreateAccount);
-    }
+// Notification Dropdown (Placeholder)
+function initNotificationDropdown() {
+    // Add logic if needed
 }
 
-function handleCreateAccount(e) {
-    e.preventDefault();
+// =========================
+// LOGOUT MODAL FUNCTIONALITY
+// =========================
+function initLogoutModal() {
+    const logoutLinks = document.querySelectorAll('.logout');
+    if (logoutLinks.length === 0) return;
 
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (password !== confirmPassword) {
-        alert('Passwords do not match!');
-        return;
-    }
-
-    const userData = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        userId: document.getElementById('userId').value,
-        role: document.getElementById('role').value,
-        kebele: document.getElementById('kebele').value,
-        status: document.getElementById('status').value,
-        createdAt: new Date().toISOString()
-    };
-
-    saveUser(userData);
-
-    const btn = e.target.querySelector('button[type="submit"]');
-    btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Creating Account...';
-    btn.disabled = true;
-
-    setTimeout(() => {
-        alert('Account created successfully!');
-        window.location.href = 'admin.html';
-    }, 1500);
-}
-
-function saveUser(userData) {
-    let users = JSON.parse(localStorage.getItem('dheirs_users')) || [];
-    users.unshift(userData);
-    localStorage.setItem('dheirs_users', JSON.stringify(users));
-}
-
-function loadUsers() {
-    const users = JSON.parse(localStorage.getItem('dheirs_users')) || [];
-    const userTableBody = document.getElementById('userTableBody');
-
-    if (!userTableBody) return;
-
-    while (userTableBody.children.length > 3) {
-        userTableBody.removeChild(userTableBody.lastChild);
-    }
-
-    users.forEach((user, index) => {
-        const row = createUserRow(user, index);
-        userTableBody.insertBefore(row, userTableBody.firstChild);
-    });
-
-    const totalUsersCount = document.getElementById('totalUsersCount');
-    if (totalUsersCount) {
-        totalUsersCount.textContent = 124 + users.length;
-    }
-}
-
-function createUserRow(user, index) {
-    const row = document.createElement('tr');
-    const roleInfo = getRoleInfo(user.role);
-    const statusClass = user.status === 'active' ? 'active' : user.status === 'pending' ? 'pending' : 'offline';
-    const avatarColor = `color-${(index % 3) + 1}`;
-    const initial = user.firstName.charAt(0).toUpperCase();
-    const timeAgo = getTimeAgo(user.createdAt);
-
-    row.innerHTML = `
-        <td>
-            <div class="user-cell">
-                <div class="avatar-xs ${avatarColor}">${initial}</div>
-                <span>${user.firstName} ${user.lastName}</span>
+    // Create Modal HTML and append to body
+    const modalHTML = `
+    <style>
+        .custom-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+        .custom-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        .custom-modal-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 1rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            position: relative;
+        }
+        .custom-modal-header h2 {
+            margin-top: 0;
+            color: #1f2937;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .custom-modal-body p {
+            color: #4b5563;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .custom-modal-footer {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+    <div id="logoutConfirmModal" class="custom-modal">
+        <div class="custom-modal-content">
+            <div class="custom-modal-header">
+                <h2><i class="fa-solid fa-right-from-bracket" style="color: #dc2626;"></i> Confirm Logout</h2>
             </div>
-        </td>
-        <td><span class="role-tag ${roleInfo.class}">${roleInfo.name}</span></td>
-        <td>${getKebeleDisplay(user.kebele)}</td>
-        <td><span class="status-tag ${statusClass}">${user.status.charAt(0).toUpperCase() + user.status.slice(1)}</span></td>
-        <td>${timeAgo}</td>
+            <div class="custom-modal-body">
+                <p>Are you sure you want to log out of the system?</p>
+            </div>
+            <div class="custom-modal-footer">
+                <button id="cancelLogout" class="btn btn-outline" style="border: 1px solid #d1d5db; color: #374151;">Cancel</button>
+                <a href="index.html" class="btn btn-danger" style="background-color: #dc2626; color: white;">Yes, Logout</a>
+            </div>
+        </div>
+    </div>
     `;
 
-    return row;
-}
+    // Convert string to node
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(modalHTML, 'text/html');
+    const style = doc.querySelector('style');
+    const modal = doc.querySelector('.custom-modal');
 
-function getRoleInfo(role) {
-    const roles = {
-        'hew': { name: 'HEW', class: 'hew' },
-        'coordinator': { name: 'Coordinator', class: 'coord' },
-        'linkage': { name: 'Linkage Focal', class: 'coord' },
-        'hmis': { name: 'HMIS Officer', class: 'hmis' },
-        'supervisor': { name: 'Supervisor', class: 'coord' },
-        'admin': { name: 'Administrator', class: 'hmis' }
-    };
-    return roles[role] || { name: role, class: 'hew' };
-}
+    document.head.appendChild(style);
+    document.body.appendChild(modal);
 
-function getKebeleDisplay(kebele) {
-    const kebeles = {
-        'lich-amba': 'Lich-Amba',
-        'arada': 'Arada',
-        'lereba': 'Lereba',
-        'phcu-hq': 'PHCU HQ'
-    };
-    return kebeles[kebele] || kebele;
-}
+    const cancelBtn = document.getElementById('cancelLogout');
 
-function getTimeAgo(dateString) {
-    const now = new Date();
-    const created = new Date(dateString);
-    const diffMs = now - created;
-    const diffMins = Math.floor(diffMs / 60000);
+    // Event Listeners
+    logoutLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.add('active');
+        });
+    });
 
-    if (diffMins < 1) return 'Just now';
-    if (diffMins < 60) return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`;
+    cancelBtn.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
 
-    const diffHours = Math.floor(diffMins / 60);
-    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-
-    const diffDays = Math.floor(diffHours / 24);
-    if (diffDays === 1) return 'Yesterday';
-    if (diffDays < 7) return `${diffDays} days ago`;
-
-    return created.toLocaleDateString();
+    // Close on click outside
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
 }
