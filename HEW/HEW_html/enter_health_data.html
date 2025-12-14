@@ -71,9 +71,11 @@
         <label for="householdId">Enter Registered Household ID:</label>
         <input name="householdId" type="text" id="householdId" placeholder="e.g. HH-001" required>
         <button id="checkIdBtn" class="btn-primary"><i class="fa fa-check"></i> Check ID</button>
+        <div id="checkMessage" class="message-container"></div>
       </div>
       <form id="healthDataForm" class="form-container hidden">
         <h3>Health Data for Household: <span id="displayId"></span></h3>
+        <div id="formMessage" class="message-container"></div>
 
         <div class="form-group">
           <label for="serviceType">Health Service Type</label>

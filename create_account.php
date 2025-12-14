@@ -20,17 +20,29 @@ if (isset($_POST['create_user'])) {
 
   // Validate required fields
   if (empty($firstName) || empty($lastName) || empty($phone) || empty($userId)) {
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Please fill all required fields.']);
+        exit;
+    }
     echo "<script>alert('Please fill all required fields.'); window.history.back();</script>";
     exit;
   }
 
   // Password validation
   if (empty($password) || empty($confirm)) {
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Please enter both password and confirm password.']);
+        exit;
+    }
     echo "<script>alert('Please enter both password and confirm password.'); window.history.back();</script>";
     exit;
   }
 
   if ($password !== $confirm) {
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Passwords do not match.']);
+        exit;
+    }
     echo "<script>alert('Passwords do not match.'); window.history.back();</script>";
     exit;
   }
@@ -45,6 +57,10 @@ if (isset($_POST['create_user'])) {
   $stmt = $dataBaseConnection->prepare($sql);
 
   if (!$stmt) {
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $dataBaseConnection->error]);
+        exit;
+    }
     echo "<script>alert('Database error: " . addslashes($dataBaseConnection->error) . "'); window.history.back();</script>";
     exit;
   }
@@ -54,10 +70,19 @@ if (isset($_POST['create_user'])) {
   if ($stmt->execute()) {
     $insertId = $stmt->insert_id;
     logAction($dataBaseConnection, "Create User", "Created new user: $firstName $lastName ($userId)");
+    
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'success', 'message' => "User created successfully! ID: $insertId", 'redirect' => 'user_management.php']);
+        exit;
+    }
     echo "<script>alert('✅ User created successfully! ID: $insertId'); window.location='user_management.php';</script>";
     exit;
   } else {
     $error = $stmt->error;
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => "Error: $error"]);
+        exit;
+    }
     echo "<script>alert('❌ Error: " . addslashes($error) . "'); window.history.back();</script>";
     exit;
   }
@@ -84,6 +109,10 @@ if (isset($_POST['update_data'])) {
   // If new password is provided:
   if (!empty($_POST['new_password'])) {
     if (!password_verify($_POST['old_password'], $data['password'])) {
+      if (isset($_POST['ajax_request'])) {
+          echo json_encode(['status' => 'error', 'message' => 'Old password is incorrect!']);
+          exit;
+      }
       echo "<script>alert('Old password is incorrect!'); window.history.back();</script>";
       exit;
     }
@@ -107,6 +136,12 @@ if (isset($_POST['update_data'])) {
 
     mysqli_query($dataBaseConnection, $update);
     logAction($dataBaseConnection, "Update User", "Updated user (with password): $userId");
+    
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'success', 'message' => 'User updated successfully!', 'redirect' => 'user_management.php']);
+        exit;
+    }
+
     echo "<script>alert('User updated successfully!'); window.location='user_management.php';</script>";
     exit;
   }
@@ -127,6 +162,12 @@ if (isset($_POST['update_data'])) {
 
   mysqli_query($dataBaseConnection, $update);
   logAction($dataBaseConnection, "Update User", "Updated user details: $userId");
+  
+  if (isset($_POST['ajax_request'])) {
+       echo json_encode(['status' => 'success', 'message' => 'User updated successfully!', 'redirect' => 'user_management.php']);
+       exit;
+  }
+
   echo "<script>alert('User updated successfully!'); window.location='user_management.php';</script>";
   exit;
 }
@@ -232,6 +273,7 @@ if (isset($_GET['edit'])) {
       <!-- Form Card -->
       <div class="form-card">
         <form action="create_account.php" method="POST" id="createAccountForm" class="account-form">
+          <div id="formMessage" class="message-container"></div>
 
           <!-- Personal Information Section -->
           <div class="form-section">
@@ -427,6 +469,59 @@ if (isset($_GET['edit'])) {
     </div>
   </main>
   <script src="js/admin/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const accountForm = document.getElementById('createAccountForm');
+        const messageContainer = document.getElementById('formMessage');
+
+        if (accountForm) {
+            accountForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                formData.append('ajax_request', '1');
+                
+                // Determine action type
+                if (this.querySelector('input[name="id"]')) {
+                    formData.append('update_data', 'true');
+                } else {
+                    formData.append('create_user', 'true');
+                }
+
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+
+                fetch('create_account.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        messageContainer.innerHTML = `<div class="success-message" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">${data.message}</div>`;
+                        setTimeout(() => {
+                            window.location.href = data.redirect;
+                        }, 1000);
+                    } else {
+                        messageContainer.innerHTML = `<div class="error-message" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">${data.message}</div>`;
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        messageContainer.scrollIntoView({ behavior: 'smooth' });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messageContainer.innerHTML = `<div class="error-message" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">An unexpected error occurred.</div>`;
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    messageContainer.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+    });
+  </script>
 </body>
 
 </html>

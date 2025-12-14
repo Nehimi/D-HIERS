@@ -4,6 +4,46 @@ include "../../dataBaseConnection.php";
 
 ?>
 
+<?php
+if (isset($_POST['SaveFamily'])) {
+  $region = $_POST['region'] ?? '';
+  $zone = $_POST['zone'] ?? '';
+  $woreda = $_POST['woreda'] ?? '';
+  $kebele = $_POST['kebele'] ?? '';
+  $householdId = $_POST['householdId'] ?? '';
+  $memberName = $_POST['memberName'] ?? '';
+  $age = $_POST['age'] ?? '';
+  $sex = $_POST['sex'] ?? '';
+
+  $sql = "INSERT INTO household(region, zone, woreda, kebele, householdId, memberName, age, sex) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  $stmt = $dataBaseConnection->prepare($sql);
+
+  if (!$stmt) {
+     if (isset($_POST['ajax_request'])) {
+         echo json_encode(['status' => 'error', 'message' => "Database error: " . $dataBaseConnection->error]);
+         exit;
+     }
+     die("prepare failed: " . $dataBaseConnection->error);
+  }
+
+  $stmt->bind_param("ssssssis", $region, $zone, $woreda, $kebele, $householdId, $memberName, $age, $sex);
+
+  if ($stmt->execute()) {
+     if (isset($_POST['ajax_request'])) {
+         echo json_encode(['status' => 'success', 'message' => 'Household Added Successfully!']);
+         exit;
+     }
+     echo "<script>alert('Household Add Successfully!'); window.location='register_household.php'; </script>";
+  } else {
+     if (isset($_POST['ajax_request'])) {
+         echo json_encode(['status' => 'error', 'message' => "Error: " . $stmt->error]);
+         exit;
+     }
+     echo "Error: " . $stmt->error;
+  }
+}
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,6 +108,7 @@ include "../../dataBaseConnection.php";
 
     <section class="form-section">
       <form method="POST" action="register_household.php" id="householdForm" class="form-container">
+        <div id="formMessage" class="message-container"></div>
 
 
         <h3 class="form-title">Address Information</h3>
@@ -140,32 +181,3 @@ include "../../dataBaseConnection.php";
 </html>
 
 
-<?php
-include "../../dataBaseConnection.php";
-
-if (isset($_POST['SaveFamily'])) {
-  $region = $_POST['region'];
-  $zone = $_POST['zone'];
-  $woreda = $_POST['woreda'];
-  $kebele = $_POST['kebele'];
-  $householdId = $_POST['householdId'];
-  $memberName = $_POST['memberName'];
-  $age = $_POST['age'];
-  $sex = $_POST['sex'];
-
-  $sql = "INSERT INTO household(region, zone, woreda, kebele, householdId, memberName, age, sex) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-  $stmt = $dataBaseConnection->prepare($sql);
-
-  if (!$stmt) {
-    die("prepare failed: " . $dataBaseConnection->error);
-  }
-
-  $stmt->bind_param("ssssssis", $region, $zone, $woreda, $kebele, $householdId, $memberName, $age, $sex);
-
-  if ($stmt->execute()) {
-    echo "<script>alert('Household Add Successfully!'); window.location='register_household.php'; </script>";
-  } else {
-    echo "Error: " . $stmt->error;
-  }
-}
-?>
