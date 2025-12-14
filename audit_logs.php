@@ -109,7 +109,7 @@ $logsResult = mysqli_query($dataBaseConnection, $logsSql);
                 <i class="fa-solid fa-file-shield"></i>
                 <span>Audit Logs</span>
             </a>
-            <a href="system_reports.html" class="nav-item">
+            <a href="system_reports.php" class="nav-item">
                 <i class="fa-solid fa-chart-pie"></i>
                 <span>System Reports</span>
             </a>
