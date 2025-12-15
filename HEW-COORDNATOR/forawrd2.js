@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!selectedDataType) {
         alert('Please choose which data type to forward.');
         return;
-      }
+      }       
 
       // Prepare payload (data to send to the server)
       const payload = {
