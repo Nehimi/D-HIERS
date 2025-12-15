@@ -1,34 +1,17 @@
 // --- Edit Submitted Data Script ---
 
-// Simulated database (can later connect to real backend)
-const fakeDatabase = {
-  "HH-001": {
-    serviceType: "maternal_health",
-    totalServed: 5,
-    notes: "Follow-up maternal care visits completed."
-  },
-  "HH-002": {
-    serviceType: "child_health",
-    totalServed: 3,
-    notes: "Child nutrition counseling provided."
-  },
-  "HH-003": {
-    serviceType: "immunization",
-    totalServed: 10,
-    notes: "Polio and measles immunization done."
-  }
-};
-
 // Elements
 const checkIdBtn = document.getElementById("checkIdBtn");
 const householdIdInput = document.getElementById("householdId");
 const editForm = document.getElementById("editDataForm");
 const displayId = document.getElementById("displayId");
+const emptyState = document.querySelector(".empty-state-icon");
 
 // Form fields
-const serviceType = document.getElementById("serviceType");
-const totalServed = document.getElementById("totalServed");
-const notes = document.getElementById("notes");
+const memberName = document.getElementById("memberName");
+const age = document.getElementById("age");
+const sex = document.getElementById("sex");
+const kebele = document.getElementById("kebele");
 
 // --- Step 1: Fetch Data ---
 checkIdBtn.addEventListener("click", function () {
@@ -39,21 +22,33 @@ checkIdBtn.addEventListener("click", function () {
     return;
   }
 
-  if (fakeDatabase[id]) {
-    const data = fakeDatabase[id];
-    displayId.textContent = id;
+  // Fetch from PHP backend
+  fetch(`fetch_household.php?householdId=${encodeURIComponent(id)}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        const record = data.data;
+        displayId.textContent = record.householdId;
 
-    // Fill form with existing data
-    serviceType.value = data.serviceType;
-    totalServed.value = data.totalServed;
-    notes.value = data.notes;
+        // Fill form with DB data
+        memberName.value = record.memberName;
+        age.value = record.age;
+        sex.value = record.sex;
+        kebele.value = record.kebele; // Ensure kebele select has this value
 
-    // Show edit form
-    editForm.classList.remove("hidden");
-  } else {
-    alert("❌ No record found for this Household ID!");
-    editForm.classList.add("hidden");
-  }
+        // Show edit form & hide empty state
+        editForm.classList.remove("hidden");
+        if (emptyState) emptyState.style.display = "none";
+      } else {
+        alert("❌ " + data.message);
+        editForm.classList.add("hidden");
+        if (emptyState) emptyState.style.display = "block";
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert("❌ Error connecting to server.");
+    });
 });
 
 // --- Step 2: Save Edited Data ---
@@ -62,23 +57,31 @@ editForm.addEventListener("submit", function (e) {
 
   const id = displayId.textContent;
   const updatedData = {
-    serviceType: serviceType.value,
-    totalServed: parseInt(totalServed.value),
-    notes: notes.value.trim()
+    householdId: id,
+    memberName: memberName.value.trim(),
+    age: parseInt(age.value),
+    sex: sex.value,
+    kebele: kebele.value
   };
 
-  // Simulate updating in "database"
-  fakeDatabase[id] = updatedData;
-
-  console.log("✅ Updated record:", fakeDatabase[id]);
-  alert("✅ Data updated successfully! Redirecting to Dashboard...");
-
-  // Redirect to dashboard after 2 seconds
-  setTimeout(() => {
-    window.location.href = "hew_dashboard.html";
-  }, 2000);
-
-  editForm.reset();
-  editForm.classList.add("hidden");
-  householdIdInput.value = "";
+  fetch('update_household.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert("✅ Data updated successfully!");
+        // Optional: kept on page to allow further edits
+      } else {
+        alert("❌ Error updating: " + data.message);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert("❌ Error connecting to server.");
+    });
 });

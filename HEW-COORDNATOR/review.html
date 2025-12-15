@@ -39,31 +39,37 @@ console.log("funnction excuted");
 <li> Data abuot HIV Addis patients </li>
 <li> Data about numbers of new born childern </li>
 </div>
-<div style="border: 1px ;background-color: palegreen;margin: auto;width: 50%;"> 
-  <form style="margin: auto;text-align: center;">
-    
-<h4> To review the data first choose kebale </h4>
-<select>
-<option> Lich-amba</option>
-<option>Arade</option>
-<option>Lereba</option>
-</select>
-<p> choose data to review</p>
-<select required>
-<option> household data</option>
-<option> HIV Addis patients Data</option>
-<option> Numbers of new born childern</option>
-<option>data of family plan</option>
-<option>Data of sanitation</option>
-</select><br>
-<input type="button" name="submit" value="open" style="border-radius: 19px;color: orange;"><br>
-<input  placeholder="Review choosen data  "><br>
-<input type="button" name="submit" value="submit">
-</form>
+  
+
+<div style="border: 1px solid #ccc; background-color: palegreen; margin:auto; width:50%; padding:16px;">
+  <form id="hewReviewForm" style="margin:auto; text-align:center;">
+    <h4>To review the data first choose kebele</h4>
+
+    <select id="kebeleSelect" required>
+      <option value="">-- choose kebele --</option>
+      <option value="Lich-amba">Lich-amba</option>
+      <option value="Arade">Arade</option>
+      <option value="Lereba">Lereba</option>
+    </select>
+
+    <p>Choose data to review</p>
+    <select id="dataSelect" required>
+      <option value="">-- choose data type --</option>
+      <option value="household data">household data</option>
+      <option value="HIV Addis patients Data">HIV Addis patients Data</option>
+      <option value="Numbers of new born childern">Numbers of new born childern</option>
+      <option value="data of family plan">data of family plan</option>
+      <option value="Data of sanitation">Data of sanitation</option>
+    </select>
+    <br><br>
+
+    <input type="button" id="openBtn" value="Open" style="border-radius:19px; color:orange;"><br><br>
+
+    <textarea id="reviewArea" placeholder="Review chosen data" rows="6" style="width:90%;"></textarea><br><br>
+
+    <button type="button" id="submitBtn">Submit</button>
+  </form>
 </div>
-<br>
-
-
-</div>  
 </body>
+<script src="ReviewCode.js"></script>
 </html>

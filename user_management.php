@@ -1,13 +1,40 @@
 <?php
 session_start();
 include "dataBaseConnection.php";
+include "includes/pagination_helper.php"; 
+include "includes/log_helper.php"; 
 
-if (isset($_GET['delete'])) {
-  $id = $_GET['delete'];
+// Get page number from URL
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$itemsPerPage = 10;
+
+if (isset($_GET['delete_user'])) {
+  $id = intval($_GET['delete_user']); // Sanitize
   mysqli_query($dataBaseConnection, "DELETE FROM users WHERE id='$id'");
-  echo "
-<script>alert('User deleted'); window.location.href = 'user_management.php';</script>";
+  logAction($dataBaseConnection, "Delete User", "Deleted user ID: $id");
+  echo "<script>window.location.href = 'user_management.php?deleted=success';</script>";
 }
+
+if (isset($_GET['delete_kebele'])) {
+  $id = intval($_GET['delete_kebele']); // Sanitize
+  mysqli_query($dataBaseConnection, "DELETE FROM kebele WHERE id='$id'");
+  logAction($dataBaseConnection, "Delete Kebele", "Deleted kebele ID: $id");
+  echo "<script>window.location.href = 'user_management.php?deleted=success';</script>";
+}
+
+// Get total users count
+$totalUsersQuery = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as total FROM users");
+$totalUsers = mysqli_fetch_assoc($totalUsersQuery)['total'];
+
+// Calculate pagination
+$paginationData = getPaginationData($page, $totalUsers, $itemsPerPage);
+$offset = $paginationData['offset'];
+
+// Kebele pagination
+$totalKebelesQuery = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as total FROM kebele");
+$totalKebeles = mysqli_fetch_assoc($totalKebelesQuery)['total'];
+$kebelePaginationData = getPaginationData($page, $totalKebeles, $itemsPerPage);
+$kebeleOffset = $kebelePaginationData['offset'];
 ?>
 
 
@@ -21,6 +48,7 @@ if (isset($_GET['delete'])) {
   <title>User Managment | D-HEIRS</title>
   <link rel="stylesheet" href="css/admin.css">
   <link rel="stylesheet" href="css/table-responsive.css">
+  <link rel="stylesheet" href="css/status_management.css">
   <!-- ICONS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -38,7 +66,7 @@ if (isset($_GET['delete'])) {
       </div>
     </div>
     <nav class="sidebar-nav">
-      <a href="admin.html" class="nav-item ">
+      <a href="admin.php" class="nav-item ">
         <i class="fa-solid fa-grid-2"></i>
         <span>Dashboard</span>
       </a>
@@ -50,11 +78,11 @@ if (isset($_GET['delete'])) {
         <i class="fa-solid fa-map-location-dot"></i>
         <span>Kebele Config</span>
       </a>
-      <a href="audit_logs.html" class="nav-item">
+      <a href="audit_logs.php" class="nav-item">
         <i class="fa-solid fa-file-shield"></i>
         <span>Audit Logs</span>
       </a>
-      <a href="system_reports.html" class="nav-item">
+      <a href="system_reports.php" class="nav-item">
         <i class="fa-solid fa-chart-pie"></i>
         <span>System Reports</span>
       </a>
@@ -128,21 +156,29 @@ if (isset($_GET['delete'])) {
           <label>Filter by Kebele:</label>
           <select id="kebeleFilter" class="filter-select">
             <option value="all">All Kebeles</option>
-            <option value="lich-amba">Lich-Amba</option>
-            <option value="arada">Arada</option>
-            <option value="lereba">Lereba</option>
-            <option value="phcu-hq">PHCU HQ</option>
+            <?php
+            // Load kebeles from database for filter
+            $kebeleFilterQuery = mysqli_query($dataBaseConnection, "SELECT DISTINCT kebele FROM users WHERE kebele IS NOT NULL AND kebele != '' ORDER BY kebele ASC");
+            while ($kebeleFilterRow = mysqli_fetch_assoc($kebeleFilterQuery)) {
+              $kebeleValue = htmlspecialchars($kebeleFilterRow['kebele']);
+              $kebeleDisplay = ucwords(str_replace('-', ' ', $kebeleValue));
+              echo "<option value='$kebeleValue'>$kebeleDisplay</option>";
+            }
+            ?>
           </select>
         </div>
 
         <div class="filter-stats">
           <div class="stat-badge">
             <i class="fa-solid fa-users"></i>
-            <span>Total: <strong id="totalCount">0</strong></span>
+            <span>Total: <strong id="totalCount"><?php echo $totalUsers; ?></strong></span>
           </div>
           <div class="stat-badge active">
             <i class="fa-solid fa-circle-check"></i>
-            <span>Active: <strong id="activeCount">0</strong></span>
+            <span>Active: <strong id="activeCount"><?php 
+              $activeQuery = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as total FROM users WHERE status='active'");
+              echo mysqli_fetch_assoc($activeQuery)['total'];
+            ?></strong></span>
           </div>
         </div>
       </div>
@@ -179,17 +215,26 @@ if (isset($_GET['delete'])) {
             </thead>
             <tbody id="usersTableBody">
               <?php
-              $sql = mysqli_query($dataBaseConnection, "SELECT * FROM users ORDER BY id DESC");
+              $sql = mysqli_query( $dataBaseConnection, "SELECT * FROM users ORDER BY id DESC LIMIT $itemsPerPage OFFSET $offset");
               while ($row = mysqli_fetch_assoc($sql)) {
                 echo "<tr>";
                 echo "<td data-label='Select'>" . "<input type = 'checkbox' class = 'row-checkbox'>" . "</td>";
                 echo "<td data-label='User' class='primary-cell'>" . $row['userId'] . "</td>";
                 echo "<td>" . $row["first_name"] . " " . $row["last_name"] . "</td>";
-                echo "<td>" . $row['emali'] . "</td>";
+                echo "<td>" . $row['email'] . "</td>";
                 echo "<td>" . $row['phone_no'] . "</td>";
                 echo "<td>" . $row['role'] . "</td>";
                 echo "<td>" . $row['kebele'] . "</td>";
-                echo "<td>" . $row['status'] . "</td>";
+                
+                // Interactive status dropdown
+                $statusClass = strtolower($row['status']);
+                echo "<td data-label='Status'>
+                  <select class='status-select status-tag $statusClass' data-user-id='{$row['id']}' data-old-status='{$row['status']}' onchange='changeUserStatus({$row['id']}, this.value)'>
+                    <option value='active' " . ($row['status'] == 'active' ? 'selected' : '') . ">Active</option>
+                    <option value='inactive' " . ($row['status'] == 'inactive' ? 'selected' : '') . ">Inactive</option>
+                    <option value='pending' " . ($row['status'] == 'pending' ? 'selected' : '') . ">Pending</option>
+                  </select>
+                </td>";
                 echo "<td>
                 <form class='action-buttons' method='post'>
                     <input type='hidden' name='id' value='" . $row['id'] . "'>
@@ -198,7 +243,7 @@ if (isset($_GET['delete'])) {
                         <i class='fa-solid fa-pen'></i>
                     </a>
       
-                  <a href='user_management.php?delete={$row['id']}' class='btn-icon' onclick=\"return confirm('Are you sure you want to delete this user?');\">
+                  <a href='user_management.php?delete_user={$row['id']}' class='btn-icon' onclick=\"return confirm('Are you sure you want to delete this user?');\">
                   <i class='fa-solid fa-trash'></i>
                   </a>
                 </form>
@@ -211,23 +256,14 @@ if (isset($_GET['delete'])) {
         </div>
 
         <!-- Pagination -->
-        <div class="table-footer">
-          <div class="showing-info">
-            Showing <strong id="showingStart">1</strong> to <strong id="showingEnd">3</strong> of <strong
-              id="showingTotal">3</strong> users
-          </div>
-          <div class="pagination">
-            <button class="page-btn" disabled>
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn">
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-          </div>
-        </div>
+        <?php echo renderPagination($paginationData); ?>
+        <script>
+        function navigateToPage(page) {
+          const url = new URL(window.location);
+          url.searchParams.set('page', page);
+          window.location.href = url.toString();
+        }
+        </script>
       </div>
       <div style="margin-top: 30px;" class="card-panel">
         <div class="table-header">
@@ -262,7 +298,7 @@ if (isset($_GET['delete'])) {
             </thead>
             <tbody id="usersTableBody">
               <?php
-              $sql = mysqli_query($dataBaseConnection, "SELECT * FROM kebele ORDER BY id DESC");
+              $sql = mysqli_query($dataBaseConnection, "SELECT * FROM kebele ORDER BY id DESC LIMIT $itemsPerPage OFFSET $kebeleOffset");
               while ($row = mysqli_fetch_assoc($sql)) {
                 echo "<tr>";
                 echo "<td data-label='Select'>" . "<input type = 'checkbox' class = 'row-checkbox'>" . "</td>";
@@ -282,7 +318,7 @@ if (isset($_GET['delete'])) {
                         <i class='fa-solid fa-pen'></i>
                     </a>
       
-                  <a href='user_management.php?delete={$row['id']}' class='btn-icon' onclick=\"return confirm('Are you sure you want to delete this user?');\">
+                  <a href='user_management.php?delete_kebele={$row['id']}' class='btn-icon' onclick=\"return confirm('Are you sure you want to delete this kebele?');\">
                   <i class='fa-solid fa-trash'></i>
                   </a>
                 </form>
@@ -293,22 +329,8 @@ if (isset($_GET['delete'])) {
             </tbody>
           </table>
         </div>
-        <div class="table-footer">
-          <div class="showing-info">
-            Showing <strong id="showingStart">1</strong> to <strong id="showingEnd">3</strong> of <strong
-              id="showingTotal">3</strong> users
-          </div>
-          <div class="pagination">
-            <button class="page-btn" disabled>
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <button class="page-btn active">1</button>
-            <button class="page-btn">2</button>
-            <button class="page-btn">3</button>
-            <button class="page-btn">
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-          </div>
+        <!-- Pagination for Kebele -->
+        <?php echo renderPagination($kebelePaginationData); ?>
         </div>
       </div>
       <!-- Bulk Actions Panel (shown when users are selected) -->
@@ -331,7 +353,8 @@ if (isset($_GET['delete'])) {
       </div>
     </div>
   </main>
-  <script src="user_management.js"></script>
+  <script src="js/admin/status_management.js"></script>
+  <script src="js/admin/user_management.js"></script>
   <script src="js/admin/script.js"></script>
 </body>
 

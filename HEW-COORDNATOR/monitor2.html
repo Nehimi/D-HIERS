@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor HEW Activity</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .main-content-div {
+            margin: auto;
+            text-align: center;
+            max-width: 700px;
+            padding: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        p {
+            color: #555;
+            margin-bottom: 25px;
+        }
+        .form-container {
+            background-color: bisque; /* Your specified background color */
+            text-align: center;
+            margin: auto;
+            width: 34%; /* Your specified width */
+            min-width: 300px; /* Ensure it's not too small on wider screens */
+            max-width: 480px; /* Limit max width for readability */
+            padding: 30px;
+            border: 1px solid #e0e0e0; /* A light border */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Soft shadow */
+        }
+        .form-container p {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        select, textarea {
+            width: calc(100% - 20px); /* Adjust width to account for padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding in width */
+            resize: vertical; /* Allow vertical resizing for textarea */
+            min-height: 120px; /* Minimum height for textarea */
+            transition: border-color 0.3s ease;
+        }
+        textarea:focus, select:focus {
+            border-color: #007bff; /* Highlight on focus */
+            outline: none;
+        }
+        button {
+            padding: 12px 25px;
+            background-color: #007bff; /* Default button color */
+            color: white;
+            border: none;
+            border-radius: 25px; /* More rounded */
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            width: calc(100% - 20px); /* Match width of selects/textarea */
+            box-sizing: border-box;
+            margin-top: 5px; /* Spacing between buttons */
+        }
+        #openActivityBtn {
+            background-color: orange; /* Your specified color */
+        }
+        #openActivityBtn:hover {
+            background-color: darkorange;
+        }
+        #submitReviewBtn {
+            background-color: #4CAF50; /* Green submit button */
+        }
+        #submitReviewBtn:hover:not(:disabled) {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #a0a0a0;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body style="background-color: lightblue;">
+  <h1 style="text-align: center;margin: auto;">Monitor HEW Activity</h1>
+      <div style="display: flex; justify-content:  flex-end;">
+    <div style="display: flex;gap: 12px;padding-right:10px;
+    align-items:center; padding-top: 12px; border: none ;
+     border-radius: 5px;">
+        <a href="review.html" style="background-color: orange ;
+        border-radius: 82px; text-decoration: none;">Review HEW Reports</a>
+        <a href="monitor.html"style="background-color: orange ;border-radius: 32px;
+         text-decoration: none;">Monitor HEW Activity </a>
+        <a href="forwad.html"style="background-color: orange ;border-radius: 32px;
+         text-decoration: none;">Forward Reports</a>
+        <a href="validate.html"style="background-color: orange ;border-radius: 32px; 
+        text-decoration: none;">Validate Collected Data</a>
+</div>
+</div>
+<img src="images 2.jpg" style="width: 87%;">
+<h3 style=" text-align: center ;margin: auto;"> HEW Coordinator is Monitor HEW Activity in Licha Amba and around two kebales 
+   properly  by use this platform.In this page HEW Coordinator monitor HEW activity<r></r>
+    easliy becuase HEW Coordinator can get data to monitor each HEW activety<br>
+    monitor performance of  and monitor data Submissions status of HEWs.<br>
+    This includes viewing metrics,Submissions,timeline,and other activity indicators .</h3><br><br>
+     <p style="text-align: center;margin: auto;"> Here belowe get data to monitor HEW activety by open this page
+       </p>
+
+<div class="main-content-div">
+    <h2>HEW Coordinator to review HEW-submitted report and forward validated <br>
+    HEW data to the Linkage Focal Person for further processing</h2><br>
+</div>
+
+<div class="form-container">
+  <form id="hewMonitorForm">
+    <p>HEW Coordinator can select individual HEW for detailed monitor</p>
+    <select id="hewSelect" required>
+        <option value="">-- Select HEW --</option>
+        <option value="Abeba_kebade_Arade">Abeba kebade in Arade kable</option>
+        <option value="Mirate_Debabe_Arade">Mirate Debabe in Arade kable</option>
+        <option value="Melkamu_Godebo_Lich_Amba">Melkamu Godebo in Lich Amba kable</option>
+        <option value="Lommbame_Lamam_Lich_Amba">Lommbame Lamam in Lich Amba kable</option>
+        <option value="Yonas_Loba_Licha_Amba">Yonas Loba  in Licha Amba kable</option>
+        <option value="Adan_Ayela_Arade">Adan Ayela  in Arade kable</option>
+        <option value="Abeba_kufebo_Arade">Abeba kufebo in Arade kable</option>
+    </select><br>
+
+    <textarea id="activityReviewArea" placeholder="Open HEW activity details here for review..." rows="10"></textarea><br>
+
+    <button type="button" id="openActivityBtn">Open Activity</button><br>
+    <button type="button" id="submitReviewBtn">Submit Review</button>
+  </form>
+</div>
+
+
+    
+
+
+</body>
+<script src="monitorCode.js"></script>
+</html>

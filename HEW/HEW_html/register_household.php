@@ -1,5 +1,53 @@
+<?php
+session_start();
+include "../../dataBaseConnection.php";
+
+?>
+
+<?php
+if (isset($_POST['SaveFamily'])) {
+  $region = $_POST['region'] ?? '';
+  $zone = $_POST['zone'] ?? '';
+  $woreda = $_POST['woreda'] ?? '';
+  $kebele = $_POST['kebele'] ?? '';
+  $householdId = $_POST['householdId'] ?? '';
+  $memberName = $_POST['memberName'] ?? '';
+  $age = $_POST['age'] ?? '';
+  $sex = $_POST['sex'] ?? '';
+
+  $sql = "INSERT INTO household(region, zone, woreda, kebele, householdId, memberName, age, sex) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  $stmt = $dataBaseConnection->prepare($sql);
+
+  if (!$stmt) {
+     if (isset($_POST['ajax_request'])) {
+         echo json_encode(['status' => 'error', 'message' => "Database error: " . $dataBaseConnection->error]);
+         exit;
+     }
+     die("prepare failed: " . $dataBaseConnection->error);
+  }
+
+  $stmt->bind_param("ssssssis", $region, $zone, $woreda, $kebele, $householdId, $memberName, $age, $sex);
+
+  if ($stmt->execute()) {
+     if (isset($_POST['ajax_request'])) {
+         echo json_encode(['status' => 'success', 'message' => 'Household Added Successfully!']);
+         exit;
+     }
+     echo "<script>alert('Household Add Successfully!'); window.location='register_household.php'; </script>";
+  } else {
+     if (isset($_POST['ajax_request'])) {
+         echo json_encode(['status' => 'error', 'message' => "Error: " . $stmt->error]);
+         exit;
+     }
+     echo "Error: " . $stmt->error;
+  }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,29 +71,29 @@
       </div>
     </div>
     <nav class="sidebar-nav">
-      <a href="hew_dashboard.html" class="nav-item">
+      <a href="hew_dashboard.php" class="nav-item">
         <i class="fa-solid fa-grid-2"></i>
         <span>Dashboard</span>
       </a>
-      <a href="register_household.html" class="nav-item active">
+      <a href="register_household.php" class="nav-item active">
         <i class="fa-solid fa-users-gear"></i>
         <span>Register Household</span>
       </a>
-      <a href="enter_health_data.html" class="nav-item">
+      <a href="enter_health_data.php" class="nav-item">
         <i class="fa-solid fa-map-location-dot"></i>
         <span>Enter Health Data</span>
       </a>
-      <a href="edit_submitted_data.html" class="nav-item">
+      <a href="edit_submitted_data.php" class="nav-item">
         <i class="fa-solid fa-file-shield"></i>
         <span>Edit Submitted Data</span>
       </a>
-      <a href="submit_reports.html" class="nav-item">
+      <a href="submit_reports.php" class="nav-item">
         <i class="fa-solid fa-chart-pie"></i>
         <span>Submit Reports</span>
       </a>
     </nav>
     <div class="sidebar-footer">
-      <a href="index.html" class="nav-item logout">
+      <a href="../../index.html" class="nav-item logout">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
         <span>Logout</span>
       </a>
@@ -59,9 +107,10 @@
     </header>
 
     <section class="form-section">
-      <form id="householdForm" class="form-container">
-        
-        
+      <form method="POST" action="register_household.php" id="householdForm" class="form-container">
+        <div id="formMessage" class="message-container"></div>
+
+
         <h3 class="form-title">Address Information</h3>
         <div class="form-group">
           <label for="region">Region</label>
@@ -88,7 +137,7 @@
           </select>
         </div>
 
-        
+
         <h3 class="form-title">Family Member Information</h3>
         <div class="form-group">
           <label for="householdId">Household ID</label>
@@ -114,13 +163,13 @@
           </select>
         </div>
 
-        
+
         <div class="form-actions">
-          <button type="submit" class="btn-primary">
+          <button name="SaveFamily" type="submit" class="btn-primary">
             <i class="fa fa-save"></i> Save Family Member
           </button>
 
-          <button type="button" class="btn-secondary" onclick="window.location.href='hew_dashboard.html'">
+          <button type="button" class="btn-secondary" onclick="window.location.href='hew_dashboard.php'">
             <i class="fa fa-arrow-left"></i> Back
           </button>
         </div>
@@ -128,4 +177,7 @@
     </section>
   </main>
 </body>
+
 </html>
+
+
