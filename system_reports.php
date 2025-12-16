@@ -21,7 +21,7 @@ mysqli_query($dataBaseConnection, $setupSql);
 // =======================
 if (isset($_POST['ajax_generate'])) {
     header('Content-Type: application/json');
-    
+
     $reportType = $_POST['report_type'];
     $dateRange = $_POST['date_range'];
     $format = $_POST['format'];
@@ -30,7 +30,7 @@ if (isset($_POST['ajax_generate'])) {
     // Mock Data Generation Logic
     $fileSize = "0 KB";
     $status = "Ready";
-    
+
     // Simulate query & processing time
     sleep(1);
 
@@ -39,9 +39,9 @@ if (isset($_POST['ajax_generate'])) {
         // Count audit logs
         $cRes = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as c FROM audit_logs");
         $count = mysqli_fetch_assoc($cRes)['c'];
-        $fileSize = round(($count * 0.5), 1) . " KB"; 
+        $fileSize = round(($count * 0.5), 1) . " KB";
     } elseif ($reportType == 'Health Post Performance') {
-         // Count health data
+        // Count health data
         $cRes = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as c FROM health_data");
         $count = mysqli_fetch_assoc($cRes)['c'];
         $fileSize = round(($count * 1.2), 1) . " KB";
@@ -50,14 +50,17 @@ if (isset($_POST['ajax_generate'])) {
     }
 
     $reportName = str_replace(' ', '_', $reportType) . "_" . date('M_d');
-    if ($format == 'PDF') $reportName .= ".pdf";
-    elseif ($format == 'CSV') $reportName .= ".csv";
-    else $reportName .= ".xlsx";
+    if ($format == 'PDF')
+        $reportName .= ".pdf";
+    elseif ($format == 'CSV')
+        $reportName .= ".csv";
+    else
+        $reportName .= ".xlsx";
 
     // Insert into DB
     $insertSql = "INSERT INTO generated_reports (report_name, report_type, generated_by, file_size, status, format) 
                   VALUES ('$reportName', '$reportType', '$adminName', '$fileSize', '$status', '$format')";
-    
+
     if (mysqli_query($dataBaseConnection, $insertSql)) {
         echo json_encode(['status' => 'success', 'message' => 'Report generated successfully!', 'file' => $reportName]);
     } else {
@@ -76,8 +79,8 @@ if (isset($_GET['download_id'])) {
         // Simply force download of a text file with mock content
         $filename = $row['report_name'];
         header('Content-Type: application/octet-stream');
-        header("Content-Transfer-Encoding: Binary"); 
-        header("Content-disposition: attachment; filename=\"$filename\""); 
+        header("Content-Transfer-Encoding: Binary");
+        header("Content-disposition: attachment; filename=\"$filename\"");
         echo "D-HEIRS System Report\n";
         echo "Type: " . $row['report_type'] . "\n";
         echo "Date: " . $row['generated_at'] . "\n";
@@ -105,7 +108,7 @@ if (isset($_GET['download_id'])) {
 
 <body class="dashboard-body">
 
-   <!-- Sidebar -->
+    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand-icon">
@@ -118,7 +121,7 @@ if (isset($_GET['download_id'])) {
         </div>
 
         <nav class="sidebar-nav">
-            <a href="admin.html" class="nav-item">
+            <a href="admin.php" class="nav-item">
                 <i class="fa-solid fa-grid-2"></i>
                 <span>Dashboard</span>
             </a>
@@ -139,7 +142,7 @@ if (isset($_GET['download_id'])) {
                 <span>System Reports</span>
             </a>
         </nav>
-        
+
         <div class="sidebar-footer">
             <a href="index.html" class="nav-item logout">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
@@ -171,7 +174,7 @@ if (isset($_GET['download_id'])) {
                 </a>
             </div>
         </header>
-          <!-- Dashboard Content -->
+        <!-- Dashboard Content -->
         <div class="content-wrapper">
             <div class="page-header">
                 <div>
@@ -179,7 +182,8 @@ if (isset($_GET['download_id'])) {
                     <p class="page-subtitle">Generate and view system performance and health data reports</p>
                 </div>
                 <div class="header-actions">
-                    <button class="btn btn-primary" onclick="document.querySelector('.report-gen-card').scrollIntoView({behavior: 'smooth'})">
+                    <button class="btn btn-primary"
+                        onclick="document.querySelector('.report-gen-card').scrollIntoView({behavior: 'smooth'})">
                         <i class="fa-solid fa-file-export"></i> New Report
                     </button>
                 </div>
@@ -193,7 +197,7 @@ if (isset($_GET['download_id'])) {
                 <div class="card-body">
                     <form id="generateReportForm" class="report-form form-grid">
                         <div id="genMessage" class="message-container" style="grid-column: 1 / -1;"></div>
-                        
+
                         <div class="form-row footer-links-like">
                             <div class="form-group">
                                 <label>Report Type</label>
@@ -236,7 +240,7 @@ if (isset($_GET['download_id'])) {
                     </form>
                 </div>
             </div>
-            
+
             <!-- Recent Generated Reports Table -->
             <div class="config-card mt-4">
                 <div class="card-header">
@@ -264,11 +268,16 @@ if (isset($_GET['download_id'])) {
                                     while ($row = mysqli_fetch_assoc($histQuery)) {
                                         $iconClass = 'pdf';
                                         $iconType = 'fa-file-pdf';
-                                        if ($row['format'] == 'CSV') { $iconClass = 'csv'; $iconType = 'fa-file-csv'; }
-                                        elseif ($row['format'] == 'Excel') { $iconClass = 'excel'; $iconType = 'fa-file-excel'; }
-                                        
+                                        if ($row['format'] == 'CSV') {
+                                            $iconClass = 'csv';
+                                            $iconType = 'fa-file-csv';
+                                        } elseif ($row['format'] == 'Excel') {
+                                            $iconClass = 'excel';
+                                            $iconType = 'fa-file-excel';
+                                        }
+
                                         $dateDisplay = date('M d, Y', strtotime($row['generated_at']));
-                                        
+
                                         echo "<tr>
                                             <td class='primary-cell'>
                                                 <div class='file-cell'>
@@ -304,45 +313,45 @@ if (isset($_GET['download_id'])) {
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('generateReportForm');
             const messageContainer = document.getElementById('genMessage');
-            
-            form.addEventListener('submit', function(e) {
+
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
-                
+
                 const submitBtn = this.querySelector('button[type="submit"]');
                 const originalText = submitBtn.innerHTML;
-                
+
                 // Loading State
                 submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Generating...';
                 submitBtn.disabled = true;
-                
+
                 const formData = new FormData(this);
                 formData.append('ajax_generate', '1');
-                
+
                 fetch('system_reports.php', {
                     method: 'POST',
                     body: formData
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.status === 'success') {
-                         messageContainer.innerHTML = `<div class="success-message" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">${data.message}</div>`;
-                         
-                         // Refresh table after 1s
-                         setTimeout(() => {
-                             location.reload();
-                         }, 1000);
-                    } else {
-                        messageContainer.innerHTML = `<div class="error-message" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">${data.message}</div>`;
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            messageContainer.innerHTML = `<div class="success-message" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">${data.message}</div>`;
+
+                            // Refresh table after 1s
+                            setTimeout(() => {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            messageContainer.innerHTML = `<div class="error-message" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">${data.message}</div>`;
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        messageContainer.innerHTML = `<div class="error-message" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">An unexpected error occurred.</div>`;
                         submitBtn.innerHTML = originalText;
                         submitBtn.disabled = false;
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    messageContainer.innerHTML = `<div class="error-message" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">An unexpected error occurred.</div>`;
-                    submitBtn.innerHTML = originalText;
-                    submitBtn.disabled = false;
-                });
+                    });
             });
         });
     </script>

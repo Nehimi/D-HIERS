@@ -1,8 +1,8 @@
 <?php
 session_start();
 include "dataBaseConnection.php";
-include "includes/pagination_helper.php"; 
-include "includes/log_helper.php"; 
+include "includes/pagination_helper.php";
+include "includes/log_helper.php";
 
 // Get page number from URL
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
@@ -175,9 +175,9 @@ $kebeleOffset = $kebelePaginationData['offset'];
           </div>
           <div class="stat-badge active">
             <i class="fa-solid fa-circle-check"></i>
-            <span>Active: <strong id="activeCount"><?php 
-              $activeQuery = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as total FROM users WHERE status='active'");
-              echo mysqli_fetch_assoc($activeQuery)['total'];
+            <span>Active: <strong id="activeCount"><?php
+            $activeQuery = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as total FROM users WHERE status='active'");
+            echo mysqli_fetch_assoc($activeQuery)['total'];
             ?></strong></span>
           </div>
         </div>
@@ -215,7 +215,7 @@ $kebeleOffset = $kebelePaginationData['offset'];
             </thead>
             <tbody id="usersTableBody">
               <?php
-              $sql = mysqli_query( $dataBaseConnection, "SELECT * FROM users ORDER BY id DESC LIMIT $itemsPerPage OFFSET $offset");
+              $sql = mysqli_query($dataBaseConnection, "SELECT * FROM users ORDER BY id DESC LIMIT $itemsPerPage OFFSET $offset");
               while ($row = mysqli_fetch_assoc($sql)) {
                 echo "<tr>";
                 echo "<td data-label='Select'>" . "<input type = 'checkbox' class = 'row-checkbox'>" . "</td>";
@@ -225,7 +225,7 @@ $kebeleOffset = $kebelePaginationData['offset'];
                 echo "<td>" . $row['phone_no'] . "</td>";
                 echo "<td>" . $row['role'] . "</td>";
                 echo "<td>" . $row['kebele'] . "</td>";
-                
+
                 // Interactive status dropdown
                 $statusClass = strtolower($row['status']);
                 echo "<td data-label='Status'>
@@ -258,11 +258,11 @@ $kebeleOffset = $kebelePaginationData['offset'];
         <!-- Pagination -->
         <?php echo renderPagination($paginationData); ?>
         <script>
-        function navigateToPage(page) {
-          const url = new URL(window.location);
-          url.searchParams.set('page', page);
-          window.location.href = url.toString();
-        }
+          function navigateToPage(page) {
+            const url = new URL(window.location);
+            url.searchParams.set('page', page);
+            window.location.href = url.toString();
+          }
         </script>
       </div>
       <div style="margin-top: 30px;" class="card-panel">
@@ -331,26 +331,26 @@ $kebeleOffset = $kebelePaginationData['offset'];
         </div>
         <!-- Pagination for Kebele -->
         <?php echo renderPagination($kebelePaginationData); ?>
-        </div>
       </div>
-      <!-- Bulk Actions Panel (shown when users are selected) -->
-      <div class="bulk-actions-panel" id="bulkActionsPanel" style="display: none;">
-        <div class="bulk-info">
-          <i class="fa-solid fa-check-circle"></i>
-          <span><strong id="selectedCount">0</strong> users selected</span>
-        </div>
-        <div class="bulk-buttons">
-          <button class="btn btn-secondary">
-            <i class="fa-solid fa-user-check"></i> Activate
-          </button>
-          <button class="btn btn-secondary">
-            <i class="fa-solid fa-user-xmark"></i> Deactivate
-          </button>
-          <button class="btn btn-danger">
-            <i class="fa-solid fa-trash"></i> Delete Selected
-          </button>
-        </div>
+    </div>
+    <!-- Bulk Actions Panel (shown when users are selected) -->
+    <div class="bulk-actions-panel" id="bulkActionsPanel" style="display: none;">
+      <div class="bulk-info">
+        <i class="fa-solid fa-check-circle"></i>
+        <span><strong id="selectedCount">0</strong> users selected</span>
       </div>
+      <div class="bulk-buttons">
+        <button class="btn btn-secondary">
+          <i class="fa-solid fa-user-check"></i> Activate
+        </button>
+        <button class="btn btn-secondary">
+          <i class="fa-solid fa-user-xmark"></i> Deactivate
+        </button>
+        <button class="btn btn-danger">
+          <i class="fa-solid fa-trash"></i> Delete Selected
+        </button>
+      </div>
+    </div>
     </div>
   </main>
   <script src="js/admin/status_management.js"></script>

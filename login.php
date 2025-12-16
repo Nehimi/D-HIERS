@@ -4,8 +4,8 @@ header('Content-Type: application/json');
 include("dataBaseConnection.php");
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid Request!']);
-    exit();
+  echo json_encode(['status' => 'error', 'message' => 'Invalid Request!']);
+  exit();
 }
 
 $userId = $_POST['userId'];
@@ -25,8 +25,8 @@ if (strpos($userId, "HEW") === 0) {
 } elseif (strpos($userId, "ADMIN") === 0) {
   $detected_role = "admin";
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid ID ID format!']);
-    exit();
+  echo json_encode(['status' => 'error', 'message' => 'Invalid ID ID format!']);
+  exit();
 }
 
 $stmt = $dataBaseConnection->prepare("SELECT * FROM users WHERE userId = ?");
@@ -35,22 +35,22 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows !== 1) {
-    echo json_encode(['status' => 'error', 'message' => 'User not found!']);
-    exit();
+  echo json_encode(['status' => 'error', 'message' => 'User not found!']);
+  exit();
 }
 
 $row = $result->fetch_assoc();
 
 /* Check Role */
 if ($row['role'] !== $detected_role) {
-    echo json_encode(['status' => 'error', 'message' => 'Role mismatch! Please check your User ID.']);
-    exit();
+  echo json_encode(['status' => 'error', 'message' => 'Role mismatch! Please check your User ID.']);
+  exit();
 }
 
 /* Verify Password */
 if (!password_verify($password, $row['password'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Incorrect Password!']);
-    exit();
+  echo json_encode(['status' => 'error', 'message' => 'Incorrect Password!']);
+  exit();
 }
 
 /* Store Session */
@@ -82,7 +82,7 @@ switch ($row['role']) {
     break;
 
   case "admin":
-    $redirectUrl = "admin.html";
+    $redirectUrl = "admin.php";
     break;
 }
 
