@@ -53,9 +53,9 @@ if (isset($_POST['SaveFamily'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register Household | D-HEIRS</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../HEW_css/hew.css">
-  <link rel="stylesheet" href="../HEW_css/hew_style.css">
-  <script src="../HEW_js/register_household.js"></script>
+  <link rel="stylesheet" href="../css/hew.css">
+  <link rel="stylesheet" href="../css/hew_style.css">
+  <script src="../js/register_household.js"></script>
 </head>
 
 <body class="dashboard-body">
@@ -63,7 +63,7 @@ if (isset($_POST['SaveFamily'])) {
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="brand-icon">
-        <img src="../image/logo.png" alt="">
+        <img src="../images/logo.png" alt="">
       </div>
       <div class="brand-text">
         D-HEIRS

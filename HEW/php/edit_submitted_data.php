@@ -8,10 +8,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Main HEW CSS -->
-  <link rel="stylesheet" href="../HEW_css/hew.css">
-  <link rel="stylesheet" href="../HEW_css/hew_style.css">
-  <script src="../HEW_js/edit_submitted_data.js" defer></script>
-  <link rel="stylesheet" href="../HEW_css/edit_submitted_data.css">
+  <link rel="stylesheet" href="../css/hew.css">
+  <link rel="stylesheet" href="../css/hew_style.css">
+  <script src="../js/edit_submitted_data.js" defer></script>
+  <link rel="stylesheet" href="../css/edit_submitted_data.css">
 </head>
 
 <body class="dashboard-body">
@@ -19,7 +19,7 @@
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="brand-icon">
-        <img src="../image/logo.png" alt="">
+        <img src="../images/logo.png" alt="">
       </div>
       <div class="brand-text">
         D-HEIRS
@@ -36,7 +36,7 @@
         <i class="fa-solid fa-users-gear"></i>
         <span>Register Household</span>
       </a>
-      <a href="enter_health_data.html" class="nav-item">
+      <a href="enter_health_data.php" class="nav-item">
         <i class="fa-solid fa-stethoscope"></i>
         <span>Enter Health Data</span>
       </a>
@@ -44,7 +44,7 @@
         <i class="fa-solid fa-file-pen"></i>
         <span>Edit Submitted Data</span>
       </a>
-      <a href="submit_reports.html" class="nav-item">
+      <a href="submit_reports.php" class="nav-item">
         <i class="fa-solid fa-chart-pie"></i>
         <span>Submit Reports</span>
       </a>
@@ -73,7 +73,7 @@
           <span class="badge-dot"></span>
         </button>
         <div class="user-profile">
-            <img src="../image/avatar.png" alt="HEW" class="avatar-sm">
+            <img src="../images/avatar.png" alt="HEW" class="avatar-sm">
             <div class="user-info">
                 <span class="name">Semira Kedir</span>
                 <span class="role">Health Ext. Worker</span>
@@ -147,7 +147,7 @@
         </div>
 
         <div class="form-actions">
-          <button type="button" class="btn-secondary" onclick="window.location.href='hew_dashboard.html'">
+          <button type="button" class="btn-secondary" onclick="window.location.href='hew_dashboard.php'">
             Cancel
           </button>
           <button type="submit" class="btn-primary">

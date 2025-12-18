@@ -31,8 +31,8 @@ $currentDate = date('F d, Y');
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="../HEW_css/hew.css">
-    <link rel="stylesheet" href="../HEW_css/hew_style.css">
+    <link rel="stylesheet" href="../css/hew.css">
+    <link rel="stylesheet" href="../css/hew_style.css">
     
     <style>
         /* Print-specific styles */
@@ -146,7 +146,7 @@ $currentDate = date('F d, Y');
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand-icon">
-                <img src="../image/logo.png" alt="">
+                <img src="../images/logo.png" alt="">
             </div>
             <div class="brand-text">
                 D-HEIRS
@@ -191,7 +191,7 @@ $currentDate = date('F d, Y');
             <h2>Report Generation</h2>
             <div class="header-actions">
                 <div class="user-profile">
-                    <img src="../image/avatar.png" alt="HEW" class="avatar-sm">
+                    <img src="../images/avatar.png" alt="HEW" class="avatar-sm">
                     <div class="user-info">
                         <span class="name"><?php echo htmlspecialchars($hewName); ?></span>
                         <span class="role">Health Ext. Worker</span>
