@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate Statistical Report | D-HEIRS</title>
-    <link rel="stylesheet" href="cs report.css">
+    <link rel="stylesheet" href="statistical_report.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body class="dashboard-body">
 
     <main class="main-content">
-	 <a href="dashB.html" class="btn-back">
+        <a href="focal_dashboard.html" class="btn-back">
             <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
         </a>
         <header class="dashboard-header">
@@ -20,7 +22,8 @@
         <section class="report-selection-section">
             <div class="selection-card">
                 <h3>Generate Woreda Statistical Report</h3>
-                <p class="description">Select the reporting period for which all Kebele data has been validated and summarized.</p>
+                <p class="description">Select the reporting period for which all Kebele data has been validated and
+                    summarized.</p>
 
                 <form method="POST" action="generate_report_processor.php" class="report-form">
 
@@ -32,11 +35,13 @@
                             <option value="2025-10" disabled>October 2025 (Processed)</option>
                             <option value="2025-12">December 2025 (Pending)</option>
                         </select>
-                        <small class="help-text">Only periods with **Validated** detailed reports can be selected.</small>
+                        <small class="help-text">Only periods with **Validated** detailed reports can be
+                            selected.</small>
                     </div>
 
                     <div class="form-group">
-                        <label for="kebeleFilter"><i class="fa-solid fa-location-dot"></i> Filter by Kebele (Optional)</label>
+                        <label for="kebeleFilter"><i class="fa-solid fa-location-dot"></i> Filter by Kebele
+                            (Optional)</label>
                         <select id="kebeleFilter" name="kebeleFilter">
                             <option value="all">-- All Kebeles (Woreda Summary) --</option>
                             <option value="Lich-Amba">Lich-Amba</option>
@@ -44,7 +49,7 @@
                             <option value="Lereba">Lereba</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-actions">
                         <button name="GenerateReport" type="submit" class="btn-primary">
                             <i class="fa-solid fa-file-export"></i> Generate Statistical Report
@@ -75,9 +80,10 @@
                     </li>
                 </ul>
             </div>
-            
+
         </section>
-        
-        </main>
+
+    </main>
 </body>
+
 </html>

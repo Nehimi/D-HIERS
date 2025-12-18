@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate HMIS Reports | D-HEIRS</title>
-    <link rel="stylesheet" href="gen report.css">
+    <link rel="stylesheet" href="generate_hmis_report.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body class="dashboard-body">
 
     <main class="main-content">
-        
-        <a href="dashB.html" class="btn-back">
+
+        <a href="focal_dashboard.html" class="btn-back">
             <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
         </a>
 
@@ -24,20 +26,25 @@
 
             <div class="selection-card data-package">
                 <h3>1. Select Statistical Data Package</h3>
-                <p class="description">Choose the finalized statistical data package submitted by the Linkage Focal Person (LFP).</p>
+                <p class="description">Choose the finalized statistical data package submitted by the Linkage Focal
+                    Person (LFP).</p>
 
                 <form method="POST" action="hmis_report_process.php" class="hmis-form">
 
                     <div class="form-group">
-                        <label for="dataPackage"><i class="fa-solid fa-database"></i> Data Package (Woreda Summary)</label>
+                        <label for="dataPackage"><i class="fa-solid fa-database"></i> Data Package (Woreda
+                            Summary)</label>
                         <select id="dataPackage" name="dataPackage" required>
                             <option value="">-- Choose Submitted Package --</option>
-                            <option value="ID-2025-11-20" data-status="Ready">November 2025 (Woreda Summary) - Ready</option>
-                            <option value="ID-2025-10-15" data-status="Processed" disabled>October 2025 (Processed)</option>
-                            <option value="ID-2025-09-10" data-status="Archived" disabled>September 2025 (Archived)</option>
+                            <option value="ID-2025-11-20" data-status="Ready">November 2025 (Woreda Summary) - Ready
+                            </option>
+                            <option value="ID-2025-10-15" data-status="Processed" disabled>October 2025 (Processed)
+                            </option>
+                            <option value="ID-2025-09-10" data-status="Archived" disabled>September 2025 (Archived)
+                            </option>
                         </select>
                     </div>
-                
+
                     <div class="report-format-group">
                         <h3>2. Select Report Format</h3>
                         <p class="description">Select the required output template for national-level submission.</p>
@@ -52,7 +59,7 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-actions">
                         <button name="GenerateHMISReport" type="submit" class="btn-primary-generate">
                             <i class="fa-solid fa-cogs"></i> Generate Final Report
@@ -85,4 +92,5 @@
         </section>
     </main>
 </body>
+
 </html>

@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Export HMIS Reports | D-HEIRS</title>
-    <link rel="stylesheet" href="export rep.css">
+    <link rel="stylesheet" href="export_hmis_report.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body class="dashboard-body">
 
     <main class="main-content">
-        
-        <a href="dashB.html" class="btn-back">
+
+        <a href="focal_dashboard.html" class="btn-back">
             <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
         </a>
 
@@ -21,10 +23,11 @@
         </header>
 
         <section class="hmis-export-section">
-            
+
             <div class="reports-list-card selection-card">
                 <h3>Reports Ready for Export (Status: Generated)</h3>
-                <p class="description">Select a generated report from the list below to choose an export format and download the file.</p>
+                <p class="description">Select a generated report from the list below to choose an export format and
+                    download the file.</p>
 
                 <ul class="report-list">
                     <li data-report-id="R-2025-11-20" data-format="monthly-summary">
@@ -34,7 +37,8 @@
                         </div>
                         <div class="report-actions">
                             <span class="report-status ready"><i class="fa-solid fa-check-circle"></i> Generated</span>
-                            <button class="btn-export" onclick="openExportModal('Monthly Health Summary Report (Nov 2025)')">
+                            <button class="btn-export"
+                                onclick="openExportModal('Monthly Health Summary Report (Nov 2025)')">
                                 <i class="fa-solid fa-download"></i> Export
                             </button>
                         </div>
@@ -71,7 +75,7 @@
                     <span class="close-btn" onclick="closeExportModal()">&times;</span>
                     <h3><i class="fa-solid fa-file-export"></i> Choose Export Format</h3>
                     <p>Report: <strong id="reportName"></strong></p>
-                    
+
                     <div class="format-selection">
                         <label>
                             <input type="radio" name="exportFormat" value="pdf" checked>
@@ -119,20 +123,20 @@
             const statusDiv = document.getElementById('downloadStatus');
             const format = document.querySelector('input[name="exportFormat"]:checked').value;
             const reportName = document.getElementById('reportName').textContent;
-            
+
             // Step 6: System processes
             statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Report (' + format.toUpperCase() + ')...';
             statusDiv.style.display = 'flex';
-            
+
             // Simulate Steps 7-9: Delay and Confirmation
             setTimeout(() => {
                 // Step 7: System initiates file download (simulated)
                 // In a real application, this would trigger a file stream.
-                
+
                 // Step 8 & 9: System confirms completion
                 statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> Report Exported Successfully (' + format.toUpperCase() + ')! Check your downloads folder.';
                 statusDiv.classList.add('success');
-                
+
                 // Close modal after a few seconds
                 setTimeout(() => {
                     closeExportModal();
@@ -143,4 +147,5 @@
         }
     </script>
 </body>
+
 </html>
