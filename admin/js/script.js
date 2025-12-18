@@ -264,7 +264,7 @@ function initLogoutModal() {
             </div>
             <div class="custom-modal-footer">
                 <button id="cancelLogout" class="btn btn-outline" style="border: 1px solid #d1d5db; color: #374151;">Cancel</button>
-                <a href="index.html" class="btn btn-danger" style="background-color: #dc2626; color: white;">Yes, Logout</a>
+                <a href="../../index.html" class="btn btn-danger" style="background-color: #dc2626; color: white;">Yes, Logout</a>
             </div>
         </div>
     </div>
