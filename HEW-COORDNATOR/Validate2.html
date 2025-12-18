@@ -4,95 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Validation Form</title>
-    <style>
-        /* Basic styling for better appearance */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h3 {
-            margin: 20px auto;
-            text-align: center;
-            color: #333;
-        }
-        form {
-            background-color: azure;
-            text-align: center;
-            margin: 20px auto;
-            width: 30%;
-            min-width: 320px; /* Ensure readability on smaller screens */
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        p {
-            margin-bottom: 15px;
-            color: #555;
-        }
-        select {
-            width: calc(100% - 20px); /* Adjust width considering padding */
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-            box-sizing: border-box; /* Include padding in element's total width/height */
-        }
-        input[type="submit"] {
-            padding: 10px 20px;
-            background-color: #28a745; /* Green for the submit button */
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-            margin-top: 15px;
-        }
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-        label {
-            display: block; /* Make label take full width */
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-        textarea {
-            width: calc(100% - 20px); /* Adjust width to fit container with padding */
-            max-width: 350px; /* Max width to prevent it from getting too wide */
-            padding: 8px;
-            box-sizing: border-box;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: vertical; /* Allow vertical resizing */
-            font-size: 0.95rem;
-        }
-        textarea:disabled {
-
-               background-color: #e9ecef; /* Lighter background for disabled textarea */
-            cursor: not-allowed;
-        }
-    </style>
+    
 </head>
-<body style="background-color: lightblue;">   <div style="display: flex; justify-content:  flex-end;">
-    <div style="display: flex;gap: 12px;padding-right:10px;align-items:center; padding-top: 12px; border: none ; border-radius: 5px;">
-        <a href="review.html" style="background-color: orange ;border-radius: 82px; text-decoration: none;">Review HEW Reports</a>
-        <a href="monitor2.html"style="background-color: orange ;border-radius: 32px; text-decoration: none;">Monitor HEW Activity </a>
-        <a href="forward2.html"style="background-color: orange ;border-radius: 32px; text-decoration: none;">Forward Reports</a>
-        <a href="validate2.html"style="background-color: orange ;border-radius: 32px; text-decoration: none;">Validate Collected Data</a>
-</div>
-</div>
-<img src="images.jpg" style="width: 87%; margin: auto;">
-<h1 style="margin: auto;text-align: center;"> The Linkage focal person  to review HEW-submitted data and validate its accuracy and completeness<br>
-     before approving or sending it to the next stage.</h1><br><br>
+<body>
+    <h1 style="text-align: center;margin: auto;">Validate Collected Data </h1>
+ <link rel="stylesheet" href="HEW Coordinator.css">
+   <div style="border: 1px;">
+     <aside class="sidebar-form">
+         <form class="tes" style="border: 1px;">
+            <nav class="sidebar-nav">
+                <h3 class="sidebar-title">Reports & Activities</h3>
+                  <ul>
+                    <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
+                    <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
+                    <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
+                    <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li><br><br>
+                    <li><a href="project.html" class="nav-button blue-button">Logout</a></li>
+                </ul>
+            </nav> 
+        
+        </aside>
+    </form>
+<img src="images.jpg" style="width: 99%; margin: auto;">
+<h3 style="margin: auto;text-align: center;"> The Linkage focal person  to review HEW-submitted <br>
+    data and validate its accuracy and completeness<br>
+     before approving or sending it to the next stage.</h3><br><br>
 
-    <h3 style="margin: auto;text-align: center;"> Here below you get forwarded data, you can validate it </h3>
+    <h4 style="margin: auto;text-align: center;"> Here below you get forwarded data, you can validate it </h4>
 
     <form id="validationForm" style="background-color: azure;text-align: center;margin: auto;width: 30%;" action="#" method="post">
 
@@ -151,17 +89,8 @@
                     validationDetailsTextarea.name = selectedOptionValue + '_details'; // Update name for submission
                 }
             }
-
-            // Add an event listener to the select dropdown
             dataSelect.addEventListener('change', updateTextareaState);
 
-            // You might want to call it once on page load to ensure the initial state is correctly set,
-            // especially if the dropdown could start with a pre-selected value or you want the placeholder
-            // to always reflect the current state.
-            // updateTextareaState();
-            // In this specific case, the HTML initially sets the disabled state and placeholder,
-            // so calling it on load might not be strictly necessary unless you want to immediately
-            // clear the textarea if a default placeholder is selected.
         });
 </script>
 ```
