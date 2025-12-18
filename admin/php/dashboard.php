@@ -1,5 +1,5 @@
 <?php
-include 'dataBaseConnection.php';
+include("../../dataBaseConnection.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,8 +8,8 @@ include 'dataBaseConnection.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/table-responsive.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/table-responsive.css">
     <title>Admin | D-HEIRS</title>
 </head>
 
@@ -18,7 +18,7 @@ include 'dataBaseConnection.php';
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand-icon">
-                <img src="images/logo.png" alt="">
+                <img src="../../images/logo.png" alt="">
             </div>
             <div class="brand-text">
                 D-HEIRS
@@ -26,7 +26,7 @@ include 'dataBaseConnection.php';
             </div>
         </div>
         <nav class="sidebar-nav">
-            <a href="admin.php" class="nav-item active">
+            <a href="dashboard.php" class="nav-item active">
                 <i class="fa-solid fa-grid-2"></i>
                 <span>Dashboard</span>
             </a>
@@ -48,7 +48,7 @@ include 'dataBaseConnection.php';
             </a>
         </nav>
         <div class="sidebar-footer">
-            <a href="index.html" class="nav-item logout">
+            <a href="../../index.html" class="nav-item logout">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <span>Logout</span>
             </a>
@@ -68,7 +68,7 @@ include 'dataBaseConnection.php';
                     <span class="badge-dot"></span>
                 </button>
                 <div class="user-profile">
-                    <img src="images/avatar.png" alt="Admin" class="avatar-sm">
+                    <img src="../../images/avatar.png" alt="Admin" class="avatar-sm">
                     <div class="user-info">
                         <span class="name">Dr. Admin</span>
                         <span class="role">System Administrator</span>
@@ -256,8 +256,8 @@ include 'dataBaseConnection.php';
             </div>
         </div>
     </main>
-    <script src="js/admin/dashboard.js"></script>
-    <script src="js/admin/script.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 
 </html>

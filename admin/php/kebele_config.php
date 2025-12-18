@@ -1,5 +1,5 @@
 <?php
-include 'dataBaseConnection.php';
+include("../../dataBaseConnection.php");
 ?>
 
 <!DOCTYPE html>
@@ -10,8 +10,8 @@ include 'dataBaseConnection.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/kebele_configuration.css">
-    <link rel="stylesheet" href="css/admin.css">
+    <!-- Note: kebele_configuration.css was not found in move list, assuming usage of admin.css or global style -->
+    <link rel="stylesheet" href="../css/admin.css">
     <title>kebele Configuration | D-HEIRS</title>
 </head>
 
@@ -20,7 +20,7 @@ include 'dataBaseConnection.php';
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand-icon">
-                <img src="images/logo.png" alt="">
+                <img src="../../images/logo.png" alt="">
             </div>
             <div class="brand-text">
                 D-HEIRS
@@ -29,7 +29,7 @@ include 'dataBaseConnection.php';
         </div>
 
         <nav class="sidebar-nav">
-            <a href="admin.php" class="nav-item">
+            <a href="dashboard.php" class="nav-item">
                 <i class="fa-solid fa-grid-2"></i>
                 <span>Dashboard</span>
             </a>
@@ -52,7 +52,7 @@ include 'dataBaseConnection.php';
         </nav>
 
         <div class="sidebar-footer">
-            <a href="index.html" class="nav-item logout">
+            <a href="../../index.html" class="nav-item logout">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <span>Logout</span>
             </a>
@@ -73,7 +73,7 @@ include 'dataBaseConnection.php';
                     <span class="badge-dot"></span>
                 </a>
                 <a href="admin_profile.html" class="user-profile" style="cursor: pointer; text-decoration: none;">
-                    <img src="images/avatar.png" alt="Admin" class="avatar-sm">
+                    <img src="../../images/avatar.png" alt="Admin" class="avatar-sm">
                     <div class="user-info">
                         <span class="name">Dr. Admin</span>
                         <span class="role">System Administrator</span>
@@ -182,7 +182,7 @@ include 'dataBaseConnection.php';
 
 
 <?php
-include 'dataBaseConnection.php';
+include("../../dataBaseConnection.php");
 
 if (isset($_POST['kebeleReg'])) {
     $kebeleName = $_POST['kebeleName'];

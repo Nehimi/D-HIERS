@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'dataBaseConnection.php';
-include 'includes/log_helper.php';
+include("../../dataBaseConnection.php");
+include '../includes/log_helper.php';
 
 // =========================
 // CREATE MODE - HANDLE USER CREATION
@@ -192,7 +192,7 @@ if (isset($_GET['edit'])) {
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Create Account | D-HEIRS</title>
-  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="../css/admin.css">
 </head>
 
 <body class="dashboard-body">
@@ -208,8 +208,12 @@ if (isset($_GET['edit'])) {
       </div>
     </div>
     <nav class="sidebar-nav">
-      <a href="create_account.php" class="nav-item active">
+      <a href="dashboard.php" class="nav-item">
         <i class="fa-solid fa-grid-2"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="create_account.php" class="nav-item active">
+        <i class="fa-solid fa-user-plus"></i>
         <span>Create Account</span>
       </a>
       <a href="user_management.php" class="nav-item">
@@ -224,13 +228,13 @@ if (isset($_GET['edit'])) {
         <i class="fa-solid fa-file-shield"></i>
         <span>Audit Logs</span>
       </a>
-      <a href="system_report.html" class="nav-item">
+      <a href="system_reports.php" class="nav-item">
         <i class="fa-solid fa-chart-pie"></i>
         <span>System Reports</span>
       </a>
     </nav>
     <div class="sidebar-footer">
-      <a href="index.html" class="nav-item logout">
+      <a href="../../index.html" class="nav-item logout">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
         <span>Logout</span>
       </a>
@@ -265,7 +269,7 @@ if (isset($_GET['edit'])) {
           <h1>Create New Account</h1>
           <p class="page-subtitle">Register a new user in the D-HEIRS system</p>
         </div>
-        <a href="admin.php" class="btn btn-outline">
+        <a href="dashboard.php" class="btn btn-outline">
           <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
         </a>
       </div>
@@ -451,7 +455,7 @@ if (isset($_GET['edit'])) {
           <!-- Form Actions -->
           <div class="form-actions">
             <!-- Logout Modal Trigger Logic is handled in Sidebar, but here we just have a Cancel button -->
-            <button type="button" class="btn btn-outline" onclick="window.location.href='admin.php'">
+            <button type="button" class="btn btn-outline" onclick="window.location.href='dashboard.php'">
               Cancel
             </button>
             <?php if (isset($_GET['edit'])): ?>
@@ -468,7 +472,7 @@ if (isset($_GET['edit'])) {
       </div>
     </div>
   </main>
-  <script src="js/admin/script.js"></script>
+  <script src="../js/script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
         const accountForm = document.getElementById('createAccountForm');

@@ -1,7 +1,7 @@
 <?php
 session_start();
-include "dataBaseConnection.php";
-include "includes/pagination_helper.php";
+include("../../dataBaseConnection.php");
+include "../includes/pagination_helper.php";
 
 // =======================
 // FILTER LOGIC
@@ -72,9 +72,9 @@ $logsResult = mysqli_query($dataBaseConnection, $logsSql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Icons -->
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/audit_logs.css">
-    <link rel="stylesheet" href="css/table-responsive.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/audit_logs.css">
+    <link rel="stylesheet" href="../../css/table-responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <title>Audit Logs | D-HEIRS</title>
 </head>
@@ -93,7 +93,7 @@ $logsResult = mysqli_query($dataBaseConnection, $logsSql);
         </div>
 
         <nav class="sidebar-nav">
-            <a href="admin.php" class="nav-item">
+            <a href="dashboard.php" class="nav-item">
                 <i class="fa-solid fa-grid-2"></i>
                 <span>Dashboard</span>
             </a>
@@ -116,7 +116,7 @@ $logsResult = mysqli_query($dataBaseConnection, $logsSql);
         </nav>
 
         <div class="sidebar-footer">
-            <a href="index.html" class="nav-item logout">
+            <a href="../../index.html" class="nav-item logout">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <span>Logout</span>
             </a>
@@ -139,7 +139,7 @@ $logsResult = mysqli_query($dataBaseConnection, $logsSql);
                     <span class="badge-dot"></span>
                 </a>
                 <a href="admin_profile.html" class="user-profile" style="cursor: pointer; text-decoration: none;">
-                    <img src="images/avatar.png" alt="Admin" class="avatar-sm">
+                    <img src="../../images/avatar.png" alt="Admin" class="avatar-sm">
                     <div class="user-info">
                         <span class="name">Dr. Admin</span>
                         <span class="role">System Administrator</span>

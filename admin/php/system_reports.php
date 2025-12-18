@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "dataBaseConnection.php";
+include("../../dataBaseConnection.php");
 
 // Ensure Generated Reports Table Exists (Auto-setup for "match project" requirement)
 $setupSql = "CREATE TABLE IF NOT EXISTS generated_reports (
@@ -98,9 +98,9 @@ if (isset($_GET['download_id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/admin.css">
-    <link rel="stylesheet" href="css/system_reports.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/system_reports.css">
 </head>
 
 <body class="dashboard-body">
@@ -109,7 +109,7 @@ if (isset($_GET['download_id'])) {
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand-icon">
-                <img src="images/logo.png" alt="">
+                <img src="../../images/logo.png" alt="">
             </div>
             <div class="brand-text">
                 D-HEIRS
@@ -118,7 +118,7 @@ if (isset($_GET['download_id'])) {
         </div>
 
         <nav class="sidebar-nav">
-            <a href="admin.html" class="nav-item">
+            <a href="dashboard.php" class="nav-item">
                 <i class="fa-solid fa-grid-2"></i>
                 <span>Dashboard</span>
             </a>
@@ -141,7 +141,7 @@ if (isset($_GET['download_id'])) {
         </nav>
         
         <div class="sidebar-footer">
-            <a href="index.html" class="nav-item logout">
+            <a href="../../index.html" class="nav-item logout">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <span>Logout</span>
             </a>
@@ -163,7 +163,7 @@ if (isset($_GET['download_id'])) {
                     <span class="badge-dot"></span>
                 </a>
                 <a href="admin_profile.html" class="user-profile" style="cursor: pointer; text-decoration: none;">
-                    <img src="images/avatar.png" alt="Admin" class="avatar-sm">
+                    <img src="../../images/avatar.png" alt="Admin" class="avatar-sm">
                     <div class="user-info">
                         <span class="name">Dr. Admin</span>
                         <span class="role">System Administrator</span>
@@ -299,7 +299,7 @@ if (isset($_GET['download_id'])) {
         </div>
     </main>
 
-    <script src="js/admin/script.js"></script>
+    <script src="../js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('generateReportForm');

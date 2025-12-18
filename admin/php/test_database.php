@@ -4,7 +4,7 @@
  * Run this to check if the database and table exist
  */
 
-include 'dataBaseConnection.php';
+include("../../dataBaseConnection.php");
 
 echo "<h2>Database Connection Test</h2>";
 
