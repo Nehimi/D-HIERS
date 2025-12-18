@@ -124,5 +124,5 @@ fetch('../api/dashboard_stats.php')
 ---
 
 ## 📝 Credits
-**Developer**: [Your Name/Team Name]
+**Developers**: [WCU 3 year students ]
 **Purpose**: Transforming Ethiopian Health Extension Program with digital tools.
