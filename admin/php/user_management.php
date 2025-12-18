@@ -1,8 +1,8 @@
 <?php
 session_start();
-include "dataBaseConnection.php";
-include "includes/pagination_helper.php"; 
-include "includes/log_helper.php"; 
+include("../../dataBaseConnection.php");
+include "../includes/pagination_helper.php"; 
+include "../includes/log_helper.php"; 
 
 // Get page number from URL
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
@@ -46,9 +46,9 @@ $kebeleOffset = $kebelePaginationData['offset'];
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Managment | D-HEIRS</title>
-  <link rel="stylesheet" href="css/admin.css">
-  <link rel="stylesheet" href="css/table-responsive.css">
-  <link rel="stylesheet" href="css/status_management.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../../css/table-responsive.css">
+  <link rel="stylesheet" href="../../css/status_management.css">
   <!-- ICONS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -58,7 +58,7 @@ $kebeleOffset = $kebelePaginationData['offset'];
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="brand-icon">
-        <img src="images/logo.png" alt="">
+        <img src="../../images/logo.png" alt="">
       </div>
       <div class="brand-text">
         D-HEIRS
@@ -66,7 +66,7 @@ $kebeleOffset = $kebelePaginationData['offset'];
       </div>
     </div>
     <nav class="sidebar-nav">
-      <a href="admin.php" class="nav-item ">
+      <a href="dashboard.php" class="nav-item ">
         <i class="fa-solid fa-grid-2"></i>
         <span>Dashboard</span>
       </a>
@@ -88,7 +88,7 @@ $kebeleOffset = $kebelePaginationData['offset'];
       </a>
     </nav>
     <div class="sidebar-footer">
-      <a href="index.html" class="nav-item logout">
+      <a href="../../index.html" class="nav-item logout">
         <i class="fa-solid fa-arrow-right-from-bracket"></i>
         <span>Logout</span>
       </a>
@@ -353,9 +353,9 @@ $kebeleOffset = $kebelePaginationData['offset'];
       </div>
     </div>
   </main>
-  <script src="js/admin/status_management.js"></script>
-  <script src="js/admin/user_management.js"></script>
-  <script src="js/admin/script.js"></script>
+  <script src="../js/status_management.js"></script>
+  <script src="../js/user_management.js"></script>
+  <script src="../js/script.js"></script>
 </body>
 
 </html>

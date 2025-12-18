@@ -105,7 +105,7 @@ try {
         $redirectUrl = "dashboard_supervisor.php";
         break;
       case "admin":
-        $redirectUrl = "admin.php";
+        $redirectUrl = "admin/php/dashboard.php";
         break;
       default:
         $redirectUrl = "index.html"; // Fallback
