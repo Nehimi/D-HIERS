@@ -1,0 +1,309 @@
+/* --- Edit Submitted Data Page Styles --- */
+
+/* --- Layout overrides/adjustments for main content --- */
+.main-content {
+  background: #f8fafc;
+  /* Ensure background matches */
+}
+
+/* --- Page Title Area --- */
+.page-title-area {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  margin-top: 1rem;
+}
+
+.page-title-area h1 {
+  font-size: 2rem;
+  color: var(--text-main, #0f172a);
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.page-title-area p {
+  color: var(--text-muted, #64748b);
+  font-size: 1rem;
+}
+
+
+/* --- Form Container --- */
+.form-section {
+  padding: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  min-height: calc(100vh - 100px);
+}
+
+.form-container {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  padding: 2.5rem;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  /* Center horizontally */
+  transition: all 0.3s ease;
+  border: 1px solid #f1f5f9;
+}
+
+.form-container:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+}
+
+.form-container.hidden {
+  display: none;
+}
+
+/* --- Search Container Specifics --- */
+.search-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  border: none;
+  max-width: 600px;
+}
+
+.search-container:hover {
+  box-shadow: none;
+}
+
+
+/* --- Input Fields & Icons (Fixing Overlap) --- */
+.input-with-icon {
+  position: relative;
+  flex: 1;
+}
+
+.input-with-icon i {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  font-size: 1.1rem;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  /* Left padding space for icon */
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+  color: #334155;
+  height: auto;
+  /* Fix potential height issues */
+}
+
+.input-with-icon input:focus {
+  outline: none;
+  border-color: var(--primary, #0f766e);
+  box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1);
+}
+
+.input-with-icon input:focus+i {
+  color: var(--primary, #0f766e);
+}
+
+/* --- Regular Inputs --- */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+input[type="text"]:not(.header-search input):not(#householdId),
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  transition: all 0.2s;
+  color: #1e293b;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary, #0f766e);
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+}
+
+/* Select Wrapper for custom arrow */
+.select-wrapper {
+  position: relative;
+}
+
+.select-wrapper select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.select-wrapper .arrow-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+  font-size: 0.8rem;
+}
+
+/* --- Empty State --- */
+.empty-state-icon {
+  text-align: center;
+  color: #cbd5e1;
+  margin-top: 2rem;
+  /* display: none; */
+  /* Managed by JS or CSS sibling selector */
+}
+
+/* Only show empty state if .form-container.hidden is present (implied by sibling selector logic in CSS?) 
+   Actually, the simplest way is to let nature take its course or control visibility.
+   Let's just position it nicely. Only show if edit form is hidden. */
+#editDataForm.hidden~.empty-state-icon {
+  display: block;
+}
+
+#editDataForm:not(.hidden)~.empty-state-icon {
+  /* This selector wont work because it comes AFTER the form in HTML I wrote? No, I put it BEFORE in HTML. Wait, in HTML I put it BETWEEN. */
+  display: none;
+}
+
+/* Correction: In HTML, I put search -> empty -> form. 
+   So if form is NOT hidden, we want to hide empty state.
+   CSS has no previous sibling selector.
+   I should move empty state AFTER form in HTML or use JS to toggle. 
+   Let's use JS logic or just style it. 
+   Actually, I'll rely on the fact that when form appears, it covers space. 
+   To be safe, I'll add a class in CSS and let the user manage it or just leave it visible as a hint until content loads. 
+   Wait, JS toggles .hidden on form. I should toggle empty state too. 
+   I will update JS or just use a CSS trick: 
+   Put empty state AFTER form. */
+
+
+.empty-state-icon i {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state-icon p {
+  font-size: 1.1rem;
+  color: #94a3b8;
+}
+
+
+/* --- Form Header --- */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.form-header h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 1.25rem;
+}
+
+.badge-id {
+  background: #f0fdfa;
+  color: #0d9488;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 1px solid #ccfbf1;
+}
+
+/* --- Buttons --- */
+.btn-primary {
+  background-color: var(--primary, #0f766e);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(15, 118, 110, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark, #115e59);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px -1px rgba(15, 118, 110, 0.3);
+}
+
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: #475569;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+  color: #1e293b;
+}
+
+/* --- Button Group --- */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* --- Fix Header Search Overlap --- */
+/* The header search styles in hew.css might be causing overlap if padded incorrectly.
+   I'll reinforce the padding here just in case. */
+.header-search input {
+  padding-left: 3.5rem !important;
+  /* Ensure space for icon */
+}

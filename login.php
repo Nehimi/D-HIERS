@@ -1,9 +1,16 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 include("dataBaseConnection.php");
+
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid Request!']);
+    exit();
+}
 
 $userId = $_POST['userId'];
 $password = $_POST['password'];
+
 
 if (strpos($userId, "HEW") === 0) {
   $detected_role = "hew";
@@ -18,64 +25,68 @@ if (strpos($userId, "HEW") === 0) {
 } elseif (strpos($userId, "ADMIN") === 0) {
   $detected_role = "admin";
 } else {
-  die("Invalid ID format!");
+    echo json_encode(['status' => 'error', 'message' => 'Invalid ID ID format!']);
+    exit();
 }
-
 
 $stmt = $dataBaseConnection->prepare("SELECT * FROM users WHERE userId = ?");
 $stmt->bind_param("s", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// If user exists
-if ($result->num_rows == 1) {
-
-  $row = $result->fetch_assoc();
-
-  if ($row['role'] !== $detected_role) {
-    die("Role mismatch! Please check your User ID.");
-  }
-
-  if (password_verify($password, $row['password'])) {
-
-    $_SESSION['userId'] = $row['userId'];
-    $_SESSION['role'] = $row['role'];
-    $_SESSION['fullname'] = $row['fullname'];
-
-    switch ($row['role']) {
-
-      case "hew":
-        header("Location: HEW\HEW html\hew_dashboard.html");
-        break;
-
-      case "coordinator":
-        header("Location: HEW-COORDNATOR\Review_HEW_Report.html");
-        break;
-
-      case "hmis":
-        header("Location: dashboard_hmis.php");
-        break;
-
-      case "linkage":
-        header("Location: dashboard_linkage.php");
-        break;
-
-      case "supervisor":
-        header("Location: dashboard_supervisor.php");
-        break;
-
-      case "admin":
-        header("Location: admin.html");
-        break;
-    }
-
+if ($result->num_rows !== 1) {
+    echo json_encode(['status' => 'error', 'message' => 'User not found!']);
     exit();
-
-  } else {
-    echo "Incorrect Password!";
-  }
-
-} else {
-  echo "User not found!";
 }
+
+$row = $result->fetch_assoc();
+
+/* Check Role */
+if ($row['role'] !== $detected_role) {
+    echo json_encode(['status' => 'error', 'message' => 'Role mismatch! Please check your User ID.']);
+    exit();
+}
+
+/* Verify Password */
+if (!password_verify($password, $row['password'])) {
+    echo json_encode(['status' => 'error', 'message' => 'Incorrect Password!']);
+    exit();
+}
+
+/* Store Session */
+$_SESSION['userId'] = $row['userId'];
+$_SESSION['role'] = $row['role'];
+
+/* Redirect According to Role */
+$redirectUrl = "";
+switch ($row['role']) {
+
+  case "hew":
+    $redirectUrl = "HEW/HEW_html/hew_dashboard.php";
+    break;
+
+  case "coordinator":
+    $redirectUrl = "HEW-COORDNATOR/Review_HEW_Report.php";
+    break;
+
+  case "hmis":
+    $redirectUrl = "dashboard_hmis.php";
+    break;
+
+  case "linkage":
+    $redirectUrl = "dashboard_linkage.php";
+    break;
+
+  case "supervisor":
+    $redirectUrl = "dashboard_supervisor.php";
+    break;
+
+  case "admin":
+    $redirectUrl = "admin.html";
+    break;
+}
+
+echo json_encode(['status' => 'success', 'redirect' => $redirectUrl]);
+exit();
+
 ?>

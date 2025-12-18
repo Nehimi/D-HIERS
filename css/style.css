@@ -784,7 +784,7 @@ img {
     background: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 100%);
     position: relative;
     overflow: hidden;
-   
+
 }
 
 /* Animated background elements */
@@ -799,7 +799,7 @@ img {
     border-radius: 50%;
     filter: blur(60px);
     animation: float 8s ease-in-out infinite;
-    
+
 }
 
 .login-page::after {
@@ -837,7 +837,7 @@ img {
     max-width: 450px;
     border: 1px solid rgba(255, 255, 255, 0.5);
     position: fixed;
- 
+
     animation: slideUp 0.3s ease-out;
 }
 
@@ -1007,12 +1007,297 @@ img {
     font-size: 0.9rem;
 }
 
-/* Responsive Design */
+/* Modal / Popup Styles */
+.popup {
+    display: none;
+    /* Toggled by JS */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Ensure card is relative for centering */
+.popup .login-card {
+    position: relative;
+    margin: 0;
+    /* Reset margins if any */
+    animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #f1f5f9;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.close:hover {
+    color: var(--accent);
+    background: #fee2e2;
+    transform: rotate(90deg);
+}
+
+/* --- Animation Utilities --- */
+.opacity-0 {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Navbar Scrolled State */
+#navbar.scrolled {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 0.75rem 0;
+}
+
+/* --- Responsive Design --- */
+
+/* Tablet & Smaller Desktop */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 1.5rem;
+    }
+
+    .hero-text h1 {
+        font-size: 3rem;
+    }
+
+    .hero-desc {
+        font-size: 1.1rem;
+    }
+}
+
+/* Mobile & Tablet Portrait */
 @media (max-width: 768px) {
+
+    /* Navigation */
+    .mobile-toggle {
+        display: block;
+        z-index: 1002;
+        font-size: 1.75rem;
+        background: white;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .mobile-toggle:active {
+        transform: scale(0.95);
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 85%;
+        max-width: 320px;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.98);
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(12px);
+        padding-top: 6rem;
+        z-index: 999;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-link {
+        font-size: 1.25rem;
+        width: 100%;
+        text-align: center;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-link:first-child {
+        border-top: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-link.active::after {
+        bottom: 1rem;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        padding-top: 7rem;
+        min-height: auto;
+        padding-bottom: 4rem;
+        text-align: center;
+    }
+
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .hero-text {
+        order: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-visual {
+        order: 2;
+        margin-top: 1rem;
+        width: 100%;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .image-card img {
+        border-width: 4px;
+    }
+
+    .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 1.1rem;
+    }
+
+    .hero-cta {
+        justify-content: center;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .hero-stats {
+        justify-content: center;
+        border-top: none;
+        padding-top: 0;
+        margin-top: 2.5rem;
+        background: white;
+        padding: 1.5rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-md);
+        display: inline-flex;
+        width: 100%;
+        justify-content: space-around;
+        max-width: 500px;
+    }
+
+    .divider {
+        height: 30px;
+    }
+
+    /* Bento Grid */
+    .bento-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .bento-box {
+        padding: 1.5rem;
+    }
+
+    /* Timeline */
+    .timeline {
+        margin-top: 3rem;
+    }
+
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-item {
+        padding-left: 60px;
+        margin-bottom: 2.5rem;
+    }
+
+    .timeline-marker {
+        font-size: 1.5rem;
+        top: 0;
+        left: 0;
+        width: 40px;
+        text-align: center;
+        background: var(--bg-body);
+        z-index: 1;
+    }
+
+    .t-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
+
+    .timeline-content {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    /* Actors Grid */
+    .actors-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    /* Login Page Responsive (Merged & Improved) */
     .login-card {
         padding: 2rem;
         margin: 1rem;
         max-width: 100%;
+        width: 90%;
     }
 
     .login-title {
@@ -1030,25 +1315,88 @@ img {
     }
 }
 
+/* Small Mobile */
 @media (max-width: 480px) {
+    .container {
+        padding: 0 1rem;
+    }
+
+    .btn-lg {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Nav Actions Tweaks */
+    .nav-actions .btn {
+        padding: 0.5rem 1rem;
+    }
+
+    .nav-actions .btn span {
+        display: none;
+        /* Hide 'Login Portal' text */
+    }
+
+    .brand-text {
+        font-size: 1.1rem;
+    }
+
+    .brand-text span {
+        display: none;
+        /* Simplify branding */
+    }
+
+    .brand-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .hero-text h1 {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+
+    .hero-stats {
+        flex-direction: row;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .stat-num {
+        font-size: 1.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    .divider {
+        height: 25px;
+    }
+
+    .timeline-content {
+        padding: 1rem;
+    }
+
+    /* Login specific small mobile */
     .login-card {
         padding: 1.5rem;
-        border-radius: 1.5rem;
+        border-radius: 1.25rem;
     }
 
     .login-logo {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
+        width: 60px;
+        height: 60px;
+        padding: 6px;
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
     }
 
     .form-input {
-        padding: 0.75rem 0.875rem 0.75rem 2.75rem;
-        font-size: 0.875rem;
+        padding: 0.75rem 0.875rem 0.75rem 2.5rem;
+        font-size: 0.9rem;
     }
 
     .input-icon {
-        left: 0.875rem;
-        font-size: 0.875rem;
+        left: 0.8rem;
     }
 }

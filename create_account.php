@@ -1,10 +1,183 @@
 <?php
+session_start();
 include 'dataBaseConnection.php';
-$user = null;
+include 'includes/log_helper.php';
 
+// =========================
+// CREATE MODE - HANDLE USER CREATION
+// =========================
+if (isset($_POST['create_user'])) {
+  $firstName = $_POST['first_name'] ?? '';
+  $lastName = $_POST['last_name'] ?? '';
+  $email = $_POST['email'] ?? '';
+  $phone = $_POST['phone_no'] ?? '';
+  $userId = $_POST['userId'] ?? '';
+  $role = $_POST['role'] ?? '';
+  $kebele = $_POST['kebele'] ?? '';
+  $status = $_POST['status'] ?? 'pending';
+  $password = $_POST['password'] ?? '';
+  $confirm = $_POST['confirmPassword'] ?? '';
+
+  // Validate required fields
+  if (empty($firstName) || empty($lastName) || empty($phone) || empty($userId)) {
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Please fill all required fields.']);
+        exit;
+    }
+    echo "<script>alert('Please fill all required fields.'); window.history.back();</script>";
+    exit;
+  }
+
+  // Password validation
+  if (empty($password) || empty($confirm)) {
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Please enter both password and confirm password.']);
+        exit;
+    }
+    echo "<script>alert('Please enter both password and confirm password.'); window.history.back();</script>";
+    exit;
+  }
+
+  if ($password !== $confirm) {
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Passwords do not match.']);
+        exit;
+    }
+    echo "<script>alert('Passwords do not match.'); window.history.back();</script>";
+    exit;
+  }
+
+  // Hash password
+  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+  // INSERT QUERY - Clean and simple
+  $sql = "INSERT INTO users (first_name, last_name, email, phone_no, userId, role, kebele, status, password)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+  $stmt = $dataBaseConnection->prepare($sql);
+
+  if (!$stmt) {
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $dataBaseConnection->error]);
+        exit;
+    }
+    echo "<script>alert('Database error: " . addslashes($dataBaseConnection->error) . "'); window.history.back();</script>";
+    exit;
+  }
+
+  $stmt->bind_param("sssssssss", $firstName, $lastName, $email, $phone, $userId, $role, $kebele, $status, $hashedPassword);
+
+  if ($stmt->execute()) {
+    $insertId = $stmt->insert_id;
+    logAction($dataBaseConnection, "Create User", "Created new user: $firstName $lastName ($userId)");
+    
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'success', 'message' => "User created successfully! ID: $insertId", 'redirect' => 'user_management.php']);
+        exit;
+    }
+    echo "<script>alert('✅ User created successfully! ID: $insertId'); window.location='user_management.php';</script>";
+    exit;
+  } else {
+    $error = $stmt->error;
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'error', 'message' => "Error: $error"]);
+        exit;
+    }
+    echo "<script>alert('❌ Error: " . addslashes($error) . "'); window.history.back();</script>";
+    exit;
+  }
+}
+
+// =========================
+// UPDATE MODE - HANDLE USER UPDATE
+// =========================
+if (isset($_POST['update_data'])) {
+  $id = $_POST['id'];
+  $firstName = $_POST['first_name'];
+  $lastName = $_POST['last_name'];
+  $email = $_POST['email'];
+  $phone = $_POST['phone_no'];
+  $userId = $_POST['userId'];
+  $role = $_POST['role'];
+  $kebele = $_POST['kebele'];
+  $status = $_POST['status'];
+
+  // Fetch current user password
+  $check = mysqli_query($dataBaseConnection, "SELECT * FROM users WHERE id = '$id'");
+  $data = mysqli_fetch_assoc($check);
+
+  // If new password is provided:
+  if (!empty($_POST['new_password'])) {
+    if (!password_verify($_POST['old_password'], $data['password'])) {
+      if (isset($_POST['ajax_request'])) {
+          echo json_encode(['status' => 'error', 'message' => 'Old password is incorrect!']);
+          exit;
+      }
+      echo "<script>alert('Old password is incorrect!'); window.history.back();</script>";
+      exit;
+    }
+
+    $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+
+    // Update including password
+    $update = "
+      UPDATE users SET 
+        first_name='$firstName',
+        last_name='$lastName',
+        email='$email',
+        phone_no='$phone',
+        userId='$userId',
+        role='$role',
+        kebele='$kebele',
+        status='$status',
+        password='$new_password'
+      WHERE id='$id'
+    ";
+
+    mysqli_query($dataBaseConnection, $update);
+    logAction($dataBaseConnection, "Update User", "Updated user (with password): $userId");
+    
+    if (isset($_POST['ajax_request'])) {
+        echo json_encode(['status' => 'success', 'message' => 'User updated successfully!', 'redirect' => 'user_management.php']);
+        exit;
+    }
+
+    echo "<script>alert('User updated successfully!'); window.location='user_management.php';</script>";
+    exit;
+  }
+
+  // Update without password
+  $update = "
+    UPDATE users SET 
+      first_name='$firstName',
+      last_name='$lastName',
+      email='$email',
+      phone_no='$phone',
+      userId='$userId',
+      role='$role',
+      kebele='$kebele',
+      status='$status'
+    WHERE id='$id'
+  ";
+
+  mysqli_query($dataBaseConnection, $update);
+  logAction($dataBaseConnection, "Update User", "Updated user details: $userId");
+  
+  if (isset($_POST['ajax_request'])) {
+       echo json_encode(['status' => 'success', 'message' => 'User updated successfully!', 'redirect' => 'user_management.php']);
+       exit;
+  }
+
+  echo "<script>alert('User updated successfully!'); window.location='user_management.php';</script>";
+  exit;
+}
+
+// =========================
+// LOAD USER DATA FOR EDIT MODE
+// =========================
+$user = null;
 if (isset($_GET['edit'])) {
   $id = $_GET['edit'];
-
   $result = mysqli_query($dataBaseConnection, "SELECT * FROM users WHERE id='$id'");
   $user = mysqli_fetch_assoc($result);
 }
@@ -43,11 +216,11 @@ if (isset($_GET['edit'])) {
         <i class="fa-solid fa-users-gear"></i>
         <span>User Management</span>
       </a>
-      <a href="kebele_config.html" class="nav-item">
+      <a href="kebele_config.php" class="nav-item">
         <i class="fa-solid fa-map-location-dot"></i>
         <span>Kebele Config</span>
       </a>
-      <a href="audit_logs.html" class="nav-item">
+      <a href="audit_logs.php" class="nav-item">
         <i class="fa-solid fa-file-shield"></i>
         <span>Audit Logs</span>
       </a>
@@ -92,7 +265,7 @@ if (isset($_GET['edit'])) {
           <h1>Create New Account</h1>
           <p class="page-subtitle">Register a new user in the D-HEIRS system</p>
         </div>
-        <a href="admin.html" class="btn btn-outline">
+        <a href="admin.php" class="btn btn-outline">
           <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
         </a>
       </div>
@@ -100,6 +273,7 @@ if (isset($_GET['edit'])) {
       <!-- Form Card -->
       <div class="form-card">
         <form action="create_account.php" method="POST" id="createAccountForm" class="account-form">
+          <div id="formMessage" class="message-container"></div>
 
           <!-- Personal Information Section -->
           <div class="form-section">
@@ -122,8 +296,8 @@ if (isset($_GET['edit'])) {
             <div class="form-row">
               <div class="form-group">
                 <label for="email">Email Address</label>
-                <input name="emali" type="email" id="email" placeholder="user@lichamba.health.et"
-                  value="<?php echo isset($user['emali']) ? $user['emali'] : ''; ?>">
+                <input name="email" type="email" id="email" placeholder="user@lichamba.health.et"
+                  value="<?php echo isset($user['email']) ? $user['email'] : ''; ?>">
               </div>
               <div class="form-group">
                 <label for="phone">Phone Number <span class="required">*</span></label>
@@ -165,10 +339,17 @@ if (isset($_GET['edit'])) {
                 <select name="kebele" id="kebele" required
                   value=" <?php echo isset($user['kebele']) ? $user['kebele'] : ''; ?>">
                   <option value="">Select Kebele</option>
-                  <option value="lich-amba">Lich-Amba</option>
-                  <option value="arada">Arada</option>
-                  <option value="lereba">Lereba</option>
-                  <option value="phcu-hq">PHCU Headquarters</option>
+                  <?php
+                  // Load kebeles from database
+                  $kebeleQuery = mysqli_query($dataBaseConnection, "SELECT kebeleName, kebeleCode FROM kebele WHERE status='active' ORDER BY kebeleName ASC");
+                  while ($kebeleRow = mysqli_fetch_assoc($kebeleQuery)) {
+                    $kebeleName = htmlspecialchars($kebeleRow['kebeleName']);
+                    $kebeleCode = htmlspecialchars($kebeleRow['kebeleCode']);
+                    $kebeleValue = strtolower(str_replace(' ', '-', $kebeleName));
+                    $selected = (isset($user['kebele']) && $user['kebele'] == $kebeleValue) ? 'selected' : '';
+                    echo "<option value='$kebeleValue' $selected>$kebeleName</option>";
+                  }
+                  ?>
                 </select>
               </div>
               <div class="form-group">
@@ -245,7 +426,6 @@ if (isset($_GET['edit'])) {
               </div>
             <?php endif; ?>
 
-
             <?php if (isset($_GET['edit'])): ?>
               <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
             <?php endif; ?>
@@ -270,7 +450,8 @@ if (isset($_GET['edit'])) {
 
           <!-- Form Actions -->
           <div class="form-actions">
-            <button type="button" class="btn btn-outline" onclick="window.location.href='admin.html'">
+            <!-- Logout Modal Trigger Logic is handled in Sidebar, but here we just have a Cancel button -->
+            <button type="button" class="btn btn-outline" onclick="window.location.href='admin.php'">
               Cancel
             </button>
             <?php if (isset($_GET['edit'])): ?>
@@ -287,150 +468,60 @@ if (isset($_GET['edit'])) {
       </div>
     </div>
   </main>
-  <!-- <script src="js/admin/script.js"></script> -->
+  <script src="js/admin/script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const accountForm = document.getElementById('createAccountForm');
+        const messageContainer = document.getElementById('formMessage');
+
+        if (accountForm) {
+            accountForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                formData.append('ajax_request', '1');
+                
+                // Determine action type
+                if (this.querySelector('input[name="id"]')) {
+                    formData.append('update_data', 'true');
+                } else {
+                    formData.append('create_user', 'true');
+                }
+
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+
+                fetch('create_account.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        messageContainer.innerHTML = `<div class="success-message" style="color: #155724; background-color: #d4edda; border-color: #c3e6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">${data.message}</div>`;
+                        setTimeout(() => {
+                            window.location.href = data.redirect;
+                        }, 1000);
+                    } else {
+                        messageContainer.innerHTML = `<div class="error-message" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">${data.message}</div>`;
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                        messageContainer.scrollIntoView({ behavior: 'smooth' });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messageContainer.innerHTML = `<div class="error-message" style="color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; text-align: center;">An unexpected error occurred.</div>`;
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                    messageContainer.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        }
+    });
+  </script>
 </body>
 
 </html>
-
-<?php
-include 'dataBaseConnection.php';
-
-$user = null;
-
-// LOAD USER IF EDIT MODE
-if (isset($_GET['edit'])) {
-  $id = $_GET['edit'];
-  $result = mysqli_query($dataBaseConnection, "SELECT * FROM users WHERE id='$id'");
-  $user = mysqli_fetch_assoc($result);
-}
-
-// CREATE MODE
-
-if (isset($_POST['create_user'])) {
-
-  $firstName = $_POST['first_name'];
-  $lastName = $_POST['last_name'];
-  $email = $_POST['emali'];
-  $phone = $_POST['phone_no'];
-  $userId = $_POST['userId'];
-  $role = $_POST['role'];
-  $kebele = $_POST['kebele'];
-  $status = $_POST['status'];
-  $password = $_POST['password'];
-  $confirm = $_POST['confirmPassword'];
-
-  // password validation (CREATE MODE ONLY)
-  if (empty($password) || empty($confirm)) {
-    echo "<script>alert('Please enter both password and confirm password.'); window.history.back();</script>";
-    exit;
-  }
-
-  if ($password !== $confirm) {
-    echo "Passwords do not match!";
-    exit;
-  }
-
-  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-  // INSERT QUERY
-  $sql = "INSERT INTO users 
-          (first_name, last_name, emali, phone_no, userId, role, kebele, status, password)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-  $stmt = $dataBaseConnection->prepare($sql);
-
-  if (!$stmt) {
-    die("Prepare failed: " . $dataBaseConnection->error);
-  }
-
-  $stmt->bind_param(
-    "sssssssss",
-    $firstName,
-    $lastName,
-    $email,
-    $phone,
-    $userId,
-    $role,
-    $kebele,
-    $status,
-    $hashedPassword
-  );
-
-  if ($stmt->execute()) {
-    echo "<script>alert('User Created Successfully!'); window.location='create_account.php';</script>";
-  } else {
-    echo "Error: " . $stmt->error;
-  }
-
-}
-
-// =========================
-// UPDATE MODE
-// =========================
-else if (isset($_POST['update_data'])) {
-
-  $id = $_POST['id'];
-  $firstName = $_POST['first_name'];
-  $lastName = $_POST['last_name'];
-  $email = $_POST['emali'];
-  $phone = $_POST['phone_no'];
-  $userId = $_POST['userId'];
-  $role = $_POST['role'];
-  $kebele = $_POST['kebele'];
-  $status = $_POST['status'];
-
-  // Fetch current user password
-  $check = mysqli_query($dataBaseConnection, "SELECT * FROM users WHERE id = '$id'");
-  $data = mysqli_fetch_assoc($check);
-
-  // IF new password is provided:
-  if (!empty($_POST['new_password'])) {
-
-    if (!password_verify($_POST['old_password'], $data['password'])) {
-      echo "<script>alert('Old password is incorrect!'); window.history.back();</script>";
-      exit();
-    }
-
-    $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
-
-    // Update including password
-    $update = "
-        UPDATE users SET 
-            first_name='$firstName',
-            last_name='$lastName',
-            emali='$email',
-            phone_no='$phone',
-            userId='$userId',
-            role='$role',
-            kebele='$kebele',
-            status='$status',
-            password='$new_password'
-        WHERE id='$id'
-    ";
-
-    mysqli_query($dataBaseConnection, $update);
-
-    echo "<script>alert('✔ Password Updated Successfully'); window.location='user_management.php';</script>";
-    exit();
-  }
-
-  // UPDATE WITHOUT PASSWORD
-  $update = "
-      UPDATE users SET 
-          first_name='$firstName',
-          last_name='$lastName',
-          emali='$email',
-          phone_no='$phone',
-          userId='$userId',
-          role='$role',
-          kebele='$kebele',
-          status='$status'
-      WHERE id='$id'
-  ";
-
-  mysqli_query($dataBaseConnection, $update);
-
-  echo "<script>alert('✔ Profile Updated Successfully'); window.location='user_management.php';</script>";
-}
-
-?>
