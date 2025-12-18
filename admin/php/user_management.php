@@ -355,7 +355,7 @@ $kebeleOffset = $kebelePaginationData['offset'];
   </main>
   <script src="../js/status_management.js"></script>
   <script src="../js/user_management.js"></script>
-  <script src="../js/script.js"></script>
+  <script src="../js/script.js?v=<?php echo time(); ?>"></script>
 </body>
 
 </html>

@@ -260,7 +260,7 @@ $logsResult = mysqli_query($dataBaseConnection, $logsSql);
         </div>
     </main>
 
-    <script src="js/admin/script.js"></script>
+    <script src="../js/script.js?v=<?php echo time(); ?>"></script>
 </body>
 
 </html>

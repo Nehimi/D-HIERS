@@ -299,7 +299,7 @@ if (isset($_GET['download_id'])) {
         </div>
     </main>
 
-    <script src="../js/script.js"></script>
+    <script src="../js/script.js?v=<?php echo time(); ?>"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.getElementById('generateReportForm');
