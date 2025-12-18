@@ -1,0 +1,236 @@
+/* Variable Definitions */
+:root {
+    --color-primary: #007bff; /* Action Blue */
+    --color-success: #28a745; /* Ready Green */
+    --color-warning: #ffc107; /* Pending Yellow */
+    --color-danger: #dc3545; /* Missing Red */
+    --color-info: #17a2b8; /* Processed Cyan/Info */
+    --color-dark: #343a40;
+    --color-light: #f8f9fa; /* Light background for sections */
+    --color-white: #ffffff;
+    --color-border: #e9ecef;
+    --font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-deep: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Base Body/Layout */
+.dashboard-body {
+    background-color: #f0f2f5; /* Soft, light background */
+}
+
+.main-content {
+    padding: 20px 40px;
+}
+
+.dashboard-header h2 {
+    color: var(--color-dark);
+    font-size: 2em;
+    font-weight: 300; /* Lighter weight for modern look */
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--color-border);
+}
+
+.dashboard-header h2 .fa-chart-pie {
+    color: var(--color-primary);
+    margin-right: 10px;
+}
+
+/* Section Grid */
+.report-selection-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+/* Card Styles - Elevated and Clean */
+.selection-card, .status-summary-card {
+    background: var(--color-white);
+    padding: 30px;
+    border-radius: 12px; /* Smoother corners */
+    box-shadow: var(--shadow-deep); /* Deeper shadow for focus */
+    transition: transform 0.3s ease;
+}
+
+.selection-card:hover, .status-summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.selection-card h3, .status-summary-card h3 {
+    color: var(--color-primary);
+    font-size: 1.5em;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 3px solid var(--color-primary); /* Stronger separator */
+}
+
+.description {
+    color: #6c757d;
+    margin-bottom: 25px;
+    border-left: 4px solid var(--color-info); /* Hint border */
+    padding-left: 15px;
+    line-height: 1.5;
+}
+
+/* Form Group Styles */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600; /* Semi-bold */
+    margin-bottom: 10px;
+    color: var(--color-dark);
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.form-group label .fa-solid {
+    color: var(--color-primary);
+    margin-right: 5px;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 12px 15px; /* More padding */
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    font-size: 1em;
+    background-color: var(--color-white);
+    transition: border-color 0.2s;
+}
+
+.form-group select:hover {
+    border-color: #adb5bd;
+}
+
+.form-group select:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15); /* Soft glow */
+}
+
+.help-text {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.85em;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Action Button */
+.form-actions {
+    text-align: center;
+    padding-top: 25px;
+    border-top: 1px solid var(--color-border);
+    margin-top: 35px;
+}
+
+.btn-primary {
+    background-color: var(--color-success); /* Use Green for GO/Generate */
+    color: var(--color-white);
+    padding: 15px 35px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 6px rgba(40, 167, 69, 0.3);
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #1e7e34;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(40, 167, 69, 0.4);
+}
+
+/* Status List Styles */
+.status-summary-card h3 {
+    color: var(--color-info);
+    border-bottom: 3px solid var(--color-info);
+}
+
+.status-list {
+    list-style: none;
+    padding: 0;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 10px;
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color 0.2s;
+}
+
+.status-item:last-child {
+    border-bottom: none;
+}
+
+.status-item:hover {
+    background-color: #f0f8ff; /* Light blue hover */
+}
+
+.status-item .period {
+    font-weight: 600;
+    color: var(--color-dark);
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75em;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-light);
+}
+
+/* Status Colors and Visual Cues */
+.ready-badge { background-color: var(--color-success); color: var(--color-white); }
+.pending-badge { background-color: var(--color-warning); color: var(--color-dark); }
+.processed-badge { background-color: var(--color-info); color: var(--color-white); }
+.missing-badge { background-color: var(--color-danger); color: var(--color-white); }
+
+/* Decorative Border for Status */
+.status-item.ready { border-left: 5px solid var(--color-success); }
+.status-item.pending { border-left: 5px solid var(--color-warning); }
+.status-item.processed { border-left: 5px solid var(--color-info); }
+.status-item.missing { border-left: 5px solid var(--color-danger); }
+
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .report-selection-section {
+        grid-template-columns: 1fr;
+    }
+    .selection-card:hover, .status-summary-card:hover {
+        transform: none; /* Disable hover movement on smaller screens */
+        box-shadow: var(--shadow-deep);
+    }
+}
+/* --- Back Button --- */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+.btn-back:hover {
+    color: var(--primary-color);
+    background-color: #e9ecef;
+}
+
+.btn-back i {
+    margin-right: 8px;
+}
