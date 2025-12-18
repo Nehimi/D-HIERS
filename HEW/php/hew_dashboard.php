@@ -24,9 +24,9 @@ $recentQuery = mysqli_query($dataBaseConnection, "SELECT * FROM household ORDER 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HEW Dashboard | D-HEIRS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../../css/admin.css">
-    <link rel="stylesheet" href="../HEW_css/hew.css">
-    <link rel="stylesheet" href="../HEW_css/hew_style.css">
+    <link rel="stylesheet" href="../../admin/css/admin.css">
+    <link rel="stylesheet" href="../css/hew.css">
+    <link rel="stylesheet" href="../css/hew_style.css">
 </head>
 
 <body class="dashboard-body">
@@ -34,7 +34,7 @@ $recentQuery = mysqli_query($dataBaseConnection, "SELECT * FROM household ORDER 
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand-icon">
-                <img src="../image/logo.png" alt="">
+                <img src="../images/logo.png" alt="">
             </div>
             <div class="brand-text">
                 D-HEIRS
@@ -85,7 +85,7 @@ $recentQuery = mysqli_query($dataBaseConnection, "SELECT * FROM household ORDER 
                     <span class="badge-dot"></span>
                 </button>
                 <div class="user-profile">
-                    <img src="../image/avatar.png" alt="HEW" class="avatar-sm">
+                    <img src="../images/avatar.png" alt="HEW" class="avatar-sm">
                     <div class="user-info">
                         <span class="name">Semira Kedir</span>
                         <span class="role">Health Ext. Worker</span>

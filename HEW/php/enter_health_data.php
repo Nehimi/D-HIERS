@@ -43,9 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Main HEW CSS -->
-  <link rel="stylesheet" href="../HEW_css/hew.css">
-  <link rel="stylesheet" href="../HEW_css/hew_health.css">
-  <link rel="stylesheet" href="../HEW_css/hew_style.css">
+  <link rel="stylesheet" href="../css/hew.css">
+  <link rel="stylesheet" href="../css/hew_health.css">
+  <link rel="stylesheet" href="../css/hew_style.css">
   
   <style>
       .error-message { color: #f43f5e; font-size: 0.9em; margin-top: 5px; display: none; }
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="brand-icon">
-        <img src="../image/logo.png" alt="">
+        <img src="../images/logo.png" alt="">
       </div>
       <div class="brand-text">
         D-HEIRS
@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
         <i class="fa-solid fa-file-pen"></i>
         <span>Edit Submitted Data</span>
       </a>
-      <a href="submit_reports.html" class="nav-item">
+      <a href="submit_reports.php" class="nav-item">
         <i class="fa-solid fa-chart-pie"></i>
         <span>Submit Reports</span>
       </a>
@@ -154,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
           <button type="submit" name="save_health_data" class="btn-primary">
             <i class="fa fa-save"></i> Save Health Data
           </button>
-          <button type="button" class="btn-secondary" onclick="window.location.href='hew_dashboard.phpl'">
+          <button type="button" class="btn-secondary" onclick="window.location.href='hew_dashboard.php'">
             <i class="fa fa-arrow-left"></i> Back
           </button>
         </div>

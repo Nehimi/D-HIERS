@@ -90,7 +90,7 @@ try {
     $redirectUrl = "";
     switch (strtolower($row['role'])) {
       case "hew":
-        $redirectUrl = "HEW/HEW_html/hew_dashboard.php";
+        $redirectUrl = "HEW/php/hew_dashboard.php";
         break;
       case "coordinator":
         $redirectUrl = "HEW-COORDNATOR/Review_HEW_Report.php";

@@ -90,10 +90,10 @@ try {
     $redirectUrl = "";
     switch (strtolower($row['role'])) {
       case "hew":
-        $redirectUrl = "HEW/HEW_html/hew_dashboard.php";
+        $redirectUrl = "HEW/php/hew_dashboard.php";
         break;
       case "coordinator":
-        $redirectUrl = "HEW-COORDNATOR/Review_HEW_Report.php";
+        $redirectUrl = "HEW-COORDNATOR/Review_HEW_Report.php"; // Verify this later
         break;
       case "hmis":
         $redirectUrl = "dashboard_hmis.php";
@@ -105,7 +105,7 @@ try {
         $redirectUrl = "dashboard_supervisor.php";
         break;
       case "admin":
-        $redirectUrl = "admin.php";
+        $redirectUrl = "admin/php/dashboard.php";
         break;
       default:
         $redirectUrl = "index.html"; // Fallback
