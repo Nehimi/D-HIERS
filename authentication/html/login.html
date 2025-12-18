@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication | D-HEIRS</title>
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+
+<body>
+    <!-- Floating Particles -->
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="auth-container">
+        <div class="auth-card">
+
+            <!-- Global Message Box -->
+            <div id="globalMessage" class="message-box">
+                <i class="fa-solid fa-circle-info"></i>
+                <div class="message-content">
+                    <h4 id="msgTitle">Notice</h4>
+                    <p id="msgText">Message content</p>
+                </div>
+            </div>
+
+            <!-- Dynamic Header -->
+            <div class="card-header">
+                <div class="logo-wrapper">
+                    <i id="page-icon" class="fa-solid fa-user-shield"></i>
+                </div>
+                <h1 id="page-title">Welcome Back</h1>
+                <p id="page-subtitle">Sign in to access your dashboard</p>
+            </div>
+
+            <!-- VIEW: LOGIN -->
+            <div id="view-login" class="view-section active">
+                <form id="loginForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="userId"><i class="fa-solid fa-user"></i> User ID / Email</label>
+                        <div class="input-wrapper">
+                            <input type="text" id="userId" name="userId" placeholder="Enter ID or Email" required>
+                            <i class="fa-solid fa-user input-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"><i class="fa-solid fa-lock"></i> Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" name="password" placeholder="••••••••" required>
+                            <i class="fa-solid fa-lock input-icon"></i>
+                            <button type="button" class="password-toggle" onclick="togglePassword('password', this)">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="auth-links">
+                        <a href="#" class="auth-link" data-switch="forgot">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Sign In <i class="fa-solid fa-arrow-right-to-bracket"></i></span>
+                        <div class="spinner"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- VIEW: FORGOT PASSWORD -->
+            <div id="view-forgot" class="view-section">
+                <form id="forgotForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="forgotEmail"><i class="fa-solid fa-envelope"></i> Email Address</label>
+                        <div class="input-wrapper">
+                            <input type="email" id="forgotEmail" name="email" placeholder="Enter your registered email"
+                                required>
+                            <i class="fa-solid fa-at input-icon"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        <span class="btn-text">Send Reset Link <i class="fa-solid fa-paper-plane"></i></span>
+                        <div class="spinner"></div>
+                    </button>
+
+                    <div class="back-link">
+                        <a href="#" data-switch="login"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- VIEW: RESET PASSWORD -->
+            <div id="view-reset" class="view-section">
+                <form id="resetForm" class="auth-form">
+                    <input type="hidden" id="token" name="token">
+
+                    <div class="form-group">
+                        <label for="newPassword"><i class="fa-solid fa-lock"></i> New Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="newPassword" name="password" placeholder="New secure password"
+                                required autocomplete="new-password">
+                            <i class="fa-solid fa-lock input-icon"></i>
+                            <button type="button" class="password-toggle" onclick="togglePassword('newPassword', this)">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword"><i class="fa-solid fa-lock"></i> Confirm Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="confirmPassword" name="confirm_password"
+                                placeholder="Confirm password" required autocomplete="new-password">
+                            <i class="fa-solid fa-lock input-icon"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn big-btn">
+                        <span class="btn-text">Reset Password <i class="fa-solid fa-shield-check"></i></span>
+                        <div class="spinner"></div>
+                    </button>
+
+                    <div class="back-link">
+                        <a href="#" data-switch="login"><i class="fa-solid fa-arrow-left"></i> Back to Login</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="card-footer">
+                <div class="brand">
+                    <span>D-HEIRS</span>
+                </div>
+                <p>&copy; 2025 LICH-AMBA PHCU</p>
+                <div style="margin-top: 16px;">
+                    <a href="../../index.html"
+                        style="color: var(--text-muted); text-decoration: none; font-size: 13px; display: inline-flex; align-items: center; gap: 6px; transition: color 0.3s;">
+                        <i class="fa-solid fa-house"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Logic -->
+    <script src="../js/auth_logic.js"></script>
+</body>
+
+</html>
