@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMIS Data Submission Form</title>
+    <link rel="stylesheet" href="submit vd.css"> </head>
+<body>
+
+    <a href="dashB.html" class="back-button">
+        &larr; Go Back
+    </a>
+    
+    <header>
+        <h1>HMIS Report Submission</h1>
+        <p>Please enter all required data fields for the current reporting period.</p>
+    </header>
+
+    <main class="form-container">
+        <form action="#" method="POST" id="hmis-report-form">
+            
+            <fieldset class="report-metadata">
+                <legend>Report Details</legend>
+                <div class="form-group">
+                    <label for="facility-id">Facility ID</label>
+                    <input type="text" id="facility-id" name="facilityId" required>
+                </div>
+                <div class="form-group">
+                    <label for="reporting-month">Reporting Month</label>
+                    <input type="month" id="reporting-month" name="reportingMonth" required>
+                </div>
+                <div class="form-group">
+                    <label for="preparer-name">Prepared By</label>
+                    <input type="text" id="preparer-name" name="preparerName" required>
+                </div>
+            </fieldset>
+
+            <fieldset class="data-section">
+                <legend>Key Service Indicators</legend>
+                <div class="form-group">
+                    <label for="new-patients">New Patients Registered</label>
+                    <input type="number" id="new-patients" name="newPatients" min="0" value="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="deliveries">Facility Deliveries</label>
+                    <input type="number" id="deliveries" name="deliveries" min="0" value="0" required>
+                </div>
+            </fieldset>
+
+            <div class="submit-area">
+                <button type="submit" class="submit-button">
+                    Submit Processed Report
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Health Management Information System</p>
+    </footer>
+
+</body>
+</html>

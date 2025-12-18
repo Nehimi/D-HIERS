@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export HMIS Reports | D-HEIRS</title>
+    <link rel="stylesheet" href="export rep.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <main class="main-content">
+        
+        <a href="dashB.html" class="btn-back">
+            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <header class="dashboard-header">
+            <h2><i class="fa-solid fa-cloud-arrow-down"></i> Export Generated HMIS Reports</h2>
+            <p class="actor-role">Role: HMIS Officer</p>
+        </header>
+
+        <section class="hmis-export-section">
+            
+            <div class="reports-list-card selection-card">
+                <h3>Reports Ready for Export (Status: Generated)</h3>
+                <p class="description">Select a generated report from the list below to choose an export format and download the file.</p>
+
+                <ul class="report-list">
+                    <li data-report-id="R-2025-11-20" data-format="monthly-summary">
+                        <div class="report-details">
+                            <span class="report-title">Monthly Health Summary Report</span>
+                            <span class="report-meta">Generated</span>
+                        </div>
+                        <div class="report-actions">
+                            <span class="report-status ready"><i class="fa-solid fa-check-circle"></i> Generated</span>
+                            <button class="btn-export" onclick="openExportModal('Monthly Health Summary Report (Nov 2025)')">
+                                <i class="fa-solid fa-download"></i> Export
+                            </button>
+                        </div>
+                    </li>
+                    <li data-report-id="R-2025-10-15" data-format="kpi-report">
+                        <div class="report-details">
+                            <span class="report-title">Key Performance Indicator </span>
+                            <span class="report-meta">Generated</span>
+                        </div>
+                        <div class="report-actions">
+                            <span class="report-status ready"><i class="fa-solid fa-check-circle"></i> Generated</span>
+                            <button class="btn-export" onclick="openExportModal('KPI Report (Oct 2025)')">
+                                <i class="fa-solid fa-download"></i> Export
+                            </button>
+                        </div>
+                    </li>
+                    <li data-report-id="R-2025-09-10" data-format="monthly-summary" class="exported">
+                        <div class="report-details">
+                            <span class="report-title">Monthly Health Summary Report</span>
+                            <span class="report-meta">Generated</span>
+                        </div>
+                        <div class="report-actions">
+                            <span class="report-status archived"><i class="fa-solid fa-archive"></i> Exported</span>
+                            <button class="btn-export btn-re-export" disabled>
+                                <i class="fa-solid fa-repeat"></i> Re-Export
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="exportModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeExportModal()">&times;</span>
+                    <h3><i class="fa-solid fa-file-export"></i> Choose Export Format</h3>
+                    <p>Report: <strong id="reportName"></strong></p>
+                    
+                    <div class="format-selection">
+                        <label>
+                            <input type="radio" name="exportFormat" value="pdf" checked>
+                            <div class="format-option">
+                                <i class="fa-solid fa-file-pdf pdf-icon"></i>
+                                <span>PDF Document</span>
+                                <small>Official, printable format</small>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="exportFormat" value="excel">
+                            <div class="format-option">
+                                <i class="fa-solid fa-file-excel excel-icon"></i>
+                                <span>Excel (XLSX)</span>
+                                <small>Editable data for analysis</small>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button class="btn-primary-generate" onclick="initiateDownload()">
+                        <i class="fa-solid fa-download"></i> Export & Download
+                    </button>
+
+                    <div id="downloadStatus" class="download-status" style="display: none;">
+                        <i class="fa-solid fa-spinner fa-spin"></i> Processing Report...
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        function openExportModal(reportTitle) {
+            document.getElementById('reportName').textContent = reportTitle;
+            document.getElementById('exportModal').style.display = 'flex';
+            document.getElementById('downloadStatus').style.display = 'none'; // Reset status
+        }
+
+        function closeExportModal() {
+            document.getElementById('exportModal').style.display = 'none';
+        }
+
+        function initiateDownload() {
+            const statusDiv = document.getElementById('downloadStatus');
+            const format = document.querySelector('input[name="exportFormat"]:checked').value;
+            const reportName = document.getElementById('reportName').textContent;
+            
+            // Step 6: System processes
+            statusDiv.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing Report (' + format.toUpperCase() + ')...';
+            statusDiv.style.display = 'flex';
+            
+            // Simulate Steps 7-9: Delay and Confirmation
+            setTimeout(() => {
+                // Step 7: System initiates file download (simulated)
+                // In a real application, this would trigger a file stream.
+                
+                // Step 8 & 9: System confirms completion
+                statusDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> Report Exported Successfully (' + format.toUpperCase() + ')! Check your downloads folder.';
+                statusDiv.classList.add('success');
+                
+                // Close modal after a few seconds
+                setTimeout(() => {
+                    closeExportModal();
+                    statusDiv.classList.remove('success');
+                    // In a real app, you would also update the list item status here.
+                }, 3000);
+            }, 1500); // 1.5 second delay
+        }
+    </script>
+</body>
+</html>
