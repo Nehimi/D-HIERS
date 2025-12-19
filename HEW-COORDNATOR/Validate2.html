@@ -1,99 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Validation Form</title>
-    
+
 </head>
+
 <body>
     <h1 style="text-align: center;margin: auto;">Validate Collected Data </h1>
- <link rel="stylesheet" href="HEW Coordinator.css">
-   <div style="border: 1px;">
-     <aside class="sidebar-form">
-         <form class="tes" style="border: 1px;">
-            <nav class="sidebar-nav">
-                <h3 class="sidebar-title">Reports & Activities</h3>
-                  <ul>
-                    <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
-                    <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
-                    <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
-                    <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li><br><br>
-                    <li><a href="project.html" class="nav-button blue-button">Logout</a></li>
-                </ul>
-            </nav> 
-        
+    <link rel="stylesheet" href="HEW Coordinator.css">
+    <link rel="stylesheet" href="../css/logout.css">
+    <script src="../js/logout.js"></script>
+    <div style="border: 1px;">
+        <aside class="sidebar-form">
+            <form class="tes" style="border: 1px;">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">Reports & Activities</h3>
+                    <ul>
+                        <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
+                        <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
+                        <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
+                        <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li>
+                        <br><br>
+                        <li><a href="../index.html" class="nav-button blue-button">Logout</a></li>
+                    </ul>
+                </nav>
+
         </aside>
-    </form>
-<img src="images.jpg" style="width: 99%; margin: auto;">
-<h3 style="margin: auto;text-align: center;"> The Linkage focal person  to review HEW-submitted <br>
-    data and validate its accuracy and completeness<br>
-     before approving or sending it to the next stage.</h3><br><br>
+        </form>
+        <img src="images.jpg" style="width: 99%; margin: auto;">
+        <h3 style="margin: auto;text-align: center;"> The Linkage focal person to review HEW-submitted <br>
+            data and validate its accuracy and completeness<br>
+            before approving or sending it to the next stage.</h3><br><br>
 
-    <h4 style="margin: auto;text-align: center;"> Here below you get forwarded data, you can validate it </h4>
+        <h4 style="margin: auto;text-align: center;"> Here below you get forwarded data, you can validate it </h4>
 
-    <form id="validationForm" style="background-color: azure;text-align: center;margin: auto;width: 30%;" action="#" method="post">
+        <form id="validationForm" style="background-color: azure;text-align: center;margin: auto;width: 30%;" action="#"
+            method="post">
 
-        <!-- TEXTAREA AND ITS LABEL ARE NOW ABOVE THE SELECT -->
-        <label for="validationDetailsTextarea" id="textareaLabel">Please select a data type below to enter validation details:</label>
-        <textarea
-            id="validationDetailsTextarea"
-            name="validation_details"
-            rows="6"
-            cols="50"
-            placeholder="Validation details will be enabled here after you choose a data type."
-            disabled
-        ></textarea>
+            <!-- TEXTAREA AND ITS LABEL ARE NOW ABOVE THE SELECT -->
+            <label for="validationDetailsTextarea" id="textareaLabel">Please select a data type below to enter
+                validation details:</label>
+            <textarea id="validationDetailsTextarea" name="validation_details" rows="6" cols="50"
+                placeholder="Validation details will be enabled here after you choose a data type." disabled></textarea>
 
-        <p>Choose the data to validate:</p>
-        <select required id="dataSelect">
-            <option value="">-- Select an option --</option>
-            <option value="household_data">Household Data</option>
-            <option value="hiv_addis_patients_data">HIV Addis Patients Data</option>
-            <option value="numbers_of_new_born_children">Numbers of New Born Children</option>
-            <option value="data_of_family_plan">Data of Family Plan</option>
-            <option value="data_of_sanitation">Data of Sanitation</option>
-        </select><br>
+            <p>Choose the data to validate:</p>
+            <select required id="dataSelect">
+                <option value="">-- Select an option --</option>
+                <option value="household_data">Household Data</option>
+                <option value="hiv_addis_patients_data">HIV Addis Patients Data</option>
+                <option value="numbers_of_new_born_children">Numbers of New Born Children</option>
+                <option value="data_of_family_plan">Data of Family Plan</option>
+                <option value="data_of_sanitation">Data of Sanitation</option>
+            </select><br>
 
-        <!-- Only one submit button for the entire form -->
-        <input type="submit" value="Submit Validation" name="submit_validation">
-    </form>
-<script>
-        // Ensure the DOM is fully loaded before running the script
-        document.addEventListener('DOMContentLoaded', function() {
-            const dataSelect = document.getElementById('dataSelect');
-            const textareaLabel = document.getElementById('textareaLabel');
-            const validationDetailsTextarea = document.getElementById('validationDetailsTextarea');
+            <!-- Only one submit button for the entire form -->
+            <input type="submit" value="Submit Validation" name="submit_validation">
+        </form>
+        <script>
+            // Ensure the DOM is fully loaded before running the script
+            document.addEventListener('DOMContentLoaded', function () {
+                const dataSelect = document.getElementById('dataSelect');
+                const textareaLabel = document.getElementById('textareaLabel');
+                const validationDetailsTextarea = document.getElementById('validationDetailsTextarea');
 
-            // Function to update textarea state
-            function updateTextareaState() {
-                const selectedOptionText = dataSelect.options[dataSelect.selectedIndex].textContent.trim();
-                const selectedOptionValue = dataSelect.value;
+                // Function to update textarea state
+                function updateTextareaState() {
+                    const selectedOptionText = dataSelect.options[dataSelect.selectedIndex].textContent.trim();
+                    const selectedOptionValue = dataSelect.value;
 
-                if (selectedOptionValue === "") {
-                    // No valid option selected (placeholder)
-                    validationDetailsTextarea.disabled = true;
-                    validationDetailsTextarea.required = false;
-                    validationDetailsTextarea.value = ''; // Clear content
-                    validationDetailsTextarea.placeholder = 'Validation details will be enabled here after you choose a data type.';
-                    textareaLabel.textContent = 'Please select a data type below to enter validation details:';
-                    validationDetailsTextarea.name = 'validation_details'; // Reset generic name
-                } else {
-                    // A valid option is selected
-                    validationDetailsTextarea.disabled = false;
-                    validationDetailsTextarea.required = true;
-                    // CORRECTED LINE: Used backticks (`) for template literals
-                    validationDetailsTextarea.placeholder = `Provide specific data points, discrepancies, or notes for "${selectedOptionText}" here...`;
-                    // CORRECTED LINE: Used backticks (`) for template literals
-                    textareaLabel.textContent = `Enter validation details for "${selectedOptionText}":`;
-                    validationDetailsTextarea.name = selectedOptionValue + '_details'; // Update name for submission
+                    if (selectedOptionValue === "") {
+                        // No valid option selected (placeholder)
+                        validationDetailsTextarea.disabled = true;
+                        validationDetailsTextarea.required = false;
+                        validationDetailsTextarea.value = ''; // Clear content
+                        validationDetailsTextarea.placeholder = 'Validation details will be enabled here after you choose a data type.';
+                        textareaLabel.textContent = 'Please select a data type below to enter validation details:';
+                        validationDetailsTextarea.name = 'validation_details'; // Reset generic name
+                    } else {
+                        // A valid option is selected
+                        validationDetailsTextarea.disabled = false;
+                        validationDetailsTextarea.required = true;
+                        // CORRECTED LINE: Used backticks (`) for template literals
+                        validationDetailsTextarea.placeholder = `Provide specific data points, discrepancies, or notes for "${selectedOptionText}" here...`;
+                        // CORRECTED LINE: Used backticks (`) for template literals
+                        textareaLabel.textContent = `Enter validation details for "${selectedOptionText}":`;
+                        validationDetailsTextarea.name = selectedOptionValue + '_details'; // Update name for submission
+                    }
                 }
-            }
-            dataSelect.addEventListener('change', updateTextareaState);
+                dataSelect.addEventListener('change', updateTextareaState);
 
-        });
-</script>
-```
+            });
+        </script>
+        ```
 </body>
+
 </html>
-         

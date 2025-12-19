@@ -10,6 +10,7 @@
   <!-- Main HEW CSS -->
   <link rel="stylesheet" href="../css/hew.css">
   <link rel="stylesheet" href="../css/hew_style.css">
+  <link rel="stylesheet" href="../../css/logout.css">
   <script src="../js/edit_submitted_data.js" defer></script>
   <link rel="stylesheet" href="../css/edit_submitted_data.css">
 </head>
@@ -157,6 +158,7 @@
       </form>
     </section>
   </main>
+    <script src="../../js/logout.js"></script>
 </body>
 
 </html>
