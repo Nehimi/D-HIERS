@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,53 +8,59 @@
 </head>
 
 <body>
-<h1 style="text-align: center;margin: auto;">Forward Reports</h1>
- <link rel="stylesheet" href="HEW Coordinator.css">
-   <div style="border: 1px;">
-     <aside class="sidebar-form">
-         <form class="tes" style="border: 1px;">
-            <nav class="sidebar-nav">
-                <h3 class="sidebar-title">Reports & Activities</h3>
-                   <ul>
-                    <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
-                    <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
-                    <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
-                    <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li><br><br>
-                    <li><a href="project.html" class="nav-button blue-button">Logout</a></li>
-                </ul>
-            </nav> 
-          
+    <script src="../js/logout.js"></script>
+    <h1 style="text-align: center;margin: auto;">Forward Reports</h1>
+    <link rel="stylesheet" href="HEW Coordinator.css">
+    <link rel="stylesheet" href="../css/logout.css">
+    <div style="border: 1px;">
+        <aside class="sidebar-form">
+            <form class="tes" style="border: 1px;">
+                <nav class="sidebar-nav">
+                    <h3 class="sidebar-title">Reports & Activities</h3>
+                    <ul>
+                        <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
+                        <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
+                        <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
+                        <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li>
+                        <br><br>
+                        <li><a href="../index.html" class="nav-button blue-button">Logout</a></li>
+                    </ul>
+                </nav>
+
         </aside>
-    </form>
-<img src="images (1).jpg" style="width: 97%;margin: auto;text-align: center;padding-right: 10px;">
+        </form>
+        <img src="images (1).jpg" style="width: 97%;margin: auto;text-align: center;padding-right: 10px;">
 
-<div class="main-content-div">
-    <h2>HEW Coordinator to review HEW-submitted report and forward validated <br>
-    HEW data to the Linkage Focal Person for further processing</h2><br>
-    <p>Here you can forward your data to the Linkage Focal Person</p>
-</div>
+        <div class="main-content-div">
+            <h2>HEW Coordinator to review HEW-submitted report and forward validated <br>
+                HEW data to the Linkage Focal Person for further processing</h2><br>
+            <p>Here you can forward your data to the Linkage Focal Person</p>
+        </div>
 
-<div class="form-container">
-    <form id="forwardForm">
-        <p>Choose the data to forward to the Linkage Person</p>
-        <select id="forwardDataTypeSelect" required>
-            <option value="">-- Select Data Type --</option>
-            <option value="household data">household data</option>
-            <option value="HIV Addis patients Data">HIV Addis patients Data</option>
-            <option value="Numbers of new born childern">Numbers of new born childern</option>
-            <option value="data of family plan">data of family plan</option>
-            <option value="Data of sanitation">Data of sanitation</option>
-        </select><br>
+        <div class="form-container">
+            <form id="forwardForm">
+                <p>Choose the data to forward to the Linkage Person</p>
+                <select id="forwardDataTypeSelect" required>
+                    <option value="">-- Select Data Type --</option>
+                    <option value="household data">household data</option>
+                    <option value="HIV Addis patients Data">HIV Addis patients Data</option>
+                    <option value="Numbers of new born childern">Numbers of new born childern</option>
+                    <option value="data of family plan">data of family plan</option>
+                    <option value="Data of sanitation">Data of sanitation</option>
+                </select><br>
 
-        <textarea id="forwardNotes" placeholder="Add any notes or context for the Linkage Focal Person (optional)" rows="5"></textarea><br>
+                <textarea id="forwardNotes"
+                    placeholder="Add any notes or context for the Linkage Focal Person (optional)"
+                    rows="5"></textarea><br>
 
-        <button type="button" id="forwardBtn">Forward Data</button>
-    </form>
-</div>
+                <button type="button" id="forwardBtn">Forward Data</button>
+            </form>
+        </div>
 
 
 </body>
 <script src="forawrd2.js">
 
 </script>
+
 </html>

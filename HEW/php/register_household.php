@@ -55,6 +55,7 @@ if (isset($_POST['SaveFamily'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/hew.css">
   <link rel="stylesheet" href="../css/hew_style.css">
+  <link rel="stylesheet" href="../../css/logout.css">
   <script src="../js/register_household.js"></script>
 </head>
 
@@ -176,6 +177,7 @@ if (isset($_POST['SaveFamily'])) {
       </form>
     </section>
   </main>
+    <script src="../../js/logout.js"></script>
 </body>
 
 </html>

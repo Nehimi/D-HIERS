@@ -9,6 +9,7 @@ include("../../dataBaseConnection.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/logout.css">
     <link rel="stylesheet" href="../../css/table-responsive.css">
     <title>Admin | D-HEIRS</title>
 </head>
@@ -258,6 +259,7 @@ include("../../dataBaseConnection.php");
     </main>
     <script src="../js/dashboard.js"></script>
     <script src="../js/script.js?v=<?php echo time(); ?>"></script>
+    <script src="../../js/logout.js"></script>
 </body>
 
 </html>

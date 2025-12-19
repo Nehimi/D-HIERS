@@ -100,6 +100,7 @@ if (isset($_GET['download_id'])) {
     <!-- Styles -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/logout.css">
     <link rel="stylesheet" href="../css/system_reports.css">
 </head>
 
@@ -346,6 +347,7 @@ if (isset($_GET['download_id'])) {
             });
         });
     </script>
+    <script src="../../js/logout.js"></script>
 </body>
 
 </html>

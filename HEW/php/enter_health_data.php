@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
   <link rel="stylesheet" href="../css/hew.css">
   <link rel="stylesheet" href="../css/hew_health.css">
   <link rel="stylesheet" href="../css/hew_style.css">
+  <link rel="stylesheet" href="../../css/logout.css">
   
   <style>
       .error-message { color: #f43f5e; font-size: 0.9em; margin-top: 5px; display: none; }
@@ -206,5 +207,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
           .catch(error => console.error('Error:', error));
       });
   </script>
+    <script src="../../js/logout.js"></script>
 </body>
 </html>

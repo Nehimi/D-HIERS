@@ -27,6 +27,7 @@ $recentQuery = mysqli_query($dataBaseConnection, "SELECT * FROM household ORDER 
     <link rel="stylesheet" href="../../admin/css/admin.css">
     <link rel="stylesheet" href="../css/hew.css">
     <link rel="stylesheet" href="../css/hew_style.css">
+    <link rel="stylesheet" href="../../css/logout.css">
 </head>
 
 <body class="dashboard-body">
@@ -236,6 +237,7 @@ $recentQuery = mysqli_query($dataBaseConnection, "SELECT * FROM household ORDER 
             </div>
         </div>
     </main>
+    <script src="../../js/logout.js"></script>
 </body>
 
 </html>

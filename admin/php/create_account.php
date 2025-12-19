@@ -193,6 +193,7 @@ if (isset($_GET['edit'])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <title>Create Account | D-HEIRS</title>
   <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../../css/logout.css">
 </head>
 
 <body class="dashboard-body">
@@ -472,7 +473,8 @@ if (isset($_GET['edit'])) {
       </div>
     </div>
   </main>
-  <script src="../js/script.js?v=<?php echo time(); ?>"></script>
+  <script src="../../js/logout.js"></script>
+    <script src="../js/script.js?v=<?php echo time(); ?>"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
         const accountForm = document.getElementById('createAccountForm');

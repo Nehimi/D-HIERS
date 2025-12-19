@@ -33,6 +33,7 @@ $currentDate = date('F d, Y');
     <!-- Styles -->
     <link rel="stylesheet" href="../css/hew.css">
     <link rel="stylesheet" href="../css/hew_style.css">
+    <link rel="stylesheet" href="../../css/logout.css">
     
     <style>
         /* Print-specific styles */
@@ -284,6 +285,7 @@ $currentDate = date('F d, Y');
             </div>
         </div>
     </main>
+    <script src="../../js/logout.js"></script>
 </body>
 
 </html>

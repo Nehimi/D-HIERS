@@ -47,6 +47,7 @@ $kebeleOffset = $kebelePaginationData['offset'];
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Managment | D-HEIRS</title>
   <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../../css/logout.css">
   <link rel="stylesheet" href="../../css/table-responsive.css">
   <link rel="stylesheet" href="../../css/status_management.css">
   <!-- ICONS -->
@@ -356,6 +357,7 @@ $kebeleOffset = $kebelePaginationData['offset'];
   <script src="../js/status_management.js"></script>
   <script src="../js/user_management.js"></script>
   <script src="../js/script.js?v=<?php echo time(); ?>"></script>
+    <script src="../../js/logout.js"></script>
 </body>
 
 </html>

@@ -12,10 +12,13 @@ include("../../dataBaseConnection.php");
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Note: kebele_configuration.css was not found in move list, assuming usage of admin.css or global style -->
     <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/logout.css">
     <title>kebele Configuration | D-HEIRS</title>
 </head>
 
 <body class="dashboard-body">
+    <script src="../../js/logout.js"></script>
+    <script src="../js/script.js?v=<?php echo time(); ?>"></script>
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -176,6 +179,7 @@ include("../../dataBaseConnection.php");
             </div>
         </div>
     </main>
+    <script src="../../js/logout.js"></script>
 </body>
 
 </html>
