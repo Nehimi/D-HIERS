@@ -34,13 +34,20 @@ Handles public-facing auth pages.
 - `php/`: Files like `forgot_password.php`.
 - `js/`: Logic for auth forms (`auth_logic.js`).
 - `css/`: Styling for login/forgot password pages.
-
 #### **4. API (`/api`)**
 A dedicated folder for JSON-based endpoints used by JavaScript for asynchronous operations (AJAX).
 - `dashboard_stats.php`: Returns JSON stats for dashboards.
 - `user_status.php`: Handles status toggling (Active/Inactive).
 - `search_users.php`: Backend for real-time user search variables.
 - `reset_password.php`: Handles password reset logic.
+
+#### **5. HMIS Module (`/hmis`)**
+Dedicated module for Health Management Information System processing.
+- `php/`: Core report generation logic (e.g., `hmis_dashboard.php`, `generate_reports.php`).
+- `js/`, `css/`: Dashboard and UI components.
+- **Key Features**: Process statistical packages, generate official reports, log DHIS2 submissions.
+
+---
 
 ---
 
@@ -111,7 +118,8 @@ fetch('../api/dashboard_stats.php')
 
 ## 🛠 Setup & Installation
 1.  **Database**:
-    *   Import `sql/lichamba_database.sql` (or latest dump) into your MySQL server.
+    *   Import `sql/complete_database_setup.sql` into your MySQL server.
+    *   Import `sql/hmis_module_setup.sql` to initialize the HMIS tables.
     *   Ensure the database name matches `lichamba_database`.
 2.  **Server**:
     *   Place the project folder in `htdocs` (XAMPP) or `www` (WAMP).
@@ -123,7 +131,17 @@ fetch('../api/dashboard_stats.php')
 
 ---
 
-## 📝 Credits
-**Developers**: [WCU 3 year students ]
+## 📊 HMIS Module Details
+The HMIS module is the final stage of the health data pipeline. It takes validated data from Linkage Focal Persons and turns them into official policy-ready reports.
 
+### **Core Capabilities**
+- **Statistical Package Intake**: Automatically receives and displays packages sent from the community level.
+- **Multi-Format Export**: Generates reports in professional PDF or Excel formats.
+- **DHIS2 Integration**: Tracks and logs submissions to the national health database (DHIS2).
+- **Trend Analytics**: Real-time dashboard stats for report timeliness and accuracy.
+
+---
+
+## 📝 Credits
+**Developer**: [Your Name/Team Name]
 **Purpose**: Transforming Ethiopian Health Extension Program with digital tools.
