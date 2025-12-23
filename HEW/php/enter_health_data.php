@@ -11,14 +11,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
     $totalServed = $_POST['totalServed'];
     $details = $_POST['details'];
     
-    // Verify ID exists again (security)
-    $stmtCheck = $dataBaseConnection->prepare("SELECT id FROM household WHERE householdId = ?");
+    // Fetch member name and kebele for the household to ensure data integrity
+    $stmtCheck = $dataBaseConnection->prepare("SELECT memberName, kebele FROM household WHERE householdId = ?");
     $stmtCheck->bind_param("s", $householdId);
     $stmtCheck->execute();
-    if ($stmtCheck->get_result()->num_rows > 0) {
-        // Insert
-        $stmt = $dataBaseConnection->prepare("INSERT INTO health_data (householdId, serviceType, totalServed, details) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssis", $householdId, $serviceType, $totalServed, $details);
+    $result = $stmtCheck->get_result();
+    
+    if ($result->num_rows > 0) {
+        $houseRow = $result->fetch_assoc();
+        $patientName = $houseRow['memberName'];
+        $kebele = $houseRow['kebele'];
+
+        // Insert including patient name and kebele, using Pro column names
+        $stmt = $dataBaseConnection->prepare("INSERT INTO health_data (householdId, patient_name, kebele, service_type, count, details) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssis", $householdId, $patientName, $kebele, $serviceType, $totalServed, $details);
         
         if ($stmt->execute()) {
             $message = "Health data saved successfully!";

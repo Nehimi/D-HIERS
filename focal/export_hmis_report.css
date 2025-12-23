@@ -1,21 +1,33 @@
-/*
-** CSS for HMIS Report Generation Page (D-HEIRS)
-** Aim: Attractive, modern, professional, and readable interface.
-** Enhancements: Subtle 3D effects, improved transitions, status bar styling.
-*/
-
 :root {
-    /* Color Palette */
-    --primary-color: #007BFF; /* A vibrant blue for actions */
-    --primary-hover: #0056b3;
-    --secondary-color: #6c757d; /* Muted color for secondary elements */
-    --background-color: #f4f7f6; /* Light, clean background */
-    --card-background: #ffffff; /* White background for cards/sections */
-    --text-color: #343a40; /* Dark gray for main text */
-    --border-color: #dee2e6;
-    --ready-color: #28a745; /* Green for "Ready" status */
-    --processed-color: #ffc107; /* Yellow/Amber for "Processed" status */
-    --archived-color: #6c757d; /* Gray for "Archived" status */
+    /* Pro Color Palette - Teal Theme */
+    --primary: #0f766e;
+    --primary-light: #14b8a6;
+    --primary-dark: #0d9488;
+    --primary-subtle: rgba(15, 118, 110, 0.1);
+
+    --secondary: #64748b;
+    --background: #f8fafc;
+    --surface: #ffffff;
+
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+
+    --border-color: #e2e8f0;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    /* Original Status Colors */
+    --ready-color: #10b981;
+    --processed-color: #f59e0b;
+    --archived-color: #94a3b8;
+
+    /* Legacy override mapping for compatibility */
+    --primary-color: var(--primary);
+    --secondary-color: var(--secondary);
+    --background-color: var(--background);
+    --card-background: var(--surface);
+    --text-color: var(--text-main);
 }
 
 /* --- Base Styles --- */
@@ -32,25 +44,29 @@
 
 /* --- Main Content Layout --- */
 .main-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    margin-left: 280px;
+    /* Leave space for fixed sidebar */
+    padding: 0 40px;
+    flex: 1;
 }
 
 /* --- Header Section (Enhanced Shadow) --- */
 .dashboard-header {
-    background: linear-gradient(to right, var(--primary-color), #00b0ff);
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: white;
     padding: 25px 30px;
-    margin-bottom: 30px; /* Increased margin */
+    margin-bottom: 30px;
+    /* Increased margin */
     border-radius: 12px;
     /* Stronger, more defined shadow for elevation */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); 
+    box-shadow: var(--shadow-md);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative; /* Context for pseudo-element */
-    overflow: hidden; /* Keep background linear-gradient contained */
+    position: relative;
+    /* Context for pseudo-element */
+    overflow: hidden;
+    /* Keep background linear-gradient contained */
 }
 
 /* Decorative diagonal stripe overlay on header */
@@ -61,19 +77,19 @@
     left: 0;
     width: 200%;
     height: 100%;
-    background: repeating-linear-gradient(
-        -45deg,
-        rgba(255, 255, 255, 0.1),
-        rgba(255, 255, 255, 0.1) 10px,
-        transparent 10px,
-        transparent 20px
-    );
+    background: repeating-linear-gradient(-45deg,
+            rgba(255, 255, 255, 0.1),
+            rgba(255, 255, 255, 0.1) 10px,
+            transparent 10px,
+            transparent 20px);
     opacity: 0.15;
     z-index: 1;
 }
 
-.dashboard-header h2, .actor-role {
-    z-index: 2; /* Ensure text is above decoration */
+.dashboard-header h2,
+.actor-role {
+    z-index: 2;
+    /* Ensure text is above decoration */
 }
 
 .dashboard-header h2 {
@@ -90,7 +106,8 @@
 }
 
 .actor-role {
-    background-color: rgba(255, 255, 255, 0.3); /* Slightly brighter */
+    background-color: rgba(255, 255, 255, 0.3);
+    /* Slightly brighter */
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 0.9em;
@@ -106,14 +123,16 @@
     margin-bottom: 15px;
     padding: 8px 15px;
     border-radius: 8px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Smoother transition */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Smoother transition */
     font-weight: 500;
 }
 
 .btn-back:hover {
     color: var(--primary-color);
     background-color: #e9ecef;
-    transform: translateX(-5px); /* Gentle slide effect */
+    transform: translateX(-5px);
+    /* Gentle slide effect */
 }
 
 .btn-back i {
@@ -123,7 +142,7 @@
 /* --- Main Section Layout --- */
 .hmis-report-section {
     display: grid;
-    grid-template-columns: 2fr 1fr; 
+    grid-template-columns: 2fr 1fr;
     gap: 30px;
 }
 
@@ -138,7 +157,8 @@
 }
 
 .selection-card:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); /* Subtle lift on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    /* Subtle lift on hover */
     transform: translateY(-2px);
 }
 
@@ -156,9 +176,12 @@
     color: var(--secondary-color);
     font-size: 0.95em;
     margin-bottom: 25px;
-    padding: 5px 10px; /* Added padding */
-    border-left: 4px solid var(--primary-color); /* Thicker border */
-    background-color: #f8f9fa; /* Light background for description block */
+    padding: 5px 10px;
+    /* Added padding */
+    border-left: 4px solid var(--primary-color);
+    /* Thicker border */
+    background-color: #f8f9fa;
+    /* Light background for description block */
     border-radius: 4px;
 }
 
@@ -170,13 +193,25 @@
 
 .form-group label i {
     color: var(--primary-color);
-    animation: pulse 2s infinite ease-in-out; /* Subtle animation for icon */
+    animation: pulse 2s infinite ease-in-out;
+    /* Subtle animation for icon */
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.03); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.8; }
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.03);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
 }
 
 select {
@@ -193,26 +228,30 @@ select {
 select:focus {
     border-color: var(--primary-color);
     outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15); /* Softer, broader focus ring */
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+    /* Softer, broader focus ring */
 }
 
 select option[data-status="Ready"] {
     font-weight: bold;
     color: var(--ready-color);
-    background-color: #e6ffe6; /* Light green background */
+    background-color: #e6ffe6;
+    /* Light green background */
 }
 
 /* --- Report Format Group --- */
 .report-format-group {
     padding-top: 25px;
     margin-top: 20px;
-    border-top: 1px solid #e9ecef; /* Solid but light separator */
+    border-top: 1px solid #e9ecef;
+    /* Solid but light separator */
     position: relative;
 }
 
 /* Small, subtle icon marker for separation */
 .report-format-group::before {
-    content: "\f02d"; /* fa-file-alt (book-open) or similar */
+    content: "\f02d";
+    /* fa-file-alt (book-open) or similar */
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     position: absolute;
@@ -237,7 +276,7 @@ select option[data-status="Ready"] {
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s, box-shadow 0.3s;
     /* Initial subtle 3D shadow */
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4); 
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -246,12 +285,13 @@ select option[data-status="Ready"] {
 .btn-primary-generate:hover {
     background-color: var(--primary-hover);
     /* Deeper shadow on hover */
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5); 
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
 }
 
 .btn-primary-generate:active {
     transform: translateY(2px);
-    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.4); /* Flatter shadow on press */
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.4);
+    /* Flatter shadow on press */
 }
 
 .btn-primary-generate i {
@@ -261,7 +301,7 @@ select option[data-status="Ready"] {
 /* --- Log Display Styles (More defined) --- */
 .status-card.log-display {
     /* Stronger visual cue that this is a log */
-    border-left: 5px solid var(--primary-color); 
+    border-left: 5px solid var(--primary-color);
     background-color: #fcfcfc;
 }
 
@@ -270,7 +310,7 @@ select option[data-status="Ready"] {
     align-items: center;
     padding: 12px 0;
     /* Use a solid, lighter border for clearer separation */
-    border-bottom: 1px solid #e9ecef; 
+    border-bottom: 1px solid #e9ecef;
     font-size: 0.95em;
 }
 
@@ -289,6 +329,7 @@ select option[data-status="Ready"] {
 .log-entry.ready .log-icon {
     color: var(--ready-color);
 }
+
 .log-entry.ready .log-text {
     font-weight: 600;
     color: var(--ready-color);
@@ -298,8 +339,10 @@ select option[data-status="Ready"] {
 .log-entry.processed .log-icon {
     color: var(--processed-color);
 }
+
 .log-entry.processed .log-text {
-    color: #a07400; /* Darker amber text */
+    color: #a07400;
+    /* Darker amber text */
 }
 
 .log-entry.archived .log-icon {
@@ -311,16 +354,20 @@ select option[data-status="Ready"] {
     .hmis-report-section {
         grid-template-columns: 1fr;
     }
+
     .log-display {
         margin-top: 20px;
     }
+
     .dashboard-header {
         flex-direction: column;
         align-items: flex-start;
     }
+
     .actor-role {
         margin-top: 10px;
     }
+
     .btn-primary-generate {
         width: 100%;
     }
@@ -330,6 +377,7 @@ select option[data-status="Ready"] {
     .dashboard-body {
         padding: 10px;
     }
+
     .selection-card,
     .status-card {
         padding: 20px;
