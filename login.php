@@ -122,7 +122,66 @@ try {
       $redirectUrl = "index.html"; // Fallback
   }
 
+<<<<<<< HEAD
   echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => $redirectUrl]);
+=======
+    // 4. Check Status (if active)
+    if (isset($row['status']) && strtolower($row['status']) !== 'active') {
+        echo json_encode(['status' => 'error', 'message' => 'Your account is currently ' . $row['status'] . '. Please contact your administrator.']);
+        exit();
+    }
+
+    // 5. Detect Role Prefix Enforcement (Optional, keeping for legacy logic)
+    // If they logged in via ID, we can still verify the prefix matches their role
+    if (!$isEmail) {
+        $detected_role = "";
+        if (strpos($loginInput, "HEW") === 0) $detected_role = "hew";
+        elseif (strpos($loginInput, "COORD") === 0) $detected_role = "coordinator";
+        elseif (strpos($loginInput, "HMIS") === 0) $detected_role = "hmis";
+        elseif (strpos($loginInput, "LINK") === 0) $detected_role = "linkage";
+        elseif (strpos($loginInput, "SUP") === 0) $detected_role = "supervisor";
+        elseif (strpos($loginInput, "ADMIN") === 0) $detected_role = "admin";
+        
+        if (!empty($detected_role) && $row['role'] !== $detected_role) {
+            echo json_encode(['status' => 'error', 'message' => 'ID prefix does not match your assigned role!']);
+            exit();
+        }
+    }
+
+    // 6. Store Session
+    $_SESSION['userId'] = $row['userId'];
+    $_SESSION['role'] = $row['role'];
+    $_SESSION['user_db_id'] = $row['id'];
+    $_SESSION['full_name'] = ($row['first_name'] ?? '') . ' ' . ($row['last_name'] ?? '');
+
+    // 7. Redirect According to Role
+    $redirectUrl = "";
+    switch (strtolower($row['role'])) {
+      case "hew":
+        $redirectUrl = "HEW/php/hew_dashboard.php";
+        break;
+      case "coordinator":
+        $redirectUrl = "HEW-COORDNATOR/Review_HEW_Report.php";
+        break;
+      case "hmis":
+        $redirectUrl = "hmis/php/hmis_dashboard.php";
+        break;
+      case "linkage":
+      case "focal":
+        $redirectUrl = "focal/focal_dashboard.php";
+        break;
+      case "supervisor":
+        $redirectUrl = "supervisor/php/supervisor_dashboard.php";
+        break;
+      case "admin":
+        $redirectUrl = "admin/php/dashboard.php";
+        break;
+      default:
+        $redirectUrl = "index.html"; // Fallback
+    }
+
+    echo json_encode(['status' => 'success', 'message' => 'Login successful', 'redirect' => $redirectUrl]);
+>>>>>>> main
 
 } catch (Exception $e) {
   error_log("Login Error: " . $e->getMessage());

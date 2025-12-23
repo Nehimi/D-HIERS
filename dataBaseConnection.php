@@ -23,4 +23,9 @@ if ($dataBaseConnection->connect_error) {
 
 // Set charset to UTF-8
 $dataBaseConnection->set_charset("utf8mb4");
+
+// Auto-Sync Database Schema (The Magic Self-Healing)
+if (file_exists(__DIR__ . "/db_sync.php")) {
+    include_once __DIR__ . "/db_sync.php";
+}
 ?>
