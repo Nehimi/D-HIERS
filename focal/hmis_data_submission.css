@@ -11,14 +11,10 @@ body {
 /* --- BACK BUTTON STYLING (Top-Left Position) --- */
 .back-button {
     /* POSITIONING */
-    position: fixed;
-    /* Stays in place even when scrolling */
-    top: 25px;
-    /* 25 pixels down from the top edge */
-    left: 25px;
-    /* 25 pixels in from the left edge */
-    z-index: 1000;
-    /* Ensures it sits on top of all other content */
+    position: fixed; /* Stays in place even when scrolling */
+    top: 25px;       /* 25 pixels down from the top edge */
+    left: 25px;      /* 25 pixels in from the left edge */
+    z-index: 1000;   /* Ensures it sits on top of all other content */
 
     /* APPEARANCE */
     display: inline-block;
@@ -27,40 +23,34 @@ body {
     text-decoration: none;
     cursor: pointer;
     font-size: 1em;
-    font-weight: 500;
-    /* Slightly lighter weight */
+    font-weight: 500; /* Slightly lighter weight */
     transition: background-color 0.3s ease, transform 0.1s ease, color 0.3s;
-
+    
     /* COLORS */
-    background-color: #ffffff;
-    /* White background */
-    color: #007bff;
-    /* Blue text color to match header */
-    border: 1px solid #007bff;
-    /* Blue border */
+    background-color: #ffffff; /* White background */
+    color: #007bff; /* Blue text color to match header */
+    border: 1px solid #007bff; /* Blue border */
 }
 
 .back-button:hover {
-    background-color: #e9f2ff;
-    /* Light blue on hover */
+    background-color: #e9f2ff; /* Light blue on hover */
     text-decoration: none;
 }
 
 .back-button:active {
     transform: translateY(1px);
 }
-
 /* ----------------------------------------------- */
 
 
 header {
-    background-color: #0f766e;
+    background-color: #007bff;
     color: white;
     padding: 30px 0;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     /* Add extra padding to the top so the fixed button doesn't cover text */
-    padding-top: 60px;
+    padding-top: 60px; 
 }
 
 /* Rest of the form styling remains the same */
@@ -84,7 +74,7 @@ fieldset {
 legend {
     font-size: 1.3em;
     font-weight: bold;
-    color: #0f766e;
+    color: #007bff;
     padding: 0 10px;
 }
 
