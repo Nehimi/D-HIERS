@@ -31,6 +31,13 @@ if ($res) {
         $history[] = $row;
     }
 }
+
+// Fetch Unread Notifications Count
+$notifCount = 0;
+$notifRes = $dataBaseConnection->query("SELECT COUNT(*) as cnt FROM activity_notifications WHERE role='hmis' AND is_read=0");
+if ($notifRes) {
+    $notifCount = $notifRes->fetch_assoc()['cnt'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,6 +80,10 @@ if ($res) {
                 <i class="fa-solid fa-cloud-arrow-up"></i>
                 <span>DHIS2 Submission</span>
             </a>
+            <a href="hmis_notifications.php" class="nav-item">
+                <i class="fa-solid fa-bell"></i>
+                <span>System Notifications</span>
+            </a>
         </nav>
 
         <div class="sidebar-footer">
@@ -91,9 +102,13 @@ if ($res) {
                 <input type="text" placeholder="Search submissions or status...">
             </div>
             <div class="header-actions">
-                <button class="icon-btn">
+                <button class="icon-btn" onclick="location.href='hmis_notifications.php'">
                     <i class="fa-solid fa-bell"></i>
-                    <span class="badge-dot"></span>
+                    <?php if ($notifCount > 0): ?>
+                        <span class="badge-count"><?php echo $notifCount; ?></span>
+                    <?php else: ?>
+                        <span class="badge-dot"></span>
+                    <?php endif; ?>
                 </button>
                 <div class="user-profile">
                     <img src="../../images/avatar.png" alt="User" onerror="this.src='https://ui-avatars.com/api/?name=<?php echo urlencode($fullName); ?>&background=0f766e&color=fff'">
