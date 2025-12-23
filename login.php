@@ -93,16 +93,17 @@ try {
         $redirectUrl = "HEW/php/hew_dashboard.php";
         break;
       case "coordinator":
-        $redirectUrl = "HEW-COORDNATOR/Review_HEW_Report.php"; // Verify this later
+        $redirectUrl = "HEW-COORDNATOR/Review_HEW_Report.php";
         break;
       case "hmis":
-        $redirectUrl = "dashboard_hmis.php";
+        $redirectUrl = "hmis/php/hmis_dashboard.php";
         break;
       case "linkage":
-        $redirectUrl = "dashboard_linkage.php";
+      case "focal":
+        $redirectUrl = "focal/focal_dashboard.php";
         break;
       case "supervisor":
-        $redirectUrl = "dashboard_supervisor.php";
+        $redirectUrl = "supervisor/php/supervisor_dashboard.php";
         break;
       case "admin":
         $redirectUrl = "admin/php/dashboard.php";
