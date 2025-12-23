@@ -39,6 +39,15 @@ if ($res) {
     $stats['submitted'] = $row['cnt'];
 }
 
+// 5. Fetch Recent Notifications
+$notifications = [];
+$notifListRes = $dataBaseConnection->query("SELECT * FROM activity_notifications WHERE role='hmis' ORDER BY created_at DESC LIMIT 10");
+if ($notifListRes) {
+    while ($row = $notifListRes->fetch_assoc()) {
+        $notifications[] = $row;
+    }
+}
+
 // Fetch Recent Statistical Submissions
 $recentSubmissions = [];
 $res = $dataBaseConnection->query("SELECT * FROM statistical_packages ORDER BY received_at DESC LIMIT 5");
@@ -46,6 +55,12 @@ if ($res) {
     while ($row = $res->fetch_assoc()) {
         $recentSubmissions[] = $row;
     }
+}
+// 4. Fetch Unread Notifications Count
+$notifCount = 0;
+$notifRes = $dataBaseConnection->query("SELECT COUNT(*) as cnt FROM activity_notifications WHERE role='hmis' AND is_read=0");
+if ($notifRes) {
+    $notifCount = $notifRes->fetch_assoc()['cnt'];
 }
 ?>
 <!DOCTYPE html>
@@ -56,6 +71,7 @@ if ($res) {
     <title>HMIS Dashboard | D-HEIRS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/notifications.css">
     <link rel="stylesheet" href="../../css/logout.css">
     <link rel="stylesheet" href="../../css/table-responsive.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
@@ -89,6 +105,10 @@ if ($res) {
                 <i class="fa-solid fa-cloud-arrow-up"></i>
                 <span>DHIS2 Submission</span>
             </a>
+            <a href="hmis_notifications.php" class="nav-item">
+                <i class="fa-solid fa-bell"></i>
+                <span>System Notifications</span>
+            </a>
         </nav>
 
         <div class="sidebar-footer">
@@ -107,9 +127,13 @@ if ($res) {
                 <input type="text" placeholder="Search reports, packages, or logs...">
             </div>
             <div class="header-actions">
-                <button class="icon-btn">
+                <button class="icon-btn" onclick="location.href='hmis_notifications.php'">
                     <i class="fa-solid fa-bell"></i>
-                    <span class="badge-dot"></span>
+                    <?php if ($notifCount > 0): ?>
+                        <span class="badge-count"><?php echo $notifCount; ?></span>
+                    <?php else: ?>
+                        <span class="badge-dot"></span>
+                    <?php endif; ?>
                 </button>
                 <div class="user-profile">
                     <img src="../../images/avatar.png" alt="User" onerror="this.src='https://ui-avatars.com/api/?name=<?php echo urlencode($fullName); ?>&background=0f766e&color=fff'">
@@ -214,6 +238,8 @@ if ($res) {
                         </table>
                     </div>
                 </div>
+
+                <!-- Activity feed moved to dedicated hmis_notifications.php page -->
 
                 <!-- Quick Actions Panel -->
                 <div class="content-card sidebar-panel" style="display: flex; flex-direction: column; gap: 1rem;">
