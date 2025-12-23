@@ -334,6 +334,7 @@ img {
 .text-gradient {
     background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -828,16 +829,14 @@ img {
 }
 
 .login-card {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    padding: 3rem;
+    padding: 2.5rem 2rem;
     border-radius: 2rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     width: 100%;
     max-width: 450px;
     border: 1px solid rgba(255, 255, 255, 0.5);
-    position: fixed;
-
     animation: slideUp 0.3s ease-out;
 }
 
@@ -855,7 +854,7 @@ img {
 
 .login-header {
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
 }
 
 .login-logo {
@@ -867,8 +866,8 @@ img {
     align-items: center;
     justify-content: center;
     padding: 8px;
-    margin: 0 auto 1.5rem;
-    box-shadow: 0 10px 15px -3px rgba(15, 118, 110, 0.3);
+    margin: 0 auto 1rem;
+    box-shadow: 0 10px 15px -3px rgba(15, 118, 110, 0.2);
     transition: all 0.3s ease;
     border: 2px solid rgba(15, 118, 110, 0.1);
 }
@@ -1007,20 +1006,28 @@ img {
     font-size: 0.9rem;
 }
 
+.back-home-link:hover {
+    color: var(--primary) !important;
+    transform: translateX(-5px);
+}
+
 /* Modal / Popup Styles */
 .popup {
     display: none;
-    /* Toggled by JS */
+    /* Controlled by JS */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(4px);
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
     z-index: 2000;
+    padding: 2rem 1rem;
+    overflow-y: auto;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    /* Better for scrolling content than 'center' */
     animation: fadeIn 0.3s forwards;
 }
 
@@ -1037,8 +1044,11 @@ img {
 /* Ensure card is relative for centering */
 .popup .login-card {
     position: relative;
-    margin: 0;
-    /* Reset margins if any */
+    margin: auto;
+    /* Centers content when it fits, allows scroll when it doesn't */
+    width: 100%;
+    max-width: 420px;
+    padding: 2.5rem 2rem;
     animation: scaleIn 0.3s ease-out;
 }
 
@@ -1056,12 +1066,12 @@ img {
 
 .close {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    font-size: 1.25rem;
-    color: var(--text-muted);
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.1rem;
+    color: #64748b;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: #f1f5f9;
     width: 36px;
     height: 36px;
@@ -1069,13 +1079,14 @@ img {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    z-index: 10;
+    z-index: 100;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .close:hover {
-    color: var(--accent);
-    background: #fee2e2;
-    transform: rotate(90deg);
+    color: white;
+    background: #ef4444;
+    transform: rotate(90deg) scale(1.1);
 }
 
 /* --- Animation Utilities --- */
@@ -1293,11 +1304,13 @@ img {
     }
 
     /* Login Page Responsive (Merged & Improved) */
-    .login-card {
+    /* Standalone Login Page Only */
+    .login-page .login-card {
         padding: 2rem;
-        margin: 1rem;
-        max-width: 100%;
-        width: 90%;
+        margin: 1rem auto;
+        max-width: 450px;
+        width: 100%;
+        position: relative;
     }
 
     .login-title {
@@ -1378,9 +1391,10 @@ img {
     }
 
     /* Login specific small mobile */
-    .login-card {
-        padding: 1.5rem;
-        border-radius: 1.25rem;
+    .login-page .login-card,
+    .popup .login-card {
+        padding: 1.5rem 1.25rem;
+        border-radius: 1.5rem;
     }
 
     .login-logo {

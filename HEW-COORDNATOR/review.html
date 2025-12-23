@@ -1,75 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review HEW Reports</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review HEW Reports</title>
+  <link rel="stylesheet" href="HEW Coordinator.css">
+  <link rel="stylesheet" href="../css/logout.css">
 </head>
-<body style="background-color: aqua;">
-  
-    <div style="display: flex; justify-content:  flex-end;">
-    <div style="display: flex;gap: 12px;padding-right:10px;align-items:center; padding-top: 12px; border: none ; border-radius: 5px;">
-        <a href="review.html" style="background-color: orange ;border-radius: 82px; text-decoration: none;" id="tesh">Review HEW Reports</a>
-        <a href="monitor.html"style="background-color: orange ;border-radius: 32px; text-decoration: none;">Monitor HEW Activity </a>
-        <a href="forwad.html"style="background-color: orange ;border-radius: 32px; text-decoration: none;">Forward Reports</a>
-        <a href="validate.html"style="background-color: orange ;border-radius: 32px; text-decoration: none;">Validate Collected Data</a>
-</div>
-</div>
-<script>
-<button onclick ="changeText()">click me</button>
-function changeText(){
-const sule=Document.getElementById('tesh');
-console.log("funnction excuted");
-}
-</script>
-  <div style="margin:auto; text-align:center;; 
-  gap:12px; text-decoration:none;" >
-    <h1>Review HEW Reports</h1>
-  </div>
-   <div style="margin:auto; text-align:center; background-color:lightblue; 
-  gap:12px; text-decoration:none;" >
-<img src="teshe.jpg" style="width: 80%;">
-<br>
-<div style="text-align: center;margin: auto;">
 
-<h3>Here HEW Coordanators hava authority to access,review HEW Reports in LICH-AMBA Health care unit
-  in  three kebale sent by HEWs </h3>
-<p> HEW Coordanators are access HEW report data that may be:</p>
-<li>Data abuot houeshold numbers</li>
-<li> Data abuot HIV Addis patients </li>
-<li> Data about numbers of new born childern </li>
-</div>
-  
+<body>
+  <script src="../js/logout.js"></script>
+  <div style="border: 1px;">
+    <aside class="sidebar-form">
+      <form class="tes" style="border: 1px;">
+        <nav class="sidebar-nav">
+          <h3 class="sidebar-title">Reports & Activities</h3>
+          <ul>
+            <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
+            <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
+            <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
+            <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li><br><br>
+            <li><a href="../index.html" class="nav-button blue-button">Logout</a></li>
+          </ul>
+        </nav>
+        <!-- You could add actual form elements here if needed later -->
+        <!-- <div class="sidebar-section">
+                <h4>Filter Options</h4>
+                <form>
+                    <input type="text" placeholder="Search...">
+                    <button type="submit">Go</button>
+                </form>
+            </div> -->
+    </aside>
+    </form>
+    <script>
+      <button onclick="changeText()">click me</button>
+      function changeText() {
+        const sule = Document.getElementById('tesh');
+        console.log("funnction excuted");
+      }
+    </script>
+    <div style="margin:auto; text-align:center;; 
+  gap:12px; text-decoration:none;">
+      <h1>Review HEW Reports</h1>
+    </div>
+    <div style="margin:auto; text-align:center; background-color:lightblue; 
+  gap:12px; text-decoration:none;">
+      <img src="teshe.jpg" style="width: 80%;">
+      <br>
+      <div style="text-align: center;margin: auto;">
 
-<div style="border: 1px solid #ccc; background-color: palegreen; margin:auto; width:50%; padding:16px;">
-  <form id="hewReviewForm" style="margin:auto; text-align:center;">
-    <h4>To review the data first choose kebele</h4>
+        <h3>Here HEW Coordanators hava authority to access,review HEW Reports <br>in LICH-AMBA Health care unit
+          in three kebale sent by HEWs </h3>
+        <p> HEW Coordanators are access HEW report data that may be:</p>
+        <li>Data abuot houeshold numbers</li>
+        <li> Data abuot HIV Addis patients </li>
+        <li> Data about numbers of new born childern </li>
+      </div>
 
-    <select id="kebeleSelect" required>
-      <option value="">-- choose kebele --</option>
-      <option value="Lich-amba">Lich-amba</option>
-      <option value="Arade">Arade</option>
-      <option value="Lereba">Lereba</option>
-    </select>
 
-    <p>Choose data to review</p>
-    <select id="dataSelect" required>
-      <option value="">-- choose data type --</option>
-      <option value="household data">household data</option>
-      <option value="HIV Addis patients Data">HIV Addis patients Data</option>
-      <option value="Numbers of new born childern">Numbers of new born childern</option>
-      <option value="data of family plan">data of family plan</option>
-      <option value="Data of sanitation">Data of sanitation</option>
-    </select>
-    <br><br>
+      <div style="border: 1px solid #ccc; background-color: palegreen; margin:auto; width:50%; padding:16px;">
+        <form id="hewReviewForm" style="margin:auto; text-align:center;">
+          <h4>To review the data first choose kebele</h4>
 
-    <input type="button" id="openBtn" value="Open" style="border-radius:19px; color:orange;"><br><br>
+          <select id="kebeleSelect" required>
+            <option value="">-- choose kebele --</option>
+            <option value="Lich-amba">Lich-amba</option>
+            <option value="Arade">Arade</option>
+            <option value="Lereba">Lereba</option>
+          </select>
 
-    <textarea id="reviewArea" placeholder="Review chosen data" rows="6" style="width:90%;"></textarea><br><br>
+          <p>Choose data to review</p>
+          <select id="dataSelect" required>
+            <option value="">-- choose data type --</option>
+            <option value="household data">household data</option>
+            <option value="HIV Addis patients Data">HIV Addis patients Data</option>
+            <option value="Numbers of new born childern">Numbers of new born childern</option>
+            <option value="data of family plan">data of family plan</option>
+            <option value="Data of sanitation">Data of sanitation</option>
+          </select>
+          <br><br>
 
-    <button type="button" id="submitBtn">Submit</button>
-  </form>
-</div>
+          <input type="button" id="openBtn" value="Open" style="border-radius:19px; color:orange;"><br><br>
+
+          <textarea id="reviewArea" placeholder="Review chosen data" rows="6" style="width:90%;"></textarea><br><br>
+
+          <button type="button" id="submitBtn">Submit</button>
+        </form>
+      </div>
 </body>
 <script src="ReviewCode.js"></script>
+
 </html>

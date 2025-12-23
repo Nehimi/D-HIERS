@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D-HEIRS | HEW Dashboard</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="focal_dashboard.css" />
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../HEW_js/hew_dashboard.js" defer></script>
+</head>
+
+<body class="dashboard-body">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-icon">
+        <img src="image.jpg" alt="">
+      </div>
+      <div class="brand-text">
+        D-HEIRS
+        <span>Focal Person Portal</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="focal_dashboard.html" class="nav-item active">
+        <i class="fa-solid fa-grid-2"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="statistical_report.html" class="nav-item">
+        <i class="fa-solid fa-users-gear"></i>
+        <span>Generate Statistical Report</span>
+      </a>
+      <a href="generate_hmis_report.html" class="nav-item">
+        <i class="fa-solid fa-stethoscope"></i>
+        <span>Generate HMIS Reports</span>
+      </a>
+      <a href="export_hmis_report.html" class="nav-item">
+        <i class="fa-solid fa-file-pen"></i>
+        <span>Export HMIS Reports</span>
+      </a>
+      <a href="hmis_data_submission.html" class="nav-item">
+        <i class="fa-solid fa-chart-pie"></i>
+        <span>Submit Validated Data to HMIS Officer</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="index.html" class="nav-item logout">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+</body>
+
+</html>

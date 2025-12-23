@@ -1,21 +1,26 @@
 <?php
 /**
- * Database Connection - Simple & Clean
+ * Database Connection
+ * D-HEIRS - Digital Health Extension Information Gathering & Reporting System
+ * 
+ * Database: lichamba_database
+ * Server: localhost (XAMPP/WAMP)
  */
 
-$server = "localhost";
-$user = "root";
+$servername = "localhost";
+$username = "root";
 $password = "";
-$database = "LichAmba_database";
+$database = "lichamba_database";
 
-// Create connection
-$dataBaseConnection = mysqli_connect($server, $user, $password, $database);
+// Create connection using mysqli
+$dataBaseConnection = new mysqli($servername, $username, $password, $database);
 
 // Check connection
-if (!$dataBaseConnection) {
-    die("Connection failed: " . mysqli_connect_error());
+if ($dataBaseConnection->connect_error) {
+    error_log("Database connection failed: " . $dataBaseConnection->connect_error);
+    die("Connection failed: " . $dataBaseConnection->connect_error);
 }
 
 // Set charset to UTF-8
-mysqli_set_charset($dataBaseConnection, "utf8mb4");
+$dataBaseConnection->set_charset("utf8mb4");
 ?>

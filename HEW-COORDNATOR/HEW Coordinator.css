@@ -1,0 +1,507 @@
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #eef2f5; /* Light background for the whole page */
+    color: #333;
+}
+
+/* Page Wrapper for Flexbox Layout */
+.page-wrapper {
+    display: flex; /* Use flexbox to arrange sidebar and main content */
+    min-height: 100vh; /* Ensure wrapper takes full viewport height */
+}
+
+/* Sidebar Styling */
+.sidebar-form {
+    width: 280px; /* Fixed width for the sidebar */
+    background-color: #ffffff; /* White background for sidebar */
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow on the right */
+    position: fixed; /* Keep sidebar fixed while main content scrolls */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000; /* Ensure it stays on top of other content */
+    overflow-y: auto; /* Enable scrolling for sidebar content if it gets too long */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    gap: 20px; /* Space between sections if you add more */
+}
+
+.sidebar-title {
+    color: #2c3e50;
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.sidebar-nav ul {
+    list-style: none; /* Remove default list bullets */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Stack navigation items vertically */
+    gap: 15px; /* Space between navigation buttons */
+}
+
+.sidebar-nav li {
+    margin: 0;
+}
+
+.sidebar-nav .nav-button {
+    display: block; /* Make the entire link clickable block */
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #ffffff; /* White text for all buttons */
+    border-radius: 32px; /* Pill-shaped buttons */
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.sidebar-nav .nav-button.blue-button {
+    background-color: deepskyblue;
+}
+
+.sidebar-nav .nav-button.blue-button:hover {
+    background-color: #008cc7; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+.sidebar-nav .nav-button.orange-button {
+    background-color: orange;
+}
+
+.sidebar-nav .nav-button.orange-button:hover {
+    background-color: #e69500; /* Darker orange on hover */
+    transform: translateY(-2px);
+}
+
+/* Main Content Area Styling */
+.main-content {
+    margin-left: 280px; /* This is crucial: pushes main content to the right of the sidebar */
+    flex-grow: 1; /* Allows main content to take up remaining space */
+    padding: 20px 30px;
+    background-color: #f8f8f8; /* A slightly different background for main content */
+}
+
+.main-content h1 {
+    color: #3f51b5;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .sidebar-form {
+        width: 100%; /* Sidebar takes full width */
+        height: auto; /* Height adapts to content */
+        position: relative; /* Not fixed, scrolls with content */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding-bottom: 10px; /* Adjust padding for mobile */
+    }
+    .main-content {
+        margin-left: 0; /* Remove left margin when sidebar is not fixed */
+        padding-top: 20px; /* Add some top padding */
+    }
+    .page-wrapper {
+        flex-direction: column; /* Stack sidebar and main content vertically */
+    }
+    .sidebar-nav ul {
+        flex-direction: row; /* Make nav items horizontal on small screens */
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: center; /* Center buttons */
+        gap: 10px;
+    }
+    .sidebar-nav .nav-button {
+        flex-basis: calc(50% - 10px); /* Two buttons per row, with gap */
+        max-width: 200px; /* Limit button width */
+    }
+    .sidebar-title {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-nav .nav-button {
+        flex-basis: 100%; /* One button per row on very small screens */
+    }
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .main-content-div {
+            margin: auto;
+            text-align: center;
+            max-width: 700px;
+            padding: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        p {
+            color: #555;
+            margin-bottom: 25px;
+        }
+        .form-container {
+            background-color: bisque; /* Your specified background color */
+            text-align: center;
+            margin: auto;
+            width: 34%; /* Your specified width */
+            min-width: 300px; /* Ensure it's not too small on wider screens */
+            max-width: 480px; /* Limit max width for readability */
+            padding: 30px;
+            border: 1px solid #e0e0e0; /* A light border */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Soft shadow */
+        }
+        .form-container p {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        select, textarea {
+            width: calc(100% - 20px); /* Adjust width to account for padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding in width */
+            resize: vertical; /* Allow vertical resizing for textarea */
+            min-height: 120px; /* Minimum height for textarea */
+            transition: border-color 0.3s ease;
+        }
+        textarea:focus, select:focus {
+            border-color: #007bff; /* Highlight on focus */
+            outline: none;
+        }
+        button {
+            padding: 12px 25px;
+            background-color: #007bff; /* Default button color */
+            color: white;
+            border: none;
+            border-radius: 25px; /* More rounded */
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            width: calc(100% - 20px); /* Match width of selects/textarea */
+            box-sizing: border-box;
+            margin-top: 5px; /* Spacing between buttons */
+        }
+        #openActivityBtn {
+            background-color: orange; /* Your specified color */
+        }
+        #openActivityBtn:hover {
+            background-color: darkorange;
+        }
+        #submitReviewBtn {
+            background-color: #4CAF50; /* Green submit button */
+        }
+        #submitReviewBtn:hover:not(:disabled) {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #a0a0a0;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+    .tes{  background-color: azure; 
+            text-align: center;
+            margin: auto;
+            width: 30%; 
+            min-width: 300px; 
+            max-width: 450px; 
+            padding: 30px;
+            border: 1px solid #e0e0e0; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);}
+
+        
+       
+        .main-content-div {
+            margin: auto;
+            text-align: center;
+            max-width: 600px;
+            padding: 10px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        p {
+            color: #555;
+            margin-bottom: 25px;
+        }
+        .form-container {
+            background-color: azure; 
+            text-align: center;
+            margin: auto;
+            width: 30%; 
+            min-width: 300px; 
+            max-width: 450px; 
+            padding: 30px;
+            border: 1px solid #e0e0e0; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .form-container p {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        select, textarea {
+            width: calc(100% - 20px); /* Adjust width to account for padding */
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Include padding in width */
+            resize: vertical; /* Allow vertical resizing for textarea */
+            min-height: 80px; /* Minimum height for textarea */
+            transition: border-color 0.3s ease;
+        }
+        textarea:focus, select:focus {
+            border-color: #007bff; /* Highlight on focus */
+            outline: none;
+        }
+        button {
+            padding: 12px 25px;
+            background-color: #007bff; /* Primary blue button */
+            color: white;
+            border: none;
+            border-radius: 25px; /* More rounded */
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, opacity 0.3s ease;
+            width: calc(100% - 20px); /* Match width of selects/textarea */
+            box-sizing: border-box;
+        }
+        button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+        button:disabled {
+            background-color: #a0a0a0;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+ 
+
+/* Page Wrapper for Flexbox Layout */
+.page-wrapper {
+    display: flex; /* Use flexbox to arrange sidebar and main content */
+    min-height: 100vh; /* Ensure wrapper takes full viewport height */
+}
+
+/* Sidebar Styling */
+.sidebar-form {
+    width: 300px; /* Fixed width for the sidebar */
+    background-color: #ffffff; /* White background for sidebar */
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow on the right */
+    position: fixed; /* Keep sidebar fixed while main content scrolls */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000; /* Ensure it stays on top of other content */
+    overflow-y: auto; /* Enable scrolling for sidebar content if it gets too long */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    gap: 20px; /* Space between sections if you add more */
+}
+
+.sidebar-title {
+    color: #2c3e50;
+    font-size: 1.4em;
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.sidebar-nav ul {
+    list-style: none; /* Remove default list bullets */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Stack navigation items vertically */
+    gap: 15px; /* Space between navigation buttons */
+}
+
+.sidebar-nav li {
+    margin: 0;
+}
+
+.sidebar-nav .nav-button {
+    display: block; /* Make the entire link clickable block */
+    padding: 12px 20px 12px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #ffffff; /* White text for all buttons */
+    border-radius: 42px; /* Pill-shaped buttons */
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    height: 12xp;
+}
+
+.sidebar-nav .nav-button.blue-button {
+    background-color: deepskyblue;
+}
+
+.sidebar-nav .nav-button.blue-button:hover {
+    background-color: #008cc7; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+.sidebar-nav .nav-button.orange-button {
+    background-color: orange;
+}
+
+.sidebar-nav .nav-button.orange-button:hover {
+    background-color: #e69500; /* Darker orange on hover */
+    transform: translateY(-2px);
+}
+
+/* Main Content Area Styling */
+.main-content {
+    margin-left: 280px; /* This is crucial: pushes main content to the right of the sidebar */
+    flex-grow: 1; /* Allows main content to take up remaining space */
+    padding: 20px 30px;
+    background-color: #f8f8f8; /* A slightly different background for main content */
+}
+
+.main-content h1 {
+    color: #3f51b5;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .sidebar-form {
+        width: 100%; /* Sidebar takes full width */
+        height: auto; /* Height adapts to content */
+        position: relative; /* Not fixed, scrolls with content */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        padding-bottom: 10px; /* Adjust padding for mobile */
+    }
+    .main-content {
+        margin-left: 0; /* Remove left margin when sidebar is not fixed */
+        padding-top: 20px; /* Add some top padding */
+    }
+    .page-wrapper {
+        flex-direction: column; /* Stack sidebar and main content vertically */
+    }
+    .sidebar-nav ul {
+        flex-direction: row; /* Make nav items horizontal on small screens */
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: center; /* Center buttons */
+        gap: 10px;
+    }
+    .sidebar-nav .nav-button {
+        flex-basis: calc(50% - 10px); /* Two buttons per row, with gap */
+        max-width: 200px; /* Limit button width */
+    }
+    .sidebar-title {
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-nav .nav-button {
+        flex-basis: 100%; /* One button per row on very small screens */
+    }
+}
+       
+        h3 {
+            margin: 20px auto;
+            text-align: center;
+            color: #333;
+        }
+        form {
+            background-color: azure;
+            text-align: center;
+            margin: 20px auto;
+            width: 30%;
+            min-width: 320px; /* Ensure readability on smaller screens */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        select {
+            width: calc(100% - 20px); /* Adjust width considering padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box; /* Include padding in element's total width/height */
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #28a745; /* Green for the submit button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        label {
+            display: block; /* Make label take full width */
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        textarea {
+            width: calc(100% - 20px); /* Adjust width to fit container with padding */
+            max-width: 350px; /* Max width to prevent it from getting too wide */
+            padding: 8px;
+            box-sizing: border-box;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical; /* Allow vertical resizing */
+            font-size: 0.95rem;
+        }
+        textarea:disabled {
+
+               background-color: #e9ecef; /* Lighter background for disabled textarea */
+            cursor: not-allowed;
+        }
