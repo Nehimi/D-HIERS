@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEW Coordinator Dashboard | D-HEIRS</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Global & Dashboard CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="coordinator_dashboard.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-icon">
+                <img src="images/logo.png" alt="D-HEIRS Logo">
+            </div>
+            <div class="brand-text">
+                D-HEIRS
+                <span>Coordinator Portal</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="coordinator_dashboard.html" class="nav-item active">
+                <i class="fa-solid fa-grid-2"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="monitor2.html" class="nav-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Monitor Activity</span>
+            </a>
+            <a href="review.html" class="nav-item">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Review Reports</span>
+            </a>
+            <a href="validate2.html" class="nav-item">
+                <i class="fa-solid fa-check-double"></i>
+                <span>Validate Data</span>
+            </a>
+            <a href="forward2.html" class="nav-item">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Forward Data</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="../index.html" class="nav-item logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Welcome Banner -->
+        <header class="dashboard-header">
+            <div class="welcome-banner">
+                <div class="welcome-text">
+                    <h1>Welcome Back, Coordinator</h1>
+                    <p>Oversee Health Extension Workers, validate field reports, and ensure data integrity across your
+                        woreda.</p>
+                </div>
+                <!-- Artistic overlay image -->
+                <img src="images/group-african.jpg" alt="Team" class="header-image">
+            </div>
+        </header>
+
+        <!-- Quick Stats Row -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Active HEWs</h3>
+                    <div class="stat-value">12</div>
+                </div>
+                <div class="stat-icon blue">
+                    <i class="fa-solid fa-user-nurse"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Pending Reports</h3>
+                    <div class="stat-value">34</div>
+                </div>
+                <div class="stat-icon orange">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Validated Today</h3>
+                    <div class="stat-value">18</div>
+                </div>
+                <div class="stat-icon green">
+                    <i class="fa-solid fa-check-circle"></i>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-info">
+                    <h3>Packages Forwarded</h3>
+                    <div class="stat-value">5</div>
+                </div>
+                <div class="stat-icon purple">
+                    <i class="fa-solid fa-share-from-square"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Functional Modules -->
+        <h2 class="actions-section-title">
+            <i class="fa-solid fa-layer-group"></i> Management Modules
+        </h2>
+
+        <section class="modules-grid">
+
+            <!-- Monitor -->
+            <div class="module-card">
+                <div class="module-image">
+                    <img src="images/images 2.jpg" alt="Monitoring">
+                </div>
+                <div class="module-content">
+                    <h3>Monitor Activity</h3>
+                    <p>Track real-time performance of Health Extension Workers. View submission rates and active field
+                        engagement by Kebele.</p>
+                    <a href="monitor2.html" class="btn-action primary">Go to Monitor <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Review -->
+            <div class="module-card">
+                <div class="module-image">
+                    <img src="images/teshe.jpg" alt="Reviewing">
+                </div>
+                <div class="module-content">
+                    <h3>Review Reports</h3>
+                    <p>Inspect detailed household and health service records. Verify the accuracy of submitted data
+                        before validation.</p>
+                    <a href="review.html" class="btn-action primary">Start Review <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Validate -->
+            <div class="module-card">
+                <div class="module-image">
+                    <img src="images/images (1).jpg" alt="Validation">
+                </div>
+                <div class="module-content">
+                    <h3>Validate Data</h3>
+                    <p>Official sign-off on collected data points. Ensure compliance and correctness before data enters
+                        the national system.</p>
+                    <a href="validate2.html" class="btn-action primary">Validate Now <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Forward -->
+            <div class="module-card">
+                <div class="module-image">
+                    <img src="images/download.jpg" alt="Forwarding">
+                </div>
+                <div class="module-content">
+                    <h3>Forward to Focal</h3>
+                    <p>Aggregate validated records into statistical packages and transmit them to the Linkage Focal
+                        Person for HMIS entry.</p>
+                    <a href="forward2.html" class="btn-action primary">Forward Data <i
+                            class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../js/logout.js"></script>
+    <script src="mobile_nav.js"></script>
+</body>
+
+</html>
