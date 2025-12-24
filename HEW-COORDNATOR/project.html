@@ -11,37 +11,40 @@
 <body>
     <link rel="stylesheet" href="HEW Coordinator.css">
     <script src="../js/logout.js"></script>
-    <div style="border: 1px;">
+    <div class="page-wrapper">
         <aside class="sidebar-form">
-            <form class="tes" style="border: 1px;">
-                <nav class="sidebar-nav">
-                    <h3 class="sidebar-title">Reports & Activities</h3>
-                    <ul>
-                        <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
-                        <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
-                        <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
-                        <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li>
-                        <br><br>
-                        <li><a href="../index.html" class="nav-button blue-button">Logout</a></li>
-                    </ul>
-                </nav>
+            <nav class="sidebar-nav">
+                <h3 class="sidebar-title">Reports & Activities</h3>
+                <ul>
+                    <li><a href="review.html" class="nav-button">Review HEW Reports</a></li>
+                    <li><a href="monitor2.html" class="nav-button">Monitor HEW Activity</a></li>
+                    <li><a href="forward2.html" class="nav-button">Forward Reports</a></li>
+                    <li><a href="validate2.html" class="nav-button">Validate Collected Data</a></li>
+                    <li><a href="../index.html" class="nav-button logout">Logout</a></li>
+                </ul>
+            </nav>
         </aside>
-        </form>
-        <div style="margin:auto;text-align:center; background-color:lightblue;">
-            <h1> D-HEIRS</h1>
-            <div style="width:100%">
 
-                <img src="group-african.jpg" style="width:80%; margin:auto">
+        <div class="main-content">
+            <div class="text-center" style="margin-bottom: 3rem;">
+                <h1 style="font-size: 3rem; color: var(--primary-dark);">D-HEIRS</h1>
+                <p style="font-size: 1.2rem; margin-top: 0.5rem;">Digital Health Extension & Integrated Reporting System
+                </p>
             </div>
-            <div>
-                <input type="button" style="border-radius: 90px;
-background-color: deepskyblue;height:70px ;width:70px;">
-                <a href="#">HEW COORDATOR</a>
+
+            <div class="text-center" style="margin-bottom: 2rem;">
+                <img src="images/group-african.jpg"
+                    style="width: 100%; max-width: 800px; max-height: 400px; object-fit: cover; border-radius: var(--radius-xl); margin: 0 auto; box-shadow: var(--shadow-xl); border: 4px solid white;">
             </div>
-            <div style="margin:auto; text-align:center; background-color:lightblue; 
-gap:12px; text-decoration:none;">
-                <div style="display: flex;gap: 12px;padding-right:10px;align-items: flex-end;">
-                </div>
+
+            <div class="text-center" style="margin-top: 3rem;">
+                <a href="monitor2.html" class="nav-button active"
+                    style="display: inline-flex; width: auto; background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 1rem 3rem; font-size: 1.2rem;">
+                    Enter Coordinator Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
 
 </body>
 

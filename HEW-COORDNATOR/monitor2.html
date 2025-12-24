@@ -4,73 +4,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitor HEW Activity</title>
+    <title>Monitor HEW Activity | D-HEIRS</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="coordinator_dashboard.css">
+
+    <!-- Page Specific CSS Tweaks -->
+    <style>
+        .split-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+        }
+
+        .selection-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f3f4f6;
+            height: fit-content;
+        }
+
+        .results-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f3f4f6;
+            min-height: 500px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+        }
+
+        /* Activity items style override for the injected JS content */
+        .activity-item {
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+    </style>
 </head>
 
 <body>
-    <h1 style="text-align: center;margin: auto;">Monitor HEW Activity</h1>
-    <link rel="stylesheet" href="HEW Coordinator.css">
-    <link rel="stylesheet" href="../css/logout.css">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-icon">
+                <img src="images/images.jpg" alt="D-HEIRS Logo">
+            </div>
+            <div class="brand-text">
+                D-HEIRS
+                <span>Coordinator Portal</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="coordinator_dashboard.html" class="nav-item">
+                <i class="fa-solid fa-grid-2"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="monitor2.html" class="nav-item active">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Monitor Activity</span>
+            </a>
+            <a href="review.html" class="nav-item">
+                <i class="fa-solid fa-file-invoice"></i>
+                <span>Review Reports</span>
+            </a>
+            <a href="validate2.html" class="nav-item">
+                <i class="fa-solid fa-check-double"></i>
+                <span>Validate Data</span>
+            </a>
+            <a href="forward2.html" class="nav-item">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Forward Data</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="../index.html" class="nav-item logout">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <header class="dashboard-header">
+            <div class="header-text">
+                <h1>Monitor Field Activity</h1>
+                <p style="color: var(--text-muted);">Real-time tracking of Health Extension Worker performance and
+                    submission status.</p>
+            </div>
+        </header>
+
+        <div class="split-layout">
+
+            <!-- Left: Controls -->
+            <section class="selection-card">
+                <h3 style="margin-bottom:1.5rem; color:var(--primary);"><i class="fa-solid fa-filter"></i> Select HEW
+                </h3>
+
+                <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.5rem;">
+                    Choose a Health Extension Worker to view their specific activity logs, submission history, and
+                    performance metrics.
+                </p>
+
+                <label for="hewSelect" class="form-label">Health Extension Worker</label>
+                <select id="hewSelect" class="form-select" onchange="loadHewData()">
+                    <option value="">-- Loading HEW List... --</option>
+                </select>
+
+                <div class="info-box"
+                    style="background:#e0f2fe; padding:1rem; border-radius:8px; border:1px solid #bae6fd;">
+                    <strong style="color:#0369a1; display:block; margin-bottom:0.5rem;"><i
+                            class="fa-solid fa-circle-info"></i> Insight</strong>
+                    <p style="font-size:0.85rem; color:#0c4a6e; margin:0;">
+                        Monitoring data is aggregated from daily submission logs and household visits recorded in the
+                        `health_data` table.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Right: Results -->
+            <section class="results-card">
+                <h3 style="margin-bottom:1.5rem; border-bottom:1px solid #f3f4f6; padding-bottom:1rem;">
+                    <i class="fa-solid fa-list-check"></i> Activity Feed
+                </h3>
+
+                <div id="activityReviewArea">
+                    <div style="text-align:center; padding:3rem; color:var(--text-light);">
+                        <i class="fa-solid fa-user-magnifying-glass"
+                            style="font-size:3rem; margin-bottom:1rem; display:block;"></i>
+                        <p>Select a worker from the left to view their details.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <script src="monitorCode.js"></script>
     <script src="../js/logout.js"></script>
-    <div style="border: 1px;">
-        <aside class="sidebar-form">
-            <form class="tes" style="border: 1px;">
-
-                <nav class="sidebar-nav">
-                    <h3 class="sidebar-title">Reports & Activities</h3>
-                    <ul>
-                        <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
-                        <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
-                        <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
-                        <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li>
-                        <br><br>
-                        <li><a href="../index.html" class="nav-button blue-button">Logout</a></li>
-                    </ul>
-                </nav>
-        </aside>
-        </form>
-        <img src="images 2.jpg" style="width: 97%; margin:auto;">
-        <h4 style=" text-align: center ;margin: auto;padding-left: 34px;">
-            HEW Coordinator is Monitor HEW Activity in Licha Amba and around two kebales <br>
-            properly by use this platform.In this page HEW Coordinator monitor HEW activity<br>
-            easliy becuase HEW Coordinator can get data to monitor each HEW activety<br>
-            monitor performance of and monitor data Submissions status of HEWs.<br>
-            This includes viewing metrics,Submissions,timeline,and other activity indicators .</h4><br><br>
-        <p style="text-align: center;margin: auto;"> Here belowe get data to monitor HEW activety by open this page
-        </p>
-
-        <div class="main-content-div">
-            <h5>HEW Coordinator to review HEW-submitted report and forward validated <br>
-                HEW data to the Linkage Focal Person for further processing</h5><br>
-        </div>
-
-        <div class="form-container">
-            <form id="hewMonitorForm">
-                <p>HEW Coordinator can select individual HEW for detailed monitor</p>
-                <select id="hewSelect" required>
-                    <option value="">-- Select HEW --</option>
-                    <option value="Abeba_kebade_Arade">Abeba kebade in Arade kable</option>
-                    <option value="Mirate_Debabe_Arade">Mirate Debabe in Arade kable</option>
-                    <option value="Melkamu_Godebo_Lich_Amba">Melkamu Godebo in Lich Amba kable</option>
-                    <option value="Lommbame_Lamam_Lich_Amba">Lommbame Lamam in Lich Amba kable</option>
-                    <option value="Yonas_Loba_Licha_Amba">Yonas Loba in Licha Amba kable</option>
-                    <option value="Adan_Ayela_Arade">Adan Ayela in Arade kable</option>
-                    <option value="Abeba_kufebo_Arade">Abeba kufebo in Arade kable</option>
-                </select><br>
-
-                <textarea id="activityReviewArea" placeholder="Open HEW activity details here for review..."
-                    rows="10"></textarea><br>
-
-                <button type="button" id="openActivityBtn">Open Activity</button><br>
-                <button type="button" id="submitReviewBtn">Submit Review</button>
-            </form>
-        </div>
-
-
-
-
-
+    <script src="mobile_nav.js"></script>
 </body>
-<script src="monitorCode.js"></script>
 
 </html>
