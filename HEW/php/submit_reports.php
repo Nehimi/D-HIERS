@@ -14,7 +14,7 @@ $totalHealthDataResult = mysqli_query($dataBaseConnection, "SELECT COUNT(*) as c
 $totalHealthData = mysqli_fetch_assoc($totalHealthDataResult)['count'];
 
 // Get recent health data for the report table
-$recentHealthQuery = mysqli_query($dataBaseConnection, "SELECT h.householdId, hh.memberName, h.serviceType, h.visitDate 
+$recentHealthQuery = mysqli_query($dataBaseConnection, "SELECT h.householdId, hh.memberName, h.service_type as serviceType, h.created_at as visitDate 
                                                       FROM health_data h 
                                                       JOIN household hh ON h.householdId = hh.householdId 
                                                       ORDER BY h.id DESC LIMIT 10");
