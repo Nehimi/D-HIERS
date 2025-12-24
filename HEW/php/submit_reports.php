@@ -147,7 +147,7 @@ $currentDate = date('F d, Y');
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand-icon">
-                <img src="../images/logo.png" alt="">
+                <img src="../images/images.jpg" alt="Logo">
             </div>
             <div class="brand-text">
                 D-HEIRS
@@ -202,10 +202,12 @@ $currentDate = date('F d, Y');
         </header>
 
         <div class="content-wrapper">
-            <!-- Printing Controls -->
-            <div class="form-actions-web" style="margin-bottom: 1rem; text-align: right; max-width: 800px; margin-left: auto; margin-right: auto;">
-                <button onclick="window.print()" class="btn-primary">
-                    <i class="fa fa-print"></i> Print Report
+            <div class="form-actions-web" style="margin-bottom: 2rem; display: flex; justify-content: center; gap: 1rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+                <button onclick="window.print()" class="btn-secondary" style="padding: 0.75rem 1.5rem;">
+                    <i class="fa fa-print"></i> Print Preview
+                </button>
+                <button id="submitToCoordBtn" class="btn-primary" style="padding: 0.75rem 2rem; background: linear-gradient(135deg, #0f766e, #115e59); border: none; box-shadow: 0 4px 6px rgba(15, 118, 110, 0.2);">
+                    <i class="fa fa-paper-plane"></i> Finalize & Submit to Coordinator
                 </button>
             </div>
 
@@ -286,6 +288,43 @@ $currentDate = date('F d, Y');
         </div>
     </main>
     <script src="../../js/logout.js"></script>
+    <script>
+        document.getElementById('submitToCoordBtn').addEventListener('click', function() {
+            const btn = this;
+            if (!confirm("Are you sure you want to finalize and submit this report to the Coordinator?")) return;
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Submitting...';
+
+            fetch('../../api/hew_coordinator.php?action=notify_submission', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    hewId: '<?php echo $_SESSION['userId'] ?? "HEW-001"; ?>',
+                    kebele: '<?php echo $kebeleName; ?>',
+                    hewName: '<?php echo $hewName; ?>'
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Submission Successful! Your Coordinator has been notified.");
+                    btn.innerHTML = '<i class="fa fa-check"></i> Report Submitted';
+                    btn.style.background = '#64748b'; // Gray out after success
+                } else {
+                    alert("Submission Error: " + data.message);
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa fa-paper-plane"></i> Finalize & Submit to Coordinator';
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Network error occurred during submission.");
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa fa-paper-plane"></i> Finalize & Submit to Coordinator';
+            });
+        });
+    </script>
 </body>
 
 </html>

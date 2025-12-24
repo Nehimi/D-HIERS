@@ -1,10 +1,10 @@
 
 document.addEventListener('DOMContentLoaded', function () {
   const kebeleSelect = document.getElementById('kebeleSelect');
-  const dataSelect = document.getElementById('dataSelect');
-  const openBtn = document.getElementById('openBtn');
-  const reviewArea = document.getElementById('reviewArea');
-  const submitBtn = document.getElementById('submitBtn');
+  const dataSelect = document.getElementById('dataTypeSelect');
+  const openBtn = document.getElementById('loadDataBtn');
+  const reviewArea = document.getElementById('reviewDisplayArea');
+  const submitBtn = document.getElementById('submitBtn'); // Note: review.html is missing this, will add it.
 
   // Initial state
   if (reviewArea) reviewArea.value = '';
@@ -30,13 +30,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
           if (data.success) {
             if (data.data.length === 0) {
-              reviewArea.value = "No records found for this selection.";
+              reviewArea.innerHTML = '<div style="text-align:center; padding:3rem; color:var(--text-light);"><i class="fa-solid fa-face-empty" style="font-size:3rem; margin-bottom:1rem; display:block;"></i><p>No records found for this selection.</p></div>';
             } else {
-              // Format JSON data into string
-              reviewArea.value = JSON.stringify(data.data, null, 2);
+              renderTable(data.data, dataType);
             }
-            reviewArea.style.borderColor = '#0f766e';
-            if (submitBtn) submitBtn.disabled = false;
           } else {
             alert("Error: " + data.message);
           }
@@ -52,29 +49,79 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // "Submit" button logic (Validates the data locally or marks as reviewed)
-  if (submitBtn) {
-    submitBtn.addEventListener('click', function () {
-      const kebele = kebeleSelect.value;
-      const dataType = dataSelect.value;
+  function renderTable(data, type) {
+    let html = `
+      <table class="review-table">
+        <thead>
+          <tr>
+            ${Object.keys(data[0]).map(key => {
+      let label = key.replace('_', ' ');
+      if (key === 'hew_name') label = 'Submitted By (HEW)';
+      return `<th>${label}</th>`;
+    }).join('')}
+          </tr>
+        </thead>
+        <tbody>
+          ${data.map(row => `
+            <tr>
+              ${Object.values(row).map(val => `<td>${val === null ? '-' : val}</td>`).join('')}
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      <div style="margin-top: 2rem; text-align: right;">
+        <button id="submitBtn" class="btn-review" style="max-width: 250px;">
+          <i class="fa-solid fa-check-circle"></i> Mark as Reviewed
+        </button>
+      </div>
+    `;
+    reviewArea.innerHTML = html;
 
-      if (!kebele || !dataType) return;
+    // Re-attach listener to the newly created button
+    const newSubmitBtn = document.getElementById('submitBtn');
+    if (newSubmitBtn) {
+      newSubmitBtn.addEventListener('click', () => handleReviewSubmit(data, type));
+    }
+  }
 
-      if (confirm(`Mark data for ${kebele} - ${dataType} as Reviewed?`)) {
-        alert("Data marked as Reviewed.");
-        // In a full implementation, we'd send a POST to update status here
-        reviewArea.value = '';
-        submitBtn.disabled = true;
-      }
-    });
+  function handleReviewSubmit(data, dataType) {
+    const kebele = kebeleSelect.value;
+    if (confirm(`Mark data for ${kebele} - ${dataType} as Reviewed?`)) {
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.textContent = 'Submitting...';
+      submitBtn.disabled = true;
+
+      fetch('../api/hew_coordinator.php?action=mark_reviewed', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ kebele, dataType })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            alert("Data marked as Reviewed successfully!");
+            reviewArea.innerHTML = '<div style="text-align:center; padding:4rem; color:var(--text-light);"><i class="fa-solid fa-circle-check" style="font-size:3rem; margin-bottom:1rem; display:block; color:var(--primary);"></i><p>Selection Reviewed.</p></div>';
+          } else {
+            alert("Error: " + data.message);
+            submitBtn.disabled = false;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Network error occurred.");
+          submitBtn.disabled = false;
+        })
+        .finally(() => {
+          submitBtn.textContent = 'Mark as Reviewed';
+        });
+    }
   }
 
   // Cleanup UI on change
   [kebeleSelect, dataSelect].forEach(sel => {
     if (!sel) return;
     sel.addEventListener('change', function () {
-      if (reviewArea) reviewArea.value = '';
-      if (submitBtn) submitBtn.disabled = true;
+      if (reviewArea) reviewArea.innerHTML = '<div style="text-align:center; padding:4rem; color:var(--text-light);"><i class="fa-solid fa-folder-open" style="font-size:3rem; margin-bottom:1rem; display:block;"></i><p>Select criteria and click "Load Reports" to view data.</p></div>';
     });
   });
 });
