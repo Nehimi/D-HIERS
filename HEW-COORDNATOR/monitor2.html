@@ -106,7 +106,7 @@
                 <i class="fa-solid fa-chart-line"></i>
                 <span>Monitor Activity</span>
             </a>
-            <a href="review.html" class="nav-item">
+            <a href="Review_HEW_Report.php" class="nav-item">
                 <i class="fa-solid fa-file-invoice"></i>
                 <span>Review Reports</span>
             </a>
@@ -156,15 +156,9 @@
                     <option value="">-- Loading HEW List... --</option>
                 </select>
 
-                <div class="info-box"
-                    style="background:#e0f2fe; padding:1rem; border-radius:8px; border:1px solid #bae6fd;">
-                    <strong style="color:#0369a1; display:block; margin-bottom:0.5rem;"><i
-                            class="fa-solid fa-circle-info"></i> Insight</strong>
-                    <p style="font-size:0.85rem; color:#0c4a6e; margin:0;">
-                        Monitoring data is aggregated from daily submission logs and household visits recorded in the
-                        `health_data` table.
-                    </p>
-                </div>
+                <button type="button" id="openActivityBtn" class="btn-review" style="margin-bottom: 1.5rem;">
+                    <i class="fa-solid fa-magnifying-glass"></i> Open Activity
+                </button>
             </section>
 
             <!-- Right: Results -->

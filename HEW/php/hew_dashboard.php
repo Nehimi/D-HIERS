@@ -35,7 +35,7 @@ $recentQuery = mysqli_query($dataBaseConnection, "SELECT * FROM household ORDER 
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="brand-icon">
-                <img src="../images/logo.png" alt="">
+                <img src="../images/images.jpg" alt="Logo">
             </div>
             <div class="brand-text">
                 D-HEIRS
@@ -88,7 +88,7 @@ $recentQuery = mysqli_query($dataBaseConnection, "SELECT * FROM household ORDER 
                 <div class="user-profile">
                     <img src="../images/avatar.png" alt="HEW" class="avatar-sm">
                     <div class="user-info">
-                        <span class="name">Semira Kedir</span>
+                        <span class="name"><?php echo $_SESSION['full_name'] ?? 'Semira Kedir'; ?></span>
                         <span class="role">Health Ext. Worker</span>
                     </div>
                 </div>

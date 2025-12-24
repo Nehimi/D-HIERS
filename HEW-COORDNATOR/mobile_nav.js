@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     mobileHeader.className = 'mobile-nav-header';
     mobileHeader.innerHTML = `
         <div class="brand" style="display:flex; align-items:center; gap:0.5rem;">
-            <img src="images.jpg" style="width:32px; height:32px; border-radius:6px;">
+            <img src="images/images.jpg" style="width:32px; height:32px; border-radius:6px;">
             <span style="font-weight:700; color:var(--primary-dark); font-size:1.1rem;">D-HEIRS</span>
         </div>
         <button class="mobile-menu-toggle" id="menuToggleBtn">

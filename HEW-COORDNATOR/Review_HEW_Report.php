@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -120,7 +121,7 @@
 
   <aside class="sidebar">
     <div class="sidebar-header">
-      <div class="brand-icon"><img src="images/logo.png" alt="Logo"></div>
+      <div class="brand-icon"><img src="images/images.jpg" alt="Logo"></div>
       <div class="brand-text">D-HEIRS <span>Coordinator Portal</span></div>
     </div>
     <nav class="sidebar-nav">

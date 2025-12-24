@@ -22,9 +22,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
         $patientName = $houseRow['memberName'];
         $kebele = $houseRow['kebele'];
 
-        // Insert including patient name and kebele, using Pro column names
-        $stmt = $dataBaseConnection->prepare("INSERT INTO health_data (householdId, patient_name, kebele, service_type, count, details) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssis", $householdId, $patientName, $kebele, $serviceType, $totalServed, $details);
+        // Insert including patient name and kebele, using Pro column names, and attach HEW ID
+        $submittedBy = $_SESSION['user_db_id'] ?? null;
+        $stmt = $dataBaseConnection->prepare("INSERT INTO health_data (householdId, patient_name, kebele, service_type, count, details, submitted_by_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssisi", $householdId, $patientName, $kebele, $serviceType, $totalServed, $details, $submittedBy);
         
         if ($stmt->execute()) {
             $message = "Health data saved successfully!";
@@ -68,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="brand-icon">
-        <img src="../images/logo.png" alt="">
+        <img src="../images/images.jpg" alt="Logo">
       </div>
       <div class="brand-text">
         D-HEIRS

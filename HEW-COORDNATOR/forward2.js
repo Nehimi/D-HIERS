@@ -9,12 +9,32 @@ document.addEventListener('DOMContentLoaded', function () {
         forwardBtn.disabled = true;
     }
 
+    function loadForwardPreview() {
+        const selectedDataType = forwardDataTypeSelect.value;
+        if (!selectedDataType) {
+            if (forwardBtn) forwardBtn.disabled = true;
+            return;
+        }
+
+        // We can use the 'review' action but with status='Validated' filter if we add it to API
+        // For now, let's assume we want a summary
+        fetch(`../api/hew_coordinator.php?action=review&kebele=all&dataType=${encodeURIComponent(selectedDataType)}&status=Validated`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.data.length > 0) {
+                        forwardBtn.disabled = false;
+                        console.log(`Ready to forward ${data.data.length} records.`);
+                    } else {
+                        forwardBtn.disabled = true;
+                        alert("No validated data found for this category. Please validate data in the previous step.");
+                    }
+                }
+            });
+    }
+
     if (forwardDataTypeSelect) {
-        forwardDataTypeSelect.addEventListener('change', function () {
-            if (forwardBtn) {
-                forwardBtn.disabled = !this.value;
-            }
-        });
+        forwardDataTypeSelect.addEventListener('change', loadForwardPreview);
     }
 
     // --- Event Listener for "Forward Data" Button ---
