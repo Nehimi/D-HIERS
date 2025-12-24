@@ -4,97 +4,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Validation Form</title>
+    <title>Validate Data | D-HEIRS</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="coordinator_dashboard.css">
+
+    <style>
+        .form-card {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f3f4f6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(15, 118, 110, 0.2);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(15, 118, 110, 0.3);
+        }
+
+        .step-indicator {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            background: #f3f4f6;
+            color: var(--text-muted);
+        }
+
+        .step.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(15, 118, 110, 0.3);
+        }
+    </style>
 </head>
 
 <body>
-    <h1 style="text-align: center;margin: auto;">Validate Collected Data </h1>
-    <link rel="stylesheet" href="HEW Coordinator.css">
-    <link rel="stylesheet" href="../css/logout.css">
-    <script src="../js/logout.js"></script>
-    <div style="border: 1px;">
-        <aside class="sidebar-form">
-            <form class="tes" style="border: 1px;">
-                <nav class="sidebar-nav">
-                    <h3 class="sidebar-title">Reports & Activities</h3>
-                    <ul>
-                        <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
-                        <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
-                        <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
-                        <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li>
-                        <br><br>
-                        <li><a href="../index.html" class="nav-button blue-button">Logout</a></li>
-                    </ul>
-                </nav>
 
-        </aside>
-        </form>
-        <img src="images.jpg" style="width: 99%; margin: auto;">
-        <h3 style="margin: auto;text-align: center;"> The Linkage focal person to review HEW-submitted <br>
-            data and validate its accuracy and completeness<br>
-            before approving or sending it to the next stage.</h3><br><br>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-icon"><img src="images/images.jpg" alt="Logo"></div>
+            <div class="brand-text">D-HEIRS <span>Coordinator Portal</span></div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="coordinator_dashboard.html" class="nav-item"><i class="fa-solid fa-grid-2"></i>
+                <span>Dashboard</span></a>
+            <a href="monitor2.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> <span>Monitor
+                    Activity</span></a>
+            <a href="review.html" class="nav-item"><i class="fa-solid fa-file-invoice"></i> <span>Review
+                    Reports</span></a>
+            <a href="validate2.html" class="nav-item active"><i class="fa-solid fa-check-double"></i> <span>Validate
+                    Data</span></a>
+            <a href="forward2.html" class="nav-item"><i class="fa-solid fa-paper-plane"></i> <span>Forward
+                    Data</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../index.html" class="nav-item logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span></a>
+        </div>
+    </aside>
 
-        <h4 style="margin: auto;text-align: center;"> Here below you get forwarded data, you can validate it </h4>
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div class="header-text">
+                <h1>Validate Collected Data</h1>
+                <p style="color: var(--text-muted);">Confirm data accuracy and mark service reports as official records.
+                </p>
+            </div>
+        </header>
 
-        <form id="validationForm" style="background-color: azure;text-align: center;margin: auto;width: 30%;" action="#"
-            method="post">
+        <section class="form-card">
+            <div class="step-indicator">
+                <div class="step"><i class="fa-solid fa-1"></i></div>
+                <div class="step active"><i class="fa-solid fa-2"></i></div>
+                <div class="step"><i class="fa-solid fa-3"></i></div>
+            </div>
 
-            <!-- TEXTAREA AND ITS LABEL ARE NOW ABOVE THE SELECT -->
-            <label for="validationDetailsTextarea" id="textareaLabel">Please select a data type below to enter
-                validation details:</label>
-            <textarea id="validationDetailsTextarea" name="validation_details" rows="6" cols="50"
-                placeholder="Validation details will be enabled here after you choose a data type." disabled></textarea>
+            <h3 style="text-align:center; margin-bottom:2rem; color:var(--text-main);">Final Verification Form</h3>
 
-            <p>Choose the data to validate:</p>
-            <select required id="dataSelect">
-                <option value="">-- Select an option --</option>
-                <option value="household_data">Household Data</option>
-                <option value="hiv_addis_patients_data">HIV Addis Patients Data</option>
-                <option value="numbers_of_new_born_children">Numbers of New Born Children</option>
-                <option value="data_of_family_plan">Data of Family Plan</option>
-                <option value="data_of_sanitation">Data of Sanitation</option>
-            </select><br>
+            <form id="validationForm">
+                <label for="dataSelect" class="form-label">Select Service Type to Validate</label>
+                <select id="dataSelect" class="form-select" required>
+                    <option value="">-- Choose Data Category --</option>
+                    <option value="Malaria Check">Malaria & Disease Control</option>
+                    <option value="Maternal Health">Maternal Health (ANC/PNC)</option>
+                    <option value="Family Planning">Family Planning Services</option>
+                    <option value="Environmental Health">Environmental Sanitation</option>
+                    <option value="Immunization">Child Immunization Records</option>
+                </select>
 
-            <!-- Only one submit button for the entire form -->
-            <input type="submit" value="Submit Validation" name="submit_validation">
-        </form>
-        <script>
-            // Ensure the DOM is fully loaded before running the script
-            document.addEventListener('DOMContentLoaded', function () {
-                const dataSelect = document.getElementById('dataSelect');
-                const textareaLabel = document.getElementById('textareaLabel');
-                const validationDetailsTextarea = document.getElementById('validationDetailsTextarea');
+                <label id="textareaLabel" for="validationDetailsTextarea" class="form-label">Validation Notes &
+                    Remarks</label>
+                <textarea id="validationDetailsTextarea" class="form-textarea"
+                    placeholder="Please select a data type first..." disabled></textarea>
 
-                // Function to update textarea state
-                function updateTextareaState() {
-                    const selectedOptionText = dataSelect.options[dataSelect.selectedIndex].textContent.trim();
-                    const selectedOptionValue = dataSelect.value;
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-circle-check"></i> Mark as Validated
+                </button>
+            </form>
+        </section>
 
-                    if (selectedOptionValue === "") {
-                        // No valid option selected (placeholder)
-                        validationDetailsTextarea.disabled = true;
-                        validationDetailsTextarea.required = false;
-                        validationDetailsTextarea.value = ''; // Clear content
-                        validationDetailsTextarea.placeholder = 'Validation details will be enabled here after you choose a data type.';
-                        textareaLabel.textContent = 'Please select a data type below to enter validation details:';
-                        validationDetailsTextarea.name = 'validation_details'; // Reset generic name
-                    } else {
-                        // A valid option is selected
-                        validationDetailsTextarea.disabled = false;
-                        validationDetailsTextarea.required = true;
-                        // CORRECTED LINE: Used backticks (`) for template literals
-                        validationDetailsTextarea.placeholder = `Provide specific data points, discrepancies, or notes for "${selectedOptionText}" here...`;
-                        // CORRECTED LINE: Used backticks (`) for template literals
-                        textareaLabel.textContent = `Enter validation details for "${selectedOptionText}":`;
-                        validationDetailsTextarea.name = selectedOptionValue + '_details'; // Update name for submission
-                    }
+    </main>
+
+    <script>
+        // Ensure the DOM is fully loaded before running the script
+        document.addEventListener('DOMContentLoaded', function () {
+            const dataSelect = document.getElementById('dataSelect');
+            const textareaLabel = document.getElementById('textareaLabel');
+            const validationDetailsTextarea = document.getElementById('validationDetailsTextarea');
+            const validationForm = document.getElementById('validationForm');
+
+            // Function to update textarea state
+            function updateTextareaState() {
+                const selectedOptionText = dataSelect.options[dataSelect.selectedIndex].textContent.trim();
+                const selectedOptionValue = dataSelect.value;
+
+                if (selectedOptionValue === "") {
+                    // No valid option selected (placeholder)
+                    validationDetailsTextarea.disabled = true;
+                    validationDetailsTextarea.required = false;
+                    validationDetailsTextarea.value = ''; // Clear content
+                    validationDetailsTextarea.placeholder = 'Validation details will be enabled here after you choose a data type.';
+                    textareaLabel.textContent = 'Please select a data type below to enter validation details:';
+                    validationDetailsTextarea.name = 'validation_details'; // Reset generic name
+                } else {
+                    // A valid option is selected
+                    validationDetailsTextarea.disabled = false;
+                    validationDetailsTextarea.required = true;
+                    validationDetailsTextarea.placeholder = `Provide specific data points, discrepancies, or notes for "${selectedOptionText}" here...`;
+                    textareaLabel.textContent = `Enter validation details for "${selectedOptionText}":`;
+                    validationDetailsTextarea.name = selectedOptionValue + '_details'; // Update name for submission
                 }
-                dataSelect.addEventListener('change', updateTextareaState);
+            }
 
-            });
-        </script>
-        ```
+            if (dataSelect) {
+                dataSelect.addEventListener('change', updateTextareaState);
+            }
+
+            if (validationForm) {
+                validationForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const dataType = dataSelect.value;
+                    if (!dataType) {
+                        alert("Please select data type");
+                        return;
+                    }
+
+                    // Call API using Fetch
+                    fetch('../api/hew_coordinator.php?action=validate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            dataType: dataType,
+                            details: validationDetailsTextarea.value
+                        })
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Validation Successful! Records updated: " + (data.affected_rows || 0));
+                                // Reset form
+                                validationDetailsTextarea.value = '';
+                                dataSelect.value = '';
+                                updateTextareaState();
+                            } else {
+                                alert("Validation Error: " + data.message);
+                            }
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            alert("Network Error during validation.");
+                        });
+                });
+            }
+
+        });
+    </script>
+    <script src="../js/logout.js"></script>
+    <script src="mobile_nav.js"></script>
 </body>
 
 </html>
+```
