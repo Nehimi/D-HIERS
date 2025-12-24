@@ -183,6 +183,7 @@ img {
     z-index: 1;
     overflow-y: auto;
 }
+
 .nav-item {
     display: flex;
     align-items: center;
@@ -342,7 +343,7 @@ img {
     left: 1.25rem;
     top: 50%;
     transform: translateY(-50%);
-    color:#64748b;
+    color: #64748b;
     font-size: 1.1rem;
     transition: all 0.3s ease;
     z-index: 1;
@@ -364,6 +365,7 @@ img {
     color: #94a3b8;
     font-weight: 400;
 }
+
 .header-search input:focus {
     outline: none;
     border-color: transparent;
@@ -542,47 +544,51 @@ img {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
 }
+
 /* General Button Styling */
 .smart-back-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 24px;
-  background-color: #ffffff;
-  color: #333333;
-  border: 1px solid #e0e0e0;
-  border-radius: 50px; /* Pill shape */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease; /* Smooth transition for hover effects */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background-color: #ffffff;
+    color: #333333;
+    border: 1px solid #e0e0e0;
+    border-radius: 50px;
+    /* Pill shape */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Smooth transition for hover effects */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 /* Icon Styling */
 .smart-back-btn .icon {
-  margin-right: 8px;
-  font-size: 18px;
-  transition: transform 0.3s ease;
+    margin-right: 8px;
+    font-size: 18px;
+    transition: transform 0.3s ease;
 }
 
 /* Hover Effects */
 .smart-back-btn:hover {
-  background-color: #f5f5f5;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  transform: translateY(-2px); /* Slight lift */
-  color: #000;
-  border-color: #ccc;
+    background-color: #f5f5f5;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    /* Slight lift */
+    color: #000;
+    border-color: #ccc;
 }
 
 /* Slide the arrow to the left on hover */
 .smart-back-btn:hover .icon {
-  transform: translateX(-4px);
+    transform: translateX(-4px);
 }
 
 /* Active (Click) Effect */
 .smart-back-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }

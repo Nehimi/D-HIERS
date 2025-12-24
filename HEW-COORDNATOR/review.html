@@ -4,92 +4,195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Review HEW Reports</title>
-  <link rel="stylesheet" href="HEW Coordinator.css">
+  <title>Review Reports | D-HEIRS</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/logout.css">
+  <link rel="stylesheet" href="coordinator_dashboard.css">
+
+  <style>
+    .split-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 2rem;
+    }
+
+    .selection-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #f3f4f6;
+      height: fit-content;
+    }
+
+    .results-card {
+      background: white;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #f3f4f6;
+      min-height: 600px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text-main);
+      font-size: 0.9rem;
+    }
+
+    .form-select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+    }
+
+    .btn-review {
+      width: 100%;
+      padding: 0.75rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    .btn-review:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Review Table Styles */
+    .review-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .review-table th {
+      text-align: left;
+      padding: 1rem;
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    .review-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #f3f4f6;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    .review-table tr:hover {
+      background: #f0fdfa;
+    }
+  </style>
 </head>
 
 <body>
-  <script src="../js/logout.js"></script>
-  <div style="border: 1px;">
-    <aside class="sidebar-form">
-      <form class="tes" style="border: 1px;">
-        <nav class="sidebar-nav">
-          <h3 class="sidebar-title">Reports & Activities</h3>
-          <ul>
-            <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
-            <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
-            <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
-            <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li><br><br>
-            <li><a href="../index.html" class="nav-button blue-button">Logout</a></li>
-          </ul>
-        </nav>
-        <!-- You could add actual form elements here if needed later -->
-        <!-- <div class="sidebar-section">
-                <h4>Filter Options</h4>
-                <form>
-                    <input type="text" placeholder="Search...">
-                    <button type="submit">Go</button>
-                </form>
-            </div> -->
-    </aside>
-    </form>
-    <script>
-      <button onclick="changeText()">click me</button>
-      function changeText() {
-        const sule = Document.getElementById('tesh');
-        console.log("funnction excuted");
-      }
-    </script>
-    <div style="margin:auto; text-align:center;; 
-  gap:12px; text-decoration:none;">
-      <h1>Review HEW Reports</h1>
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="brand-icon"><img src="images/logo.png" alt="Logo"></div>
+      <div class="brand-text">D-HEIRS <span>Coordinator Portal</span></div>
     </div>
-    <div style="margin:auto; text-align:center; background-color:lightblue; 
-  gap:12px; text-decoration:none;">
-      <img src="teshe.jpg" style="width: 80%;">
-      <br>
-      <div style="text-align: center;margin: auto;">
+    <nav class="sidebar-nav">
+      <a href="coordinator_dashboard.html" class="nav-item"><i class="fa-solid fa-grid-2"></i>
+        <span>Dashboard</span></a>
+      <a href="monitor2.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> <span>Monitor Activity</span></a>
+      <a href="review.html" class="nav-item active"><i class="fa-solid fa-file-invoice"></i> <span>Review
+          Reports</span></a>
+      <a href="validate2.html" class="nav-item"><i class="fa-solid fa-check-double"></i> <span>Validate Data</span></a>
+      <a href="forward2.html" class="nav-item"><i class="fa-solid fa-paper-plane"></i> <span>Forward Data</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <a href="../index.html" class="nav-item logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Logout</span></a>
+    </div>
+  </aside>
 
-        <h3>Here HEW Coordanators hava authority to access,review HEW Reports <br>in LICH-AMBA Health care unit
-          in three kebale sent by HEWs </h3>
-        <p> HEW Coordanators are access HEW report data that may be:</p>
-        <li>Data abuot houeshold numbers</li>
-        <li> Data abuot HIV Addis patients </li>
-        <li> Data about numbers of new born childern </li>
+  <main class="main-content">
+    <header class="dashboard-header">
+      <div class="header-text">
+        <h1>Review Submitted Reports</h1>
+        <p style="color: var(--text-muted);">Inspect field data and household surveys before validation.</p>
       </div>
+    </header>
 
+    <div class="split-layout">
 
-      <div style="border: 1px solid #ccc; background-color: palegreen; margin:auto; width:50%; padding:16px;">
-        <form id="hewReviewForm" style="margin:auto; text-align:center;">
-          <h4>To review the data first choose kebele</h4>
+      <section class="selection-card">
+        <h3 style="margin-bottom:1.5rem; color:var(--primary); font-size:1.1rem;"><i class="fa-solid fa-sliders"></i>
+          Filter Criteria</h3>
 
-          <select id="kebeleSelect" required>
-            <option value="">-- choose kebele --</option>
-            <option value="Lich-amba">Lich-amba</option>
+        <form id="reviewForm"> <!-- Preserving ID for ReviewCode.js -->
+          <label for="kebeleSelect" class="form-label">Select Kebele</label>
+          <select id="kebeleSelect" class="form-select">
+            <option value="">-- Choose Region --</option>
             <option value="Arade">Arade</option>
+            <option value="Lich-amba">Lich-Amba</option> <!-- Fixed Check casing matches DB -->
             <option value="Lereba">Lereba</option>
           </select>
 
-          <p>Choose data to review</p>
-          <select id="dataSelect" required>
-            <option value="">-- choose data type --</option>
-            <option value="household data">household data</option>
-            <option value="HIV Addis patients Data">HIV Addis patients Data</option>
-            <option value="Numbers of new born childern">Numbers of new born childern</option>
-            <option value="data of family plan">data of family plan</option>
-            <option value="Data of sanitation">Data of sanitation</option>
+          <label for="dataTypeSelect" class="form-label">Data Type</label>
+          <select id="dataTypeSelect" class="form-select">
+            <option value="">-- Choose Data Type --</option>
+            <option value="household data">Household Demographics</option>
+            <option value="health_data">Health & Disease Reports</option>
           </select>
-          <br><br>
 
-          <input type="button" id="openBtn" value="Open" style="border-radius:19px; color:orange;"><br><br>
-
-          <textarea id="reviewArea" placeholder="Review chosen data" rows="6" style="width:90%;"></textarea><br><br>
-
-          <button type="button" id="submitBtn">Submit</button>
+          <button type="button" id="loadDataBtn" class="btn-review">
+            <i class="fa-solid fa-magnifying-glass"></i> Load Reports
+          </button>
+          <!-- Note: JS attaches event listener to button or form submit -->
         </form>
-      </div>
+      </section>
+
+      <section class="results-card">
+        <h3 style="margin-bottom:1.5rem; border-bottom:1px solid #f3f4f6; padding-bottom:1rem;">
+          <i class="fa-solid fa-table-list"></i> Report Data
+        </h3>
+
+        <div id="reviewDisplayArea"> <!-- Preserving ID for ReviewCode.js to populate -->
+          <div style="text-align:center; padding:4rem; color:var(--text-light);">
+            <i class="fa-solid fa-folder-open" style="font-size:3rem; margin-bottom:1rem; display:block;"></i>
+            <p>Select criteria and click "Load Reports" to view data.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+  <script src="ReviewCode.js"></script>
+  <script src="../js/logout.js"></script>
+  <script src="mobile_nav.js"></script>
 </body>
-<script src="ReviewCode.js"></script>
 
 </html>

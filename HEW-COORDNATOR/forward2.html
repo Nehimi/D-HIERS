@@ -4,63 +4,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forward HEW Data</title>
+    <title>Forward to Focal Person | D-HEIRS</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="coordinator_dashboard.css">
+
+    <style>
+        .form-card {
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f3f4f6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Forwarding Button */
+        .btn-forward {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--secondary), #0284c7);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(14, 165, 233, 0.3);
+        }
+
+        .btn-forward:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(14, 165, 233, 0.4);
+        }
+
+        .btn-forward:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .step-indicator {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            background: #f3f4f6;
+            color: var(--text-muted);
+        }
+
+        .step.active {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
+        }
+
+        .summary-alert {
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            color: #1e40af;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+    </style>
 </head>
 
 <body>
-    <script src="../js/logout.js"></script>
-    <h1 style="text-align: center;margin: auto;">Forward Reports</h1>
-    <link rel="stylesheet" href="HEW Coordinator.css">
-    <link rel="stylesheet" href="../css/logout.css">
-    <div style="border: 1px;">
-        <aside class="sidebar-form">
-            <form class="tes" style="border: 1px;">
-                <nav class="sidebar-nav">
-                    <h3 class="sidebar-title">Reports & Activities</h3>
-                    <ul>
-                        <li><a href="review.html" class="nav-button blue-button">Review HEW Reports</a></li><br><br>
-                        <li><a href="monitor2.html" class="nav-button blue-button">Monitor HEW Activity</a></li><br><br>
-                        <li><a href="forward2.html" class="nav-button blue-button">Forward Reports</a></li><br><br>
-                        <li><a href="validate2.html" class="nav-button blue-button">Validate Collected Data</a></li>
-                        <br><br>
-                        <li><a href="../index.html" class="nav-button blue-button">Logout</a></li>
-                    </ul>
-                </nav>
 
-        </aside>
-        </form>
-        <img src="images (1).jpg" style="width: 97%;margin: auto;text-align: center;padding-right: 10px;">
-
-        <div class="main-content-div">
-            <h2>HEW Coordinator to review HEW-submitted report and forward validated <br>
-                HEW data to the Linkage Focal Person for further processing</h2><br>
-            <p>Here you can forward your data to the Linkage Focal Person</p>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="brand-icon"><img src="images/logo.png" alt="Logo"></div>
+            <div class="brand-text">D-HEIRS <span>Coordinator Portal</span></div>
         </div>
+        <nav class="sidebar-nav">
+            <a href="coordinator_dashboard.html" class="nav-item"><i class="fa-solid fa-grid-2"></i>
+                <span>Dashboard</span></a>
+            <a href="monitor2.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> <span>Monitor
+                    Activity</span></a>
+            <a href="review.html" class="nav-item"><i class="fa-solid fa-file-invoice"></i> <span>Review
+                    Reports</span></a>
+            <a href="validate2.html" class="nav-item"><i class="fa-solid fa-check-double"></i> <span>Validate
+                    Data</span></a>
+            <a href="forward2.html" class="nav-item active"><i class="fa-solid fa-paper-plane"></i> <span>Forward
+                    Data</span></a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../index.html" class="nav-item logout"><i class="fa-solid fa-arrow-right-from-bracket"></i>
+                <span>Logout</span></a>
+        </div>
+    </aside>
 
-        <div class="form-container">
+    <main class="main-content">
+        <header class="dashboard-header">
+            <div class="header-text">
+                <h1>Forward Data Package</h1>
+                <p style="color: var(--text-muted);">Compile validated reports into a statistical package for the
+                    Linkage Focal Person.</p>
+            </div>
+        </header>
+
+        <section class="form-card">
+            <div class="step-indicator">
+                <div class="step"><i class="fa-solid fa-1"></i></div>
+                <div class="step"><i class="fa-solid fa-2"></i></div>
+                <div class="step active"><i class="fa-solid fa-paper-plane"></i></div>
+            </div>
+
+            <div class="summary-alert">
+                <i class="fa-solid fa-circle-info" style="margin-top:2px;"></i>
+                <div>
+                    <strong>Ready to Submit?</strong><br>
+                    Only data that has been marked as <strong>"Validated"</strong> in the previous step will be included
+                    in this package.
+                    Ensure you have completed all reviews.
+                </div>
+            </div>
+
             <form id="forwardForm">
-                <p>Choose the data to forward to the Linkage Person</p>
-                <select id="forwardDataTypeSelect" required>
-                    <option value="">-- Select Data Type --</option>
-                    <option value="household data">household data</option>
-                    <option value="HIV Addis patients Data">HIV Addis patients Data</option>
-                    <option value="Numbers of new born childern">Numbers of new born childern</option>
-                    <option value="data of family plan">data of family plan</option>
-                    <option value="Data of sanitation">Data of sanitation</option>
-                </select><br>
+                <label for="forwardDataTypeSelect" class="form-label">Data Category Source</label>
+                <select id="forwardDataTypeSelect" class="form-select">
+                    <option value="">-- Select Validated Data --</option>
+                    <option value="Malaria Check">Malaria & Disease Control</option>
+                    <option value="ANC Visit">Maternal Health (ANC)</option>
+                    <option value="Family Planning">Family Planning Statistics</option>
+                    <option value="General">General / All Validated</option>
+                </select>
 
-                <textarea id="forwardNotes"
-                    placeholder="Add any notes or context for the Linkage Focal Person (optional)"
-                    rows="5"></textarea><br>
+                <label for="forwardNotes" class="form-label">Transmission Notes for Focal Person</label>
+                <textarea id="forwardNotes" class="form-textarea"
+                    placeholder="Add any specific instructions or context for the Focal Person regarding this batch..."></textarea>
 
-                <button type="button" id="forwardBtn">Forward Data</button>
+                <button type="button" id="forwardBtn" class="btn-forward" disabled>
+                    <i class="fa-solid fa-share-from-square"></i> Send Package
+                </button>
             </form>
-        </div>
+        </section>
 
+    </main>
 
+    <script src="forward2.js"></script>
+    <script src="../js/logout.js"></script>
+    <script src="mobile_nav.js"></script>
 </body>
-<script src="forawrd2.js">
-
-</script>
 
 </html>
