@@ -143,5 +143,5 @@ The HMIS module is the final stage of the health data pipeline. It takes validat
 ---
 
 ## 📝 Credits
-**Developer**: [Your Name/Team Name]
+**Developer**: [WCU 3rd Year Students 2025]
 **Purpose**: Transforming Ethiopian Health Extension Program with digital tools.
