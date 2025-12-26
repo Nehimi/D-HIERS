@@ -196,9 +196,11 @@ CREATE TABLE IF NOT EXISTS `audit_logs` (
     `id` int AUTO_INCREMENT PRIMARY KEY,
     `user_id` int DEFAULT NULL,
     `user_name` varchar(255) DEFAULT NULL,
+    `user_role` varchar(50) DEFAULT NULL,
     `action` varchar(100) NOT NULL,
     `details` text DEFAULT NULL,
     `ip_address` varchar(45) DEFAULT NULL,
+    `status` varchar(20) DEFAULT 'success',
     `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
