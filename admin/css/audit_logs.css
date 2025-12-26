@@ -6,11 +6,11 @@
     gap: 1rem;
     margin-bottom: 2rem;
     flex-wrap: wrap;
-    background: var(--bg-white, #ffffff);
+    background: #ffffff;
     padding: 1rem;
-    border-radius: var(--radius-lg, 1rem);
+    border-radius: 1rem;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
 .filter-group {
@@ -23,16 +23,16 @@
 
 .filter-group label {
     font-size: 0.875rem;
-    color: var(--text-secondary, #64748b);
+    color: #64748b;
     font-weight: 500;
 }
 
 .filter-select {
     padding: 0.75rem;
-    border: 1px solid var(--border-color, #e2e8f0);
-    border-radius: var(--radius-sm, 0.5rem);
-    background: var(--background-color, #f8fafc);
-    color: var(--text-primary, #0f172a);
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background: #f8fafc;
+    color: #0f172a;
     font-family: inherit;
     font-size: 0.95rem;
     outline: none;
@@ -40,14 +40,14 @@
 }
 
 .filter-select:focus {
-    border-color: var(--primary);
+    border-color: #0f766e;
     box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
 }
 
 /* Log Details */
 .log-details {
     font-size: 0.875rem;
-    color: var(--text-secondary, #64748b);
+    color: #64748b;
     max-width: 300px;
     white-space: nowrap;
     overflow: hidden;
@@ -83,7 +83,7 @@
 /* Table Cells */
 .time-cell {
     font-variant-numeric: tabular-nums;
-    color: var(--text-secondary, #64748b);
+    color: #64748b;
     font-size: 0.9rem;
 }
 

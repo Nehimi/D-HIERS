@@ -10,14 +10,20 @@ $itemsPerPage = 10;
 
 if (isset($_GET['delete_user'])) {
   $id = intval($_GET['delete_user']); // Sanitize
-  mysqli_query($dataBaseConnection, "DELETE FROM users WHERE id='$id'");
+  $deleteStmt = $dataBaseConnection->prepare("DELETE FROM users WHERE id=?");
+  $deleteStmt->bind_param("i", $id);
+  $deleteStmt->execute();
+  $deleteStmt->close();
   logAction($dataBaseConnection, "Delete User", "Deleted user ID: $id");
   echo "<script>window.location.href = 'user_management.php?deleted=success';</script>";
 }
 
 if (isset($_GET['delete_kebele'])) {
   $id = intval($_GET['delete_kebele']); // Sanitize
-  mysqli_query($dataBaseConnection, "DELETE FROM kebele WHERE id='$id'");
+  $deleteStmt = $dataBaseConnection->prepare("DELETE FROM kebele WHERE id=?");
+  $deleteStmt->bind_param("i", $id);
+  $deleteStmt->execute();
+  $deleteStmt->close();
   logAction($dataBaseConnection, "Delete Kebele", "Deleted kebele ID: $id");
   echo "<script>window.location.href = 'user_management.php?deleted=success';</script>";
 }

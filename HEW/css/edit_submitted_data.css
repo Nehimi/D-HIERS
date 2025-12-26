@@ -15,14 +15,14 @@
 
 .page-title-area h1 {
   font-size: 2rem;
-  color: var(--text-main, #0f172a);
+  color: #0f172a;
   margin-bottom: 0.5rem;
   font-weight: 800;
   letter-spacing: -0.02em;
 }
 
 .page-title-area p {
-  color: var(--text-muted, #64748b);
+  color: #64748b;
   font-size: 1rem;
 }
 
@@ -105,12 +105,12 @@
 
 .input-with-icon input:focus {
   outline: none;
-  border-color: var(--primary, #0f766e);
+  border-color: #0f766e;
   box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1);
 }
 
 .input-with-icon input:focus+i {
-  color: var(--primary, #0f766e);
+  color: #0f766e;
 }
 
 /* --- Regular Inputs --- */
@@ -156,7 +156,7 @@ input:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border-color: var(--primary, #0f766e);
+  border-color: #0f766e;
   box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1);
 }
 
@@ -253,7 +253,7 @@ textarea:focus {
 
 /* --- Buttons --- */
 .btn-primary {
-  background-color: var(--primary, #0f766e);
+  background-color: #0f766e;
   color: white;
   padding: 0.75rem 1.5rem;
   border-radius: 10px;
@@ -269,7 +269,7 @@ textarea:focus {
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-dark, #115e59);
+  background-color: #115e59;
   transform: translateY(-1px);
   box-shadow: 0 6px 8px -1px rgba(15, 118, 110, 0.3);
 }

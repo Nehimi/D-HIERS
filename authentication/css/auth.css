@@ -1,52 +1,11 @@
 /* ============================================
    AUTHENTICATION MODULE STYLES
    D-HEIRS - Unified Login & Password Management
+   Direct values - no CSS variables
    ============================================ */
 
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
-
-:root {
-    /* Primary Colors - Matching D-HEIRS Theme */
-    --primary: #0f766e;
-    --primary-dark: #115e59;
-    --primary-light: #2dd4bf;
-    --secondary: #0ea5e9;
-    --accent: #f43f5e;
-
-    /* Background Colors */
-    --bg-body: #f8fafc;
-    --bg-white: #ffffff;
-    --bg-glass: rgba(255, 255, 255, 0.8);
-
-    /* Text Colors */
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --text-light: #94a3b8;
-
-    /* Status Colors */
-    --success: #22c55e;
-    --error: #ef4444;
-    --warning: #f59e0b;
-
-    /* Fonts */
-    --font-heading: 'Outfit', sans-serif;
-    --font-body: 'Inter', sans-serif;
-
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-
-    /* Border Radius */
-    --radius-lg: 1rem;
-    --radius-xl: 1.5rem;
-    --radius-full: 9999px;
-
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.3s ease;
-}
 
 * {
     margin: 0;
@@ -55,7 +14,7 @@
 }
 
 body {
-    font-family: var(--font-body);
+    font-family: 'Inter', sans-serif;
     background: linear-gradient(135deg, #f0fdfa 0%, #f8fafc 100%);
     min-height: 100vh;
     display: flex;
@@ -64,7 +23,7 @@ body {
     padding: 20px;
     position: relative;
     overflow-x: hidden;
-    color: var(--text-main);
+    color: #0f172a;
 }
 
 /* Background Gradients */
@@ -110,7 +69,7 @@ body::after {
     position: absolute;
     width: 6px;
     height: 6px;
-    background: var(--primary-light);
+    background: #2dd4bf;
     border-radius: 50%;
     opacity: 0.3;
     animation: float 20s infinite;
@@ -119,7 +78,7 @@ body::after {
 .particle:nth-child(2) {
     left: 20%;
     animation-delay: -5s;
-    background: var(--secondary);
+    background: #0ea5e9;
 }
 
 .particle:nth-child(3) {
@@ -130,7 +89,7 @@ body::after {
 .particle:nth-child(4) {
     left: 60%;
     animation-delay: -15s;
-    background: var(--secondary);
+    background: #0ea5e9;
 }
 
 .particle:nth-child(5) {
@@ -181,10 +140,10 @@ body::after {
 
 /* Auth Card */
 .auth-card {
-    background: var(--bg-white);
-    border-radius: var(--radius-xl);
+    background: #ffffff;
+    border-radius: 1.5rem;
     padding: 48px 40px;
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     border: 1px solid rgba(0, 0, 0, 0.03);
     position: relative;
     overflow: hidden;
@@ -200,7 +159,7 @@ body::after {
     width: 80px;
     height: 80px;
     margin: 0 auto 24px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: linear-gradient(135deg, #0f766e, #115e59);
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -219,16 +178,16 @@ body::after {
 }
 
 .card-header h1 {
-    font-family: var(--font-heading);
+    font-family: 'Outfit', sans-serif;
     font-size: 28px;
     font-weight: 700;
-    color: var(--text-main);
+    color: #0f172a;
     margin-bottom: 8px;
 }
 
 .card-header p {
     font-size: 15px;
-    color: var(--text-muted);
+    color: #64748b;
     line-height: 1.6;
 }
 
@@ -248,14 +207,14 @@ body::after {
 .form-group label {
     font-size: 14px;
     font-weight: 600;
-    color: var(--text-main);
+    color: #0f172a;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 .form-group label i {
-    color: var(--primary);
+    color: #0f766e;
     font-size: 12px;
 }
 
@@ -266,22 +225,22 @@ body::after {
 .input-wrapper input {
     width: 100%;
     padding: 16px 50px 16px 50px;
-    background: var(--bg-body);
+    background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    font-family: var(--font-body);
+    font-family: 'Inter', sans-serif;
     font-size: 15px;
-    color: var(--text-main);
-    transition: all var(--transition-normal);
+    color: #0f172a;
+    transition: all 0.3s ease;
 }
 
 .input-wrapper input::placeholder {
-    color: var(--text-light);
+    color: #94a3b8;
 }
 
 .input-wrapper input:focus {
     outline: none;
-    border-color: var(--primary);
+    border-color: #0f766e;
     background: white;
     box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.1);
 }
@@ -291,13 +250,13 @@ body::after {
     left: 18px;
     top: 50%;
     transform: translateY(-50%);
-    color: var(--text-light);
+    color: #94a3b8;
     font-size: 16px;
-    transition: color var(--transition-normal);
+    transition: color 0.3s ease;
 }
 
 .input-wrapper input:focus+.input-icon {
-    color: var(--primary);
+    color: #0f766e;
 }
 
 .password-toggle {
@@ -308,9 +267,9 @@ body::after {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--text-light);
+    color: #94a3b8;
     font-size: 16px;
-    transition: color var(--transition-normal);
+    transition: color 0.3s ease;
     padding: 0;
     z-index: 2;
     display: flex;
@@ -319,21 +278,21 @@ body::after {
 }
 
 .password-toggle:hover {
-    color: var(--primary);
+    color: #0f766e;
 }
 
 .password-toggle:focus {
     outline: none;
-    color: var(--primary);
+    color: #0f766e;
 }
 
 /* Submit Button */
 .submit-btn {
     padding: 16px 32px;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    background: linear-gradient(135deg, #0f766e, #115e59);
     border: none;
     border-radius: 12px;
-    font-family: var(--font-body);
+    font-family: 'Inter', sans-serif;
     font-size: 16px;
     font-weight: 600;
     color: white;
@@ -342,7 +301,7 @@ body::after {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    transition: all var(--transition-normal);
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
@@ -424,7 +383,7 @@ body::after {
 }
 
 .message-box .message-content h4 {
-    font-family: var(--font-heading);
+    font-family: 'Outfit', sans-serif;
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 4px;
@@ -467,7 +426,7 @@ body::after {
 }
 
 .auth-link {
-    color: var(--primary);
+    color: #0f766e;
     font-size: 14px;
     font-weight: 500;
     text-decoration: none;
@@ -475,7 +434,7 @@ body::after {
 }
 
 .auth-link:hover {
-    color: var(--primary-dark);
+    color: #115e59;
     text-decoration: underline;
 }
 
@@ -488,22 +447,22 @@ body::after {
 }
 
 .back-link a {
-    color: var(--text-muted);
+    color: #64748b;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    transition: color var(--transition-normal);
+    transition: color 0.3s ease;
 }
 
 .back-link a:hover {
-    color: var(--primary);
+    color: #0f766e;
 }
 
 .back-link a i {
-    transition: transform var(--transition-normal);
+    transition: transform 0.3s ease;
 }
 
 .back-link a:hover i {
@@ -520,7 +479,7 @@ body::after {
 
 .card-footer p {
     font-size: 12px;
-    color: var(--text-light);
+    color: #94a3b8;
 }
 
 .card-footer .brand {
@@ -539,9 +498,9 @@ body::after {
 }
 
 .card-footer .brand span {
-    font-family: var(--font-heading);
+    font-family: 'Outfit', sans-serif;
     font-weight: 700;
-    color: var(--text-main);
+    color: #0f172a;
     font-size: 16px;
 }
 
@@ -585,14 +544,14 @@ body::after {
 
 .requirement-list li {
     font-size: 13px;
-    color: var(--text-light);
+    color: #94a3b8;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 .requirement-list li.valid {
-    color: var(--success);
+    color: #22c55e;
 }
 
 /* Responsive */

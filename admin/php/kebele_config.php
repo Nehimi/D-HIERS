@@ -17,8 +17,6 @@ include("../../dataBaseConnection.php");
 </head>
 
 <body class="dashboard-body">
-    <script src="../../js/logout.js"></script>
-    <script src="../js/script.js?v=<?php echo time(); ?>"></script>
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -184,10 +182,8 @@ include("../../dataBaseConnection.php");
 
 </html>
 
-
 <?php
-include("../../dataBaseConnection.php");
-
+// Database connection already included at top of file
 if (isset($_POST['kebeleReg'])) {
     $kebeleName = $_POST['kebeleName'];
     $kebeleCode = $_POST['kebeleCode'];
