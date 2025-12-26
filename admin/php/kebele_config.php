@@ -1,5 +1,20 @@
 <?php
+session_start();
 include("../../dataBaseConnection.php");
+include "../includes/log_helper.php";
+
+// =========================
+// LOAD KEBELE DATA FOR EDIT
+// =========================
+$kebele = null;
+if (isset($_GET['edit'])) {
+    $id = intval($_GET['edit']);
+    $stmt = $dataBaseConnection->prepare("SELECT * FROM kebele WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $kebele = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+}
 ?>
 
 <!DOCTYPE html>
@@ -87,8 +102,8 @@ include("../../dataBaseConnection.php");
         <div class="content-wrapper">
             <div class="page-header">
                 <div>
-                    <h1>Add New Kebele</h1>
-                    <p class="page-subtitle">Register a new administrative Kebele unit</p>
+                    <h1><?php echo $kebele ? 'Edit Kebele' : 'Add New Kebele'; ?></h1>
+                    <p class="page-subtitle"><?php echo $kebele ? 'Update existing administrative Kebele unit' : 'Register a new administrative Kebele unit'; ?></p>
                 </div>
                 <a href="kebele_config.html" class="btn btn-outline">
                     <i class="fa-solid fa-arrow-left"></i> Back to Config
@@ -108,12 +123,12 @@ include("../../dataBaseConnection.php");
                             <div class="form-group">
                                 <label for="kebeleName">Kebele Name <span class="required">*</span></label>
                                 <input name="kebeleName" type="text" id="kebeleName" placeholder="e.g., Lich-Amba"
-                                    required>
+                                    required value="<?php echo $kebele['kebeleName'] ?? ''; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="kebeleCode">Kebele Code <span class="required">*</span></label>
                                 <input name="kebeleCode" type="text" id="kebeleCode" placeholder="e.g., KB-005"
-                                    required>
+                                    required value="<?php echo $kebele['kebeleCode'] ?? ''; ?>">
                             </div>
                         </div>
 
@@ -138,11 +153,12 @@ include("../../dataBaseConnection.php");
                             <div class="form-group">
                                 <label for="population">Total Population <span class="required">*</span></label>
                                 <input name="population" type="number" id="population" placeholder="e.g., 5000"
-                                    required>
+                                    required value="<?php echo $kebele['population'] ?? ''; ?>">
                             </div>
                             <div class="form-group">
                                 <label for="households">Estimated Households</label>
-                                <input name="households" type="number" id="households" placeholder="e.g., 1200">
+                                <input name="households" type="number" id="households" placeholder="e.g., 1200"
+                                 value="<?php echo $kebele['households'] ?? ''; ?>">
                             </div>
                         </div>
 
@@ -169,10 +185,14 @@ include("../../dataBaseConnection.php");
                             onclick="window.location.href='system_configuration.html'">
                             Cancel
                         </button>
-                        <button name="kebeleReg" type="submit" class="btn btn-primary">
-                            <i class="fa-solid fa-plus"></i> Add Kebele
+                        <button name="<?php echo $kebele ? 'update_kebele' : 'kebeleReg'; ?>" type="submit" class="btn btn-primary">
+                            <i class="fa-solid <?php echo $kebele ? 'fa-save' : 'fa-plus'; ?>"></i> 
+                            <?php echo $kebele ? 'Update Kebele' : 'Add Kebele'; ?>
                         </button>
                     </div>
+                    <?php if ($kebele): ?>
+                    <input type="hidden" name="id" value="<?php echo $kebele['id']; ?>">
+                    <?php endif; ?>
                 </form>
             </div>
         </div>
@@ -187,6 +207,33 @@ include("../../dataBaseConnection.php");
 if (isset($_POST['kebeleReg'])) {
     $kebeleName = $_POST['kebeleName'];
     $kebeleCode = $_POST['kebeleCode'];
+    $woreda = $_POST['woreda'] ?? '';
+    $zone = $_POST['zone'] ?? '';
+    $population = $_POST['population'];
+    $households = $_POST['households'] ?? 0;
+    $healthPostName = $_POST['healthPostName'] ?? '';
+    $status = $_POST['status'];
+
+    $sql = "INSERT INTO kebele (kebeleName, kebeleCode, woreda, zone, population, households, healthPostName, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $dataBaseConnection->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param("ssssiiss", $kebeleName, $kebeleCode, $woreda, $zone, $population, $households, $healthPostName, $status);
+        if ($stmt->execute()) {
+            logAction($dataBaseConnection, "Create Kebele", "Created new Kebele: $kebeleName ($kebeleCode)");
+            echo "<script>alert('Kebele Added Successfully!'); window.location='user_management.php';</script>";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
+    }
+}
+
+// Handle Update
+if (isset($_POST['update_kebele'])) {
+    $id = $_POST['id'];
+    $kebeleName = $_POST['kebeleName'];
+    $kebeleCode = $_POST['kebeleCode'];
     $woreda = $_POST['woreda'];
     $zone = $_POST['zone'];
     $population = $_POST['population'];
@@ -194,18 +241,18 @@ if (isset($_POST['kebeleReg'])) {
     $healthPostName = $_POST['healthPostName'];
     $status = $_POST['status'];
 
-    $sql = "INSERT INTO kebele(kebeleName, kebeleCode, woreda, zone, population, households, healthPostName, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "UPDATE kebele SET kebeleName=?, kebeleCode=?, woreda=?, zone=?, population=?, households=?, healthPostName=?, status=? WHERE id=?";
     $stmt = $dataBaseConnection->prepare($sql);
-
-    if (!$stmt) {
-        die("prepare failed: " . $dataBaseConnection->error);
-    }
-
-    $stmt->bind_param("ssssiiss", $kebeleName, $kebeleCode, $woreda, $zone, $population, $households, $healthPostName, $status);
-    if ($stmt->execute()) {
-        echo "<script>alert('Kebele Add Successfully!'); window.location='kebele_config.php';</script>";
-    } else {
-        echo "Error: " . $stmt->error;
+    
+    if ($stmt) {
+        $stmt->bind_param("ssssiissi", $kebeleName, $kebeleCode, $woreda, $zone, $population, $households, $healthPostName, $status, $id);
+        if ($stmt->execute()) {
+            logAction($dataBaseConnection, "Update Kebele", "Updated Kebele ID $id: $kebeleName");
+            echo "<script>alert('Kebele Updated Successfully!'); window.location='user_management.php';</script>";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+        $stmt->close();
     }
 }
 ?>

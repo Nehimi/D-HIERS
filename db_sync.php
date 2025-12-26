@@ -64,8 +64,21 @@ try {
         FOREIGN KEY (user_id) REFERENCES users(id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
-} catch (mysqli_sql_exception $e) {
+    // 5. Ensure 'audit_logs' table has 'user_role' and 'status' columns
+    $colsRes = mysqli_query($dataBaseConnection, "SHOW COLUMNS FROM audit_logs LIKE 'user_role'");
+    if (mysqli_num_rows($colsRes) == 0) {
+        mysqli_query($dataBaseConnection, "ALTER TABLE audit_logs ADD COLUMN user_role VARCHAR(50) AFTER user_name");
+    }
+    
+    $colsRes = mysqli_query($dataBaseConnection, "SHOW COLUMNS FROM audit_logs LIKE 'status'");
+    if (mysqli_num_rows($colsRes) == 0) {
+        mysqli_query($dataBaseConnection, "ALTER TABLE audit_logs ADD COLUMN status VARCHAR(20) DEFAULT 'success' AFTER ip_address");
+    }
+
+} catch (Exception $e) {
     // Silent fail in production, but we could log it
     error_log("DB Sync Warning: " . $e->getMessage());
+} catch (mysqli_sql_exception $e) {
+    error_log("DB Sync SQL Error: " . $e->getMessage());
 }
 ?>

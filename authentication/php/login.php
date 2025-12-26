@@ -6,6 +6,7 @@
 session_start();
 header('Content-Type: application/json');
 include("../../dataBaseConnection.php");
+include "../../admin/includes/log_helper.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     echo json_encode(['status' => 'error', 'message' => 'Invalid Request!']);
@@ -73,12 +74,15 @@ try {
     }
 
     // 6. Store Session
+    $_SESSION['user_id'] = $row['id'];
     $_SESSION['userId'] = $row['userId'];
     $_SESSION['role'] = $row['role'];
-    $_SESSION['user_db_id'] = $row['id'];
-    $_SESSION['full_name'] = ($row['first_name'] ?? '') . ' ' . ($row['last_name'] ?? '');
+    $_SESSION['user_name'] = ($row['first_name'] ?? '') . ' ' . ($row['last_name'] ?? '');
 
-    // 7. Redirect According to Role
+    // 7. Log Action
+    logAction($dataBaseConnection, "Login", "User logged in: " . $_SESSION['userId']);
+
+    // 8. Redirect According to Role
     $redirectUrl = "";
     switch (strtolower($row['role'])) {
       case "hew":

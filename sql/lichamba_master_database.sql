@@ -196,9 +196,11 @@ CREATE TABLE IF NOT EXISTS `audit_logs` (
     `id` int AUTO_INCREMENT PRIMARY KEY,
     `user_id` int DEFAULT NULL,
     `user_name` varchar(255) DEFAULT NULL,
+    `user_role` varchar(50) DEFAULT NULL,
     `action` varchar(100) NOT NULL,
     `details` text DEFAULT NULL,
     `ip_address` varchar(45) DEFAULT NULL,
+    `status` varchar(20) DEFAULT 'success',
     `created_at` timestamp DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -208,25 +210,25 @@ CREATE TABLE IF NOT EXISTS `audit_logs` (
 -- ==========================================
 
 -- A. Kebeles
-INSERT INTO `kebele` (`kebeleName`, `kebeleCode`, `woreda`, `zone`, `population`, `households`, `status`) VALUES
+INSERT IGNORE INTO `kebele` (`kebeleName`, `kebeleCode`, `woreda`, `zone`, `population`, `households`, `status`) VALUES
 ('Arada', 'KB-001', 'Hosana', 'Hadiya', 5200, 1100, 'active'),
 ('Lich-amba', 'KB-002', 'Hosana', 'Hadiya', 4900, 1200, 'active'),
 ('Lereba', 'KB-003', 'Hosana', 'Hadiya', 4800, 1050, 'active');
 
 -- B. Test Users
 -- Note: Insert users first so they can be referenced by ID
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `phone_no`, `userId`, `role`, `kebele`, `status`, `password`) VALUES
+INSERT IGNORE INTO `users` (`id`, `first_name`, `last_name`, `email`, `phone_no`, `userId`, `role`, `kebele`, `status`, `password`) VALUES
 (1, 'Semira', 'Kedir', 'semira@lichamba.health.et', '0911223344', 'HEW-001', 'hew', 'Lich-amba', 'active', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
 (2, 'Abebe', 'Coordinator', 'coord@lichamba.health.et', '0900112233', 'COORD-001', 'coordinator', 'PHCU HQ', 'active', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
 (3, 'Sara', 'Focal', 'focal@lichamba.health.et', '0988776655', 'FOCAL-001', 'focal', 'Woreda Office', 'active', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
 
 -- C. Test Households
-INSERT INTO `household` (`region`, `zone`, `woreda`, `kebele`, `householdId`, `memberName`, `age`, `sex`) VALUES
+INSERT IGNORE INTO `household` (`region`, `zone`, `woreda`, `kebele`, `householdId`, `memberName`, `age`, `sex`) VALUES
 ('Central', 'Hadiya', 'Hosana', 'Lich-amba', 'HH-001', 'W/meskel Wolde', 38, 'male'),
 ('Central', 'Hadiya', 'Hosana', 'Arada', 'HH-002', 'Abebe Bekele', 60, 'male');
 
 -- D. Initial Health Reports
-INSERT INTO `health_data` (`householdId`, `kebele`, `patient_name`, `service_type`, `count`, `status`, `details`, `submitted_by_id`) VALUES
+INSERT IGNORE INTO `health_data` (`householdId`, `kebele`, `patient_name`, `service_type`, `count`, `status`, `details`, `submitted_by_id`) VALUES
 ('HH-001', 'Lich-amba', 'W/meskel Wolde', 'ANC Visit', 1, 'Pending', 'Initial checkup completed.', 1),
 ('HH-002', 'Arada', 'Abebe Bekele', 'Immunization', 1, 'Validated', 'Completed childhood cycle.', 1);
 
