@@ -14,7 +14,7 @@ if (isset($_GET['delete_user'])) {
   $deleteStmt->bind_param("i", $id);
   $deleteStmt->execute();
   $deleteStmt->close();
-  logAction($dataBaseConnection, "Delete User", "Deleted user ID: $id");
+  logAction($dataBaseConnection, "Delete User", "Deleted user ID: $id (Action: Delete)");
   echo "<script>window.location.href = 'user_management.php?deleted=success';</script>";
 }
 
@@ -24,7 +24,7 @@ if (isset($_GET['delete_kebele'])) {
   $deleteStmt->bind_param("i", $id);
   $deleteStmt->execute();
   $deleteStmt->close();
-  logAction($dataBaseConnection, "Delete Kebele", "Deleted kebele ID: $id");
+  logAction($dataBaseConnection, "Delete Kebele", "Deleted kebele ID: $id (Action: Delete)");
   echo "<script>window.location.href = 'user_management.php?deleted=success';</script>";
 }
 

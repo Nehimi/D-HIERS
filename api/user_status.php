@@ -10,10 +10,14 @@
 session_start();
 header('Content-Type: application/json');
 include "../dataBaseConnection.php";
+include "../admin/includes/log_helper.php";
 
 // Enable error logging
 ini_set('log_errors', 1);
 ini_set('error_log', '../logs/status_api_errors.log');
+
+// Start output buffering to prevent error leaks
+ob_start();
 
 try {
     // Verify database connection
@@ -64,6 +68,7 @@ try {
                 ];
                 
                 // Log the change
+                logAction($dataBaseConnection, "Update Status", "Changed user ID $userId status to $newStatus");
                 error_log("Status changed: User ID $userId -> $newStatus", 3, '../logs/status_changes.log');
             } else {
                 throw new Exception("Failed to update status: " . $stmt->error);
@@ -102,6 +107,7 @@ try {
                     'count' => count($ids),
                     'new_status' => $newStatus
                 ];
+                logAction($dataBaseConnection, "Bulk Update Status", "Changed " . count($ids) . " users to $newStatus");
             } else {
                 throw new Exception("Bulk update failed: " . $stmt->error);
             }
@@ -138,6 +144,7 @@ try {
                     'old_status' => $user['status'],
                     'new_status' => $newStatus
                 ];
+                logAction($dataBaseConnection, "Update Status (Toggle)", "Toggled user ID $userId to $newStatus");
             } else {
                 throw new Exception("Failed to toggle status");
             }
@@ -175,6 +182,7 @@ try {
             throw new Exception("Unknown action: " . $action);
     }
 
+    ob_clean();
     echo json_encode($response);
 
 } catch (Exception $e) {
@@ -182,6 +190,7 @@ try {
     error_log("Status API Error: " . $e->getMessage(), 3, '../logs/status_api_errors.log');
     
     http_response_code(400);
+    ob_clean();
     echo json_encode([
         'success' => false,
         'message' => $e->getMessage(),

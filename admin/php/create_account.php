@@ -3,6 +3,9 @@ session_start();
 include("../../dataBaseConnection.php");
 include '../includes/log_helper.php';
 
+// Start output buffering to catch any unexpected output
+ob_start();
+
 // =========================
 // CREATE MODE - HANDLE USER CREATION
 // =========================
@@ -72,6 +75,7 @@ if (isset($_POST['create_user'])) {
     logAction($dataBaseConnection, "Create User", "Created new user: $firstName $lastName ($userId)");
     
     if (isset($_POST['ajax_request'])) {
+        ob_clean();
         echo json_encode(['status' => 'success', 'message' => "User created successfully! ID: $insertId", 'redirect' => 'user_management.php']);
         exit;
     }
