@@ -74,7 +74,7 @@ try {
     }
 
     // 6. Store Session
-    $_SESSION['user_id'] = $row['id'];
+    $_SESSION['user_db_id'] = $row['id'];
     $_SESSION['userId'] = $row['userId'];
     $_SESSION['role'] = $row['role'];
     $_SESSION['user_name'] = ($row['first_name'] ?? '') . ' ' . ($row['last_name'] ?? '');

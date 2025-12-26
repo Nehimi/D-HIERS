@@ -2,10 +2,6 @@
 session_start();
 include("../../dataBaseConnection.php");
 include "../includes/pagination_helper.php";
-
-// =======================
-// FILTER LOGIC
-// =======================
 $whereClauses = ["1=1"];
 
 // Date Filter

@@ -1,4 +1,4 @@
-// Admin Dashboard Logic// Admin Dashboard Logic
+// Admin Dashboard Logic
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Admin Dashboard Loaded');
 
