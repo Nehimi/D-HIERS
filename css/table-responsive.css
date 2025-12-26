@@ -127,7 +127,7 @@
     .table-wrapper .data-table td::before {
         content: attr(data-label);
         font-weight: 600;
-        color: var(--text-muted);
+        color: #64748b;
         text-align: left;
         flex: 0 0 40%;
         font-size: 0.85rem;

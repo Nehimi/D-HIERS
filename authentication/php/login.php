@@ -24,18 +24,10 @@ if (empty($loginInput) || empty($password)) {
 try {
     // 1. Determine if input is email or User ID
     $isEmail = filter_var($loginInput, FILTER_VALIDATE_EMAIL);
-    
-    // Check column names in users table (handling the 'emali' typo)
-    $colRes = mysqli_query($dataBaseConnection, "SHOW COLUMNS FROM users");
-    $emailCol = 'email';
-    while($col = mysqli_fetch_assoc($colRes)) {
-        if ($col['Field'] === 'email') { $emailCol = 'email'; break; }
-        if ($col['Field'] === 'emali') { $emailCol = 'emali'; }
-    }
 
     // 2. Fetch user from database
     if ($isEmail) {
-        $stmt = $dataBaseConnection->prepare("SELECT * FROM users WHERE $emailCol = ?");
+        $stmt = $dataBaseConnection->prepare("SELECT * FROM users WHERE email = ?");
     } else {
         $stmt = $dataBaseConnection->prepare("SELECT * FROM users WHERE userId = ?");
     }

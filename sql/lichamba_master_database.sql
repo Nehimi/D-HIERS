@@ -31,8 +31,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `emali` varchar(100) NOT NULL, -- legacy
-  `email` varchar(100) DEFAULT NULL,
+  `email` varchar(100) NOT NULL UNIQUE,
   `phone_no` varchar(25) NOT NULL,
   `userId` varchar(50) NOT NULL,
   `role` varchar(50) NOT NULL,
@@ -216,10 +215,10 @@ INSERT INTO `kebele` (`kebeleName`, `kebeleCode`, `woreda`, `zone`, `population`
 
 -- B. Test Users
 -- Note: Insert users first so they can be referenced by ID
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `emali`, `email`, `phone_no`, `userId`, `role`, `kebele`, `status`, `password`) VALUES
-(1, 'Semira', 'Kedir', 'semira@lichamba.health.et', 'semira@lichamba.health.et', '0911223344', 'HEW-001', 'hew', 'Lich-amba', 'active', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-(2, 'Abebe', 'Coordinator', 'coord@lichamba.health.et', 'coord@lichamba.health.et', '0900112233', 'COORD-001', 'coordinator', 'PHCU HQ', 'active', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
-(3, 'Sara', 'Focal', 'focal@lichamba.health.et', 'focal@lichamba.health.et', '0988776655', 'FOCAL-001', 'focal', 'Woreda Office', 'active', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `phone_no`, `userId`, `role`, `kebele`, `status`, `password`) VALUES
+(1, 'Semira', 'Kedir', 'semira@lichamba.health.et', '0911223344', 'HEW-001', 'hew', 'Lich-amba', 'active', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+(2, 'Abebe', 'Coordinator', 'coord@lichamba.health.et', '0900112233', 'COORD-001', 'coordinator', 'PHCU HQ', 'active', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'),
+(3, 'Sara', 'Focal', 'focal@lichamba.health.et', '0988776655', 'FOCAL-001', 'focal', 'Woreda Office', 'active', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
 
 -- C. Test Households
 INSERT INTO `household` (`region`, `zone`, `woreda`, `kebele`, `householdId`, `memberName`, `age`, `sex`) VALUES

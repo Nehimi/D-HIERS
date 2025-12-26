@@ -1,10 +1,5 @@
 /* Coordinator Dashboard Specific Styles */
-/* Inherits variables from ../css/style.css */
-
-:root {
-    --sidebar-width: 280px;
-    --header-height: 70px;
-}
+/* Direct values used - no CSS variables */
 
 body {
     background-color: #f3f4f6;
@@ -14,7 +9,7 @@ body {
 
 /* --- Sidebar (Matches Focal Person) --- */
 .sidebar {
-    width: var(--sidebar-width);
+    width: 280px;
     background: white;
     border-right: 1px solid #e5e7eb;
     display: flex;
@@ -26,7 +21,7 @@ body {
 }
 
 .sidebar-header {
-    height: var(--header-height);
+    height: 70px;
     display: flex;
     align-items: center;
     padding: 0 1.5rem;
@@ -46,13 +41,13 @@ body {
     flex-direction: column;
     line-height: 1.2;
     font-weight: 700;
-    font-family: var(--font-heading);
-    color: var(--primary-dark);
+    font-family: 'Outfit', sans-serif;
+    color: #115e59;
 }
 
 .brand-text span {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: #64748b;
     font-weight: 500;
 }
 
@@ -70,7 +65,7 @@ body {
     gap: 1rem;
     padding: 0.75rem 1rem;
     border-radius: 0.75rem;
-    color: var(--text-muted);
+    color: #64748b;
     font-weight: 500;
     transition: all 0.2s ease;
     font-size: 0.95rem;
@@ -79,8 +74,8 @@ body {
 .nav-item:hover,
 .nav-item.active {
     background-color: #f0fdfa;
-    /* var(--primary) light tint */
-    color: var(--primary);
+    /* #0f766e light tint */
+    color: #0f766e;
 }
 
 .nav-item i {
@@ -95,7 +90,7 @@ body {
 }
 
 .nav-item.logout {
-    color: var(--accent);
+    color: #f43f5e;
 }
 
 .nav-item.logout:hover {
@@ -105,9 +100,9 @@ body {
 /* --- Main Content Area --- */
 .main-content {
     flex: 1;
-    margin-left: var(--sidebar-width);
+    margin-left: 280px;
     padding: 2rem;
-    width: calc(100% - var(--sidebar-width));
+    width: calc(100% - 280px);
 }
 
 .dashboard-header {
@@ -115,13 +110,13 @@ body {
 }
 
 .welcome-banner {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
     color: white;
     padding: 2.5rem;
-    border-radius: var(--radius-xl);
+    border-radius: 1.5rem;
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -162,8 +157,8 @@ body {
 .stat-card {
     background: white;
     padding: 1.5rem;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -172,13 +167,13 @@ body {
 
 .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .stat-info h3 {
     font-size: 0.85rem;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: #64748b;
     margin-bottom: 0.5rem;
     letter-spacing: 0.05em;
 }
@@ -186,7 +181,7 @@ body {
 .stat-value {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--text-main);
+    color: #0f172a;
     line-height: 1;
 }
 
@@ -224,7 +219,7 @@ body {
 .actions-section-title {
     font-size: 1.25rem;
     margin-bottom: 1.5rem;
-    color: var(--text-main);
+    color: #0f172a;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -238,8 +233,8 @@ body {
 
 .module-card {
     background: white;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     overflow: hidden;
     transition: all 0.3s ease;
     border: 1px solid #f3f4f6;
@@ -248,7 +243,7 @@ body {
 }
 
 .module-card:hover {
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
     transform: translateY(-4px);
     border-color: rgba(15, 118, 110, 0.2);
 }
@@ -282,7 +277,7 @@ body {
 .module-content h3 {
     font-size: 1.25rem;
     margin-bottom: 0.75rem;
-    color: var(--text-main);
+    color: #0f172a;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -290,7 +285,7 @@ body {
 
 .module-content p {
     font-size: 0.95rem;
-    color: var(--text-muted);
+    color: #64748b;
     margin-bottom: 1.5rem;
     line-height: 1.5;
     flex: 1;
@@ -309,7 +304,7 @@ body {
 }
 
 .btn-action.primary {
-    background-color: var(--primary);
+    background-color: #0f766e;
     color: white;
 }
 
@@ -336,7 +331,7 @@ body {
     background: #f0fdfa;
     border: 1px solid rgba(15, 118, 110, 0.1);
     font-size: 1.25rem;
-    color: var(--primary);
+    color: #0f766e;
     cursor: pointer;
     width: 44px;
     height: 44px;
@@ -375,8 +370,8 @@ body {
 /* Desktop & Large Tablet */
 @media (min-width: 1025px) {
     .main-content {
-        margin-left: var(--sidebar-width);
-        width: calc(100% - var(--sidebar-width));
+        margin-left: 280px;
+        width: calc(100% - 280px);
     }
 }
 
@@ -478,7 +473,7 @@ body {
         padding: 2rem 1.5rem;
         flex-direction: column;
         text-align: center;
-        border-radius: var(--radius-lg);
+        border-radius: 1rem;
     }
 
     .welcome-text h1 {

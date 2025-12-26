@@ -92,7 +92,7 @@ if (isset($_POST['create_user'])) {
 // UPDATE MODE - HANDLE USER UPDATE
 // =========================
 if (isset($_POST['update_data'])) {
-  $id = $_POST['id'];
+  $id = intval($_POST['id']); // Sanitize ID as integer
   $firstName = $_POST['first_name'];
   $lastName = $_POST['last_name'];
   $email = $_POST['email'];
@@ -102,9 +102,13 @@ if (isset($_POST['update_data'])) {
   $kebele = $_POST['kebele'];
   $status = $_POST['status'];
 
-  // Fetch current user password
-  $check = mysqli_query($dataBaseConnection, "SELECT * FROM users WHERE id = '$id'");
-  $data = mysqli_fetch_assoc($check);
+  // Fetch current user password using prepared statement
+  $checkStmt = $dataBaseConnection->prepare("SELECT * FROM users WHERE id = ?");
+  $checkStmt->bind_param("i", $id);
+  $checkStmt->execute();
+  $checkResult = $checkStmt->get_result();
+  $data = $checkResult->fetch_assoc();
+  $checkStmt->close();
 
   // If new password is provided:
   if (!empty($_POST['new_password'])) {
@@ -119,22 +123,12 @@ if (isset($_POST['update_data'])) {
 
     $new_password = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
 
-    // Update including password
-    $update = "
-      UPDATE users SET 
-        first_name='$firstName',
-        last_name='$lastName',
-        email='$email',
-        phone_no='$phone',
-        userId='$userId',
-        role='$role',
-        kebele='$kebele',
-        status='$status',
-        password='$new_password'
-      WHERE id='$id'
-    ";
+    // Update including password - SECURE prepared statement
+    $updateStmt = $dataBaseConnection->prepare("UPDATE users SET first_name=?, last_name=?, email=?, phone_no=?, userId=?, role=?, kebele=?, status=?, password=? WHERE id=?");
+    $updateStmt->bind_param("sssssssssi", $firstName, $lastName, $email, $phone, $userId, $role, $kebele, $status, $new_password, $id);
+    $updateStmt->execute();
+    $updateStmt->close();
 
-    mysqli_query($dataBaseConnection, $update);
     logAction($dataBaseConnection, "Update User", "Updated user (with password): $userId");
     
     if (isset($_POST['ajax_request'])) {
@@ -146,21 +140,12 @@ if (isset($_POST['update_data'])) {
     exit;
   }
 
-  // Update without password
-  $update = "
-    UPDATE users SET 
-      first_name='$firstName',
-      last_name='$lastName',
-      email='$email',
-      phone_no='$phone',
-      userId='$userId',
-      role='$role',
-      kebele='$kebele',
-      status='$status'
-    WHERE id='$id'
-  ";
+  // Update without password - SECURE prepared statement
+  $updateStmt = $dataBaseConnection->prepare("UPDATE users SET first_name=?, last_name=?, email=?, phone_no=?, userId=?, role=?, kebele=?, status=? WHERE id=?");
+  $updateStmt->bind_param("ssssssssi", $firstName, $lastName, $email, $phone, $userId, $role, $kebele, $status, $id);
+  $updateStmt->execute();
+  $updateStmt->close();
 
-  mysqli_query($dataBaseConnection, $update);
   logAction($dataBaseConnection, "Update User", "Updated user details: $userId");
   
   if (isset($_POST['ajax_request'])) {

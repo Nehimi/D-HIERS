@@ -15,7 +15,7 @@ $query = "SELECT * FROM users WHERE 1=1";
 if (!empty($searchTerm)) {
     $query .= " AND (first_name LIKE '%$searchTerm%' 
                  OR last_name LIKE '%$searchTerm%' 
-                 OR emali LIKE '%$searchTerm%' 
+                 OR email LIKE '%$searchTerm%' 
                  OR userId LIKE '%$searchTerm%' 
                  OR phone_no LIKE '%$searchTerm%')";
 }
@@ -47,7 +47,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         'userId' => $row['userId'],
         'firstName' => $row['first_name'],
         'lastName' => $row['last_name'],
-        'email' => $row['emali'],
+        'email' => $row['email'],
         'phone' => $row['phone_no'],
         'role' => $row['role'],
         'kebele' => $row['kebele'],

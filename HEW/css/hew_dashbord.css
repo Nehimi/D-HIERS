@@ -23,7 +23,7 @@
 }
 .card i {
   font-size: 2rem;
-  color: var(--primary);
+  color: #0f766e;
   margin-bottom: 0.5rem;
 }
 .card h3 {
@@ -32,7 +32,7 @@
 }
 .card p {
   font-size: 1.4rem;
-  color: var(--primary-dark);
+  color: #115e59;
   font-weight: bold;
 }
 
@@ -69,7 +69,7 @@ th, td {
   text-align: left;
 }
 th {
-  background: var(--primary);
+  background: #0f766e;
   color: #fff;
 }
 tr:hover {
@@ -102,7 +102,7 @@ tr:hover {
 }
 .quick-actions button {
   margin: 0.5rem;
-  background: var(--primary);
+  background: #0f766e;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -111,7 +111,7 @@ tr:hover {
   transition: 0.3s;
 }
 .quick-actions button:hover {
-  background: var(--primary-dark);
+  background: #115e59;
 }
 
 @media (max-width: 900px) {

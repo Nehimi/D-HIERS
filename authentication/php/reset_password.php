@@ -1,6 +1,6 @@
 <?php
 /**
- * Reset Password API - Robust Version
+ * Reset Password API
  * D-HEIRS System
  */
 

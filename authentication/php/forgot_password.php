@@ -1,6 +1,6 @@
 <?php
 /**
- * Forgot Password API - Robust Version
+ * Forgot Password API 
  * D-HEIRS System
  */
 
@@ -27,16 +27,8 @@ try {
         throw new Exception("Email address is required");
     }
 
-    // 1. Find user - Check if column is 'email' or 'emali'
-    $colRes = mysqli_query($dataBaseConnection, "SHOW COLUMNS FROM users");
-    $emailCol = 'email';
-    $hasEmail = false;
-    while($col = mysqli_fetch_assoc($colRes)) {
-        if ($col['Field'] === 'email') { $emailCol = 'email'; $hasEmail = true; break; }
-        if ($col['Field'] === 'emali') { $emailCol = 'emali'; $hasEmail = true; }
-    }
-
-    $stmt = $dataBaseConnection->prepare("SELECT id, first_name, phone_no FROM users WHERE $emailCol = ?");
+    // 1. Find user by email
+    $stmt = $dataBaseConnection->prepare("SELECT id, first_name, phone_no FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();

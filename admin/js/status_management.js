@@ -11,7 +11,7 @@ async function changeUserStatus(userId, newStatus) {
         formData.append('user_id', userId);
         formData.append('status', newStatus);
 
-        const response = await fetch('api/user_status.php', {
+        const response = await fetch('../../api/user_status.php', {
             method: 'POST',
             body: formData
         });
@@ -41,7 +41,7 @@ async function toggleUserStatus(userId) {
         formData.append('action', 'toggle_status');
         formData.append('user_id', userId);
 
-        const response = await fetch('api/user_status.php', {
+        const response = await fetch('../../api/user_status.php', {
             method: 'POST',
             body: formData
         });
@@ -71,7 +71,7 @@ async function bulkChangeStatus(userIds, newStatus) {
         formData.append('user_ids', userIds.join(','));
         formData.append('status', newStatus);
 
-        const response = await fetch('api/user_status.php', {
+        const response = await fetch('../../api/user_status.php', {
             method: 'POST',
             body: formData
         });
@@ -96,7 +96,7 @@ async function bulkChangeStatus(userIds, newStatus) {
 // Get status counts
 async function getStatusCounts() {
     try {
-        const response = await fetch('api/user_status.php?action=get_status_counts');
+        const response = await fetch('../../api/user_status.php?action=get_status_counts');
         const data = await response.json();
 
         if (data.success) {
