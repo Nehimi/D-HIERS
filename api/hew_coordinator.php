@@ -205,12 +205,18 @@ try {
             $dataType = $input['dataType'] ?? 'General';
             $notes = $input['notes'] ?? '';
 
-            // 1. GENERATE SUMMARY from Validated Data (The "Generator" step)
+            // 1. GENERATE SUMMARY from Validated Data to verify we have content
             // We only forward 'Validated' data
             $summarySql = "SELECT service_type, COUNT(*) as count, kebele 
                            FROM health_data 
-                           WHERE status = 'Validated'
-                           GROUP BY service_type, kebele";
+                           WHERE status = 'Validated'";
+            
+            // Apply filtering if specific DataType is selected
+            if ($dataType != 'General') {
+                $summarySql .= " AND service_type = '" . $dataBaseConnection->real_escape_string($dataType) . "'";
+            }
+
+            $summarySql .= " GROUP BY service_type, kebele";
             
             $summaryRes = $dataBaseConnection->query($summarySql);
             $summaryData = [];
@@ -222,15 +228,15 @@ try {
             }
             
             if ($totalForwarded == 0) {
-                 throw new Exception("No 'Validated' data found to forward. Please Validate data first.");
+                 throw new Exception("No 'Validated' data found to forward for this category.");
             }
 
-            // 2. Create the Package
+            // 2. Create the Package (Notification / Batch Header)
             $packageId = 'PKG-' . strtoupper(uniqid());
             $period = date('Y-m');
             $focalId = 1; 
             
-            // Encode the real summary
+            // Encode the summary for the record
             $jsonSummary = json_encode([
                 "generated_by" => "HEW Coordinator",
                 "forwarded_at" => date('Y-m-d H:i:s'),
@@ -242,24 +248,42 @@ try {
             $stmt->bind_param("ssis", $packageId, $period, $focalId, $jsonSummary);
             
             if (!$stmt->execute()) {
+                throw new Exception("Package creation failed: " . $stmt->error);
+            }
+
+            // 3. Mark Rows as FORWARDED (Critical Step for Focal Person Flow)
+            $updateSql = "UPDATE health_data SET status = 'Forwarded' WHERE status = 'Validated'";
+            if ($dataType != 'General') {
+                $updateSql .= " AND service_type = '" . $dataBaseConnection->real_escape_string($dataType) . "'";
+            }
+            
+            if (!$dataBaseConnection->query($updateSql)) {
+                // Ideally rollback package creation here, but for now we throw error
+                throw new Exception("Failed to update row status to Forwarded: " . $dataBaseConnection->error);
+            }
                 throw new Exception("Failed to create package: " . $stmt->error);
             }
 
             // 3. Create Notification for Focal Person
             $notifTitle = "New Data Package from HEW Coordinator";
             $notifMsg = "Period: $period. Data Type: $dataType. $totalForwarded records. Notes: " . substr($notes, 0, 50) . "...";
-            $notifSql = "INSERT INTO activity_notifications (role, title, message, action_url) VALUES ('linkage', ?, ?, 'statistical_report.html')";
+            $notifSql = "INSERT INTO activity_notifications (role, title, message, action_url) VALUES ('linkage', ?, ?, 'validate_incoming_data.html')";
             $notifStmt = $dataBaseConnection->prepare($notifSql);
             $notifStmt->bind_param("ss", $notifTitle, $notifMsg);
             $notifStmt->execute();
 
-            // 4. Update records to 'Forwarded'
-            $updateSql = "UPDATE health_data SET status = 'Forwarded' WHERE status = 'Validated'"; 
+            // 4. Update records to 'Forwarded' (Granular update)
+            $updateSql = "UPDATE health_data SET status = 'Forwarded' WHERE status = 'Validated'";
+            
+            if ($dataType != 'General') {
+                $updateSql .= " AND service_type = '" . $dataBaseConnection->real_escape_string($dataType) . "'";
+            }
+
             $dataBaseConnection->query($updateSql);
 
             $response = [
                 'success' => true, 
-                'message' => "Aggregated $totalForwarded records and forwarded Package $packageId to Linkage Focal Person."
+                'message' => "Successfully forwarded $totalForwarded detailed records to the Linkage Focal Person."
             ];
             break;
 

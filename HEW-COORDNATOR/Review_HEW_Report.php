@@ -17,7 +17,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/logout.css">
-  <link rel="stylesheet" href="coordinator_dashboard.css">
+  <link rel="stylesheet" href="../focal/focal_dashboard.css">
 
   <style>
     .split-layout {

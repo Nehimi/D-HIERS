@@ -2,112 +2,123 @@
 session_start();
 include("../dataBaseConnection.php");
 
-// Simple role check (assuming focal person roles)
-// if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'linkage') {
-//     header("Location: ../index.html");
-//     exit();
-// }
+// Enable error reporting
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 
-$message = "";
+$reportMonth = $_POST['reportMonth'] ?? '';
+$kebeleFilter = $_POST['kebeleFilter'] ?? 'all';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $reportingMonth = mysqli_real_escape_string($dataBaseConnection, $_POST['reportingMonth']);
-    $preparerName = mysqli_real_escape_string($dataBaseConnection, $_POST['preparerName']);
-    
-    // Generate a unique package ID
-    $packageId = "PK-" . date('Ymd') . "-" . strtoupper(substr(uniqid(), -4));
-    
-    // Format period from month input (e.g., 2025-01 to January 2025)
-    $timestamp = strtotime($reportingMonth . "-01");
-    $period = date('F Y', $timestamp);
-    
-    // Preparer ID (from session if available, otherwise fallback)
-    $preparerId = $_SESSION['user_db_id'] ?? 1; 
+// Initialize stats
+$newPatients = 0;
+$deliveries = 0;
+$facilityId = "FAC-LICH-01"; // Example default
+$periodDisplay = "";
 
-    // Metadata as JSON
-    $dataSummary = json_encode([
-        'new_patients' => $_POST['newPatients'],
-        'deliveries' => $_POST['deliveries'],
-        'facility_id' => $_POST['facilityId']
-    ]);
+if ($reportMonth) {
+    // 1. Calculate Stats from Focal-Validated Data
+    $sql = "SELECT service_type, COUNT(*) as count 
+            FROM health_data 
+            WHERE status = 'Focal-Validated' 
+            AND DATE_FORMAT(updated_at, '%Y-%m') = '" . $dataBaseConnection->real_escape_string($reportMonth) . "'";
 
-    $query = "INSERT INTO statistical_packages (package_id, period, focal_person_id, focal_person_name, status, data_summary) 
-              VALUES ('$packageId', '$period', $preparerId, '$preparerName', 'Pending', '$dataSummary')";
-
-    if ($dataBaseConnection->query($query)) {
-        $message = "<div class='success-alert'>Data submitted successfully to the HMIS Officer! Package ID: $packageId</div>";
-    } else {
-        $message = "<div class='error-alert'>Error: " . $dataBaseConnection->error . "</div>";
+    if ($kebeleFilter !== 'all') {
+        $sql .= " AND kebele = '" . $dataBaseConnection->real_escape_string($kebeleFilter) . "'";
     }
+    
+    $sql .= " GROUP BY service_type";
+    
+    $result = $dataBaseConnection->query($sql);
+    while($row = $result->fetch_assoc()) {
+        if ($row['service_type'] == 'ANC Visit') $newPatients += $row['count']; 
+        if ($row['service_type'] == 'Delivery') $deliveries += $row['count'];
+    }
+    
+    $dateObj = DateTime::createFromFormat('Y-m', $reportMonth);
+    $periodDisplay = $dateObj ? $dateObj->format('F Y') : $reportMonth;
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HMIS Data Submission | Focal Person</title>
-    <link rel="stylesheet" href="hmis_data_submission.css">
-    <style>
-        .success-alert { padding: 1rem; background: #dcfce7; color: #166534; border-radius: 8px; margin-bottom: 2rem; border: 1px solid #bbf7d0; text-align: center; }
-        .error-alert { padding: 1rem; background: #fee2e2; color: #991b1b; border-radius: 8px; margin-bottom: 2rem; border: 1px solid #fecaca; text-align: center; }
-    </style>
+    <?php include 'layout/head.php'; ?>
+    <title>Review & Submit HMIS Report | Focal Person</title>
 </head>
-<body>
 
-    <a href="focal_dashboard.html" class="back-button">
-        &larr; Go Back
-    </a>
+<body class="dashboard-body">
 
-    <header>
-        <h1>HMIS Report Submission</h1>
-        <p>Please enter all required data fields for the current reporting period.</p>
-    </header>
+    <!-- Sidebar -->
+    <?php include 'layout/sidebar.php'; ?>
 
-    <main class="form-container">
-        <?php echo $message; ?>
+    <main class="main-content">
         
-        <form action="hmis_data_submission.php" method="POST" id="hmis-report-form">
-
-            <fieldset class="report-metadata">
-                <legend>Report Details</legend>
-                <div class="form-group">
-                    <label for="facility-id">Facility ID</label>
-                    <input type="text" id="facility-id" name="facilityId" placeholder="e.g. FAC-001" required>
-                </div>
-                <div class="form-group">
-                    <label for="reporting-month">Reporting Month</label>
-                    <input type="month" id="reporting-month" name="reportingMonth" required>
-                </div>
-                <div class="form-group">
-                    <label for="preparer-name">Prepared By</label>
-                    <input type="text" id="preparer-name" name="preparerName" value="<?php echo $_SESSION['full_name'] ?? ''; ?>" required>
-                </div>
-            </fieldset>
-
-            <fieldset class="data-section">
-                <legend>Key Service Indicators</legend>
-                <div class="form-group">
-                    <label for="new-patients">New Patients Registered</label>
-                    <input type="number" id="new-patients" name="newPatients" min="0" value="0" required>
-                </div>
-                <div class="form-group">
-                    <label for="deliveries">Facility Deliveries</label>
-                    <input type="number" id="deliveries" name="deliveries" min="0" value="0" required>
-                </div>
-            </fieldset>
-
-            <div class="submit-area">
-                <button type="submit" class="submit-button">
-                    Submit Processed Report to HMIS
-                </button>
+        <header class="dashboard-header">
+            <div>
+                <h2><i class="fa-solid fa-file-signature"></i> Final Review & Submission</h2>
+                <p class="actor-role">Role: Linkage Focal Person</p>
             </div>
-        </form>
+        </header>
+
+        <section class="container" style="margin-top: 2rem; padding: 0;">
+            
+            <div class="selection-card">
+                <h3><i class="fa-solid fa-list-check"></i> Review Statistical Report</h3>
+                <p class="description">
+                    Review the aggregated data for <strong><?php echo $periodDisplay ?: 'Selected Period'; ?></strong> before official submission.
+                </p>
+
+                <form action="generate_report_processor.php" method="POST" id="hmis-report-form">
+                    
+                    <input type="hidden" name="reportMonth" value="<?php echo htmlspecialchars($reportMonth); ?>">
+                    <input type="hidden" name="kebeleFilter" value="<?php echo htmlspecialchars($kebeleFilter); ?>">
+                    <input type="hidden" name="GenerateReport" value="true">
+
+                    <div class="row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group">
+                            <label>Facility ID</label>
+                            <input type="text" name="facilityId" value="<?php echo $facilityId; ?>" readonly class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Reporting Period</label>
+                            <input type="text" value="<?php echo $periodDisplay; ?>" readonly class="form-control">
+                        </div>
+                    </div>
+
+                     <div class="form-group">
+                        <label>Prepared By</label>
+                        <input type="text" name="preparerName" value="<?php echo $_SESSION['full_name'] ?? 'Focal Person'; ?>" readonly class="form-control">
+                    </div>
+
+                    <div style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                        <h4 style="margin-bottom: 1rem; color: var(--primary);">Aggregated Service Indicators</h4>
+                        
+                        <div class="row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div class="form-group">
+                                <label>Total ANC Visits / New Patients</label>
+                                <input type="number" name="newPatients" value="<?php echo $newPatients; ?>" readonly class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Total Deliveries</label>
+                                <input type="number" name="deliveries" value="<?php echo $deliveries; ?>" readonly class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-actions" style="margin-top: 2rem; display: flex; gap: 1rem;">
+                            <button type="submit" class="btn-primary" style="flex: 1; justify-content: center;">
+                                <i class="fa-solid fa-paper-plane"></i> Confirm & Submit to HMIS
+                            </button>
+                            <a href="statistical_report.php" class="btn-export" style="text-decoration: none;">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </section>
+
     </main>
-
-    <footer>
-        <p>&copy; 2025 Health Management Information System | D-HEIRS</p>
-    </footer>
-
+    <script src="../js/logout.js"></script>
 </body>
 </html>

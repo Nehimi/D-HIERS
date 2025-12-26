@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include 'layout/head.php'; ?>
     <title>Generate Statistical Report | D-HEIRS</title>
-    <link rel="stylesheet" href="statistical_report.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="dashboard-body">
 
+    <!-- Sidebar -->
+    <?php include 'layout/sidebar.php'; ?>
+
     <main class="main-content">
-        <a href="focal_dashboard.html" class="btn-back">
-            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
-        </a>
+        
         <header class="dashboard-header">
-            <h2><i class="fa-solid fa-chart-pie"></i> Reporting & Summarization</h2>
+            <div>
+                <h2><i class="fa-solid fa-chart-pie"></i> Reporting & Summarization</h2>
+                <p class="actor-role">Role: Linkage Focal Person</p>
+            </div>
         </header>
 
-        <section class="report-selection-section">
+        <section class="report-selection-section" style="margin-top: 2rem;">
             <div class="selection-card">
                 <h3>Generate Woreda Statistical Report</h3>
                 <p class="description">Select the reporting period for which all Kebele data has been validated and
                     summarized.</p>
 
-                <form method="POST" action="generate_report_processor.php" class="report-form">
+                <form method="POST" action="hmis_data_submission.php" class="report-form">
 
                     <div class="form-group">
                         <label for="reportMonth"><i class="fa-solid fa-calendar-alt"></i> Select Reporting Month</label>
@@ -35,7 +35,7 @@
                             <option value="2025-10" disabled>October 2025 (Processed)</option>
                             <option value="2025-12">December 2025 (Pending)</option>
                         </select>
-                        <small class="help-text">Only periods with **Validated** detailed reports can be
+                        <small class="help-text">Only periods with **Focal-Validated** data can be
                             selected.</small>
                     </div>
 
@@ -72,7 +72,7 @@
                     </li>
                     <li class="status-item processed">
                         <span class="period">October 2025</span>
-                        <span class="badge processed-badge">Finalized (UC-11)</span>
+                        <span class="badge processed-badge">Finalized</span>
                     </li>
                     <li class="status-item missing">
                         <span class="period">September 2025</span>
@@ -84,6 +84,6 @@
         </section>
 
     </main>
+    <script src="../js/logout.js"></script>
 </body>
-
 </html>
