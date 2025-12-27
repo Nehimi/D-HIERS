@@ -1,0 +1,324 @@
+/*
+** Shared Styles for Focal Module Pages (D-HEIRS)
+** Common styles used across multiple pages to reduce duplication
+** Uses D-HEIRS teal/green branding
+*/
+
+/* --- Base Styles --- */
+.dashboard-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #343a40;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* --- Main Content Layout --- */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    /* CRITICAL: Account for fixed sidebar width */
+    max-width: 1400px;
+    margin-right: auto;
+    padding: 2rem 2.5rem;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* Better spacing for large screens */
+@media (min-width: 1600px) {
+    .main-content {
+        max-width: 1600px;
+        padding: 2.5rem 4rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    .main-content {
+        max-width: 1800px;
+        padding: 3rem 5rem;
+    }
+}
+
+/* Responsive: Remove sidebar margin on mobile */
+@media (max-width: 900px) {
+    .main-content {
+        margin-left: 0;
+    }
+
+    .content-wrapper {
+        padding: 1.25rem 1rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .main-content {
+        margin-left: 0;
+    }
+
+    .content-wrapper {
+        padding: 1rem 0.75rem;
+    }
+}
+
+/* --- Back Button --- */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: #6c757d;
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+.btn-back:hover {
+    color: #0d9488;
+    background-color: #e9ecef;
+}
+
+.btn-back i {
+    margin-right: 8px;
+}
+
+/* --- Card Styles (Containers) --- */
+.selection-card,
+.status-card {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.selection-card:hover,
+.status-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.selection-card h3,
+.status-card h3 {
+    border-bottom: 3px solid #e5e7eb;
+    padding-bottom: 0.875rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #0d9488;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.description {
+    color: #6b7280;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-bottom: 1.75rem;
+    padding: 0.75rem 1rem;
+    border-left: 4px solid #0d9488;
+    background: linear-gradient(to right, rgba(13, 148, 136, 0.05), transparent);
+    border-radius: 0 8px 8px 0;
+}
+
+/* Large screen card adjustments */
+@media (min-width: 1600px) {
+
+    .selection-card,
+    .status-card {
+        padding: 2.5rem;
+        border-radius: 20px;
+    }
+
+    .selection-card h3,
+    .status-card h3 {
+        font-size: 1.5rem;
+    }
+}
+
+/* --- Form Styles --- */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.625rem;
+    color: #1f2937;
+    font-size: 0.9375rem;
+    letter-spacing: -0.01em;
+}
+
+.form-group label i {
+    margin-right: 0.5rem;
+    color: #0d9488;
+    font-size: 1rem;
+}
+
+select,
+input[type="text"],
+input[type="number"],
+input[type="month"] {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 0.9375rem;
+    font-family: inherit;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #1f2937;
+}
+
+select:hover,
+input:hover {
+    border-color: #d1d5db;
+}
+
+select:focus,
+input:focus {
+    border-color: #0d9488;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1);
+    background-color: #ffffff;
+}
+
+select option[disabled] {
+    color: #9ca3af;
+    background-color: #f9fafb;
+}
+
+select option[data-status="Ready"] {
+    font-weight: 600;
+    color: #059669;
+}
+
+/* Large screen form adjustments */
+@media (min-width: 1600px) {
+    .form-group {
+        margin-bottom: 1.75rem;
+    }
+
+    select,
+    input[type="text"],
+    input[type="number"],
+    input[type="month"] {
+        padding: 1rem 1.25rem;
+        font-size: 1rem;
+        border-radius: 12px;
+    }
+}
+
+/* --- Action Buttons --- */
+.btn-primary,
+.btn-primary-generate {
+    background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25), 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: -0.01em;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button shine effect */
+.btn-primary::before,
+.btn-primary-generate::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-primary:hover::before,
+.btn-primary-generate:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover,
+.btn-primary-generate:hover {
+    background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+    box-shadow: 0 6px 20px rgba(13, 148, 136, 0.35), 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.btn-primary:active,
+.btn-primary-generate:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(13, 148, 136, 0.3);
+}
+
+.btn-primary i,
+.btn-primary-generate i {
+    margin-right: 0.625rem;
+    font-size: 1.125rem;
+}
+
+/* Large screen button adjustments */
+@media (min-width: 1600px) {
+
+    .btn-primary,
+    .btn-primary-generate {
+        padding: 1.125rem 2.5rem;
+        font-size: 1.0625rem;
+        border-radius: 14px;
+    }
+}
+
+/* --- Form Actions --- */
+.form-actions {
+    margin-top: 30px;
+    text-align: right;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 1.5rem 1.5rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        padding: 1.25rem 1rem;
+    }
+
+    .btn-primary,
+    .btn-primary-generate {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .dashboard-body {
+        padding: 0.75rem;
+    }
+
+    .main-content {
+        padding: 1rem 0.75rem;
+    }
+
+    .selection-card,
+    .status-card {
+        padding: 1.25rem;
+        border-radius: 12px;
+    }
+}

@@ -1,47 +1,31 @@
-/* Statistical Report CSS - D-HEIRS */
-/* Direct values - no CSS variables */
+/*
+** Page-Specific CSS for Statistical Report (D-HEIRS)
+** Common styles are in shared_styles.css
+*/
 
-/* Base Body/Layout */
-.dashboard-body {
-    background-color: #f0f2f5;
-    /* Soft, light background */
-}
-
-.main-content {
-    padding: 20px 40px;
-}
-
+/* --- Enhanced Dashboard Header --- */
 .dashboard-header h2 {
-    color: #343a40;
-    font-size: 2em;
     font-weight: 300;
-    /* Lighter weight for modern look */
     padding-bottom: 15px;
     margin-bottom: 25px;
     border-bottom: 2px solid #e9ecef;
 }
 
 .dashboard-header h2 .fa-chart-pie {
-    color: #007bff;
+    color: #ffffff;
     margin-right: 10px;
 }
 
-/* Section Grid */
+/* --- Section Grid --- */
 .report-selection-section {
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 30px;
 }
 
-/* Card Styles - Elevated and Clean */
+/* --- Enhanced Card Hover Effects --- */
 .selection-card,
 .status-summary-card {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    /* Smoother corners */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-    /* Deeper shadow for focus */
     transition: transform 0.3s ease;
 }
 
@@ -53,52 +37,20 @@
 
 .selection-card h3,
 .status-summary-card h3 {
-    color: #007bff;
-    font-size: 1.5em;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    border-bottom: 3px solid #007bff;
-    /* Stronger separator */
+    border-bottom: 3px solid #0d9488;
 }
 
+/* --- Enhanced Description Block --- */
 .description {
-    color: #6c757d;
-    margin-bottom: 25px;
-    border-left: 4px solid #17a2b8;
-    /* Hint border */
+    border-left: 4px solid #14b8a6;
     padding-left: 15px;
     line-height: 1.5;
 }
 
-/* Form Group Styles */
-.form-group {
-    margin-bottom: 25px;
-}
-
+/* --- Enhanced Form Labels --- */
 .form-group label {
-    display: block;
-    font-weight: 600;
-    /* Semi-bold */
-    margin-bottom: 10px;
-    color: #343a40;
     text-transform: uppercase;
     font-size: 0.9em;
-}
-
-.form-group label .fa-solid {
-    color: #007bff;
-    margin-right: 5px;
-}
-
-.form-group select {
-    width: 100%;
-    padding: 12px 15px;
-    /* More padding */
-    border: 1px solid #e9ecef;
-    border-radius: 6px;
-    font-size: 1em;
-    background-color: #ffffff;
-    transition: border-color 0.2s;
 }
 
 .form-group select:hover {
@@ -106,10 +58,7 @@
 }
 
 .form-group select:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
-    /* Soft glow */
+    box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
 }
 
 .help-text {
@@ -120,7 +69,7 @@
     font-style: italic;
 }
 
-/* Action Button */
+/* --- Enhanced Action Button --- */
 .form-actions {
     text-align: center;
     padding-top: 25px;
@@ -130,16 +79,8 @@
 
 .btn-primary {
     background-color: #28a745;
-    /* Use Green for GO/Generate */
-    color: #ffffff;
-    padding: 15px 35px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1.2em;
-    font-weight: bold;
     letter-spacing: 0.5px;
     box-shadow: 0 4px 6px rgba(40, 167, 69, 0.3);
-    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 .btn-primary:hover {
@@ -148,10 +89,10 @@
     box-shadow: 0 6px 10px rgba(40, 167, 69, 0.4);
 }
 
-/* Status List Styles */
+/* --- Status Summary Card --- */
 .status-summary-card h3 {
-    color: #17a2b8;
-    border-bottom: 3px solid #17a2b8;
+    color: #14b8a6;
+    border-bottom: 3px solid #14b8a6;
 }
 
 .status-list {
@@ -174,7 +115,6 @@
 
 .status-item:hover {
     background-color: #f0f8ff;
-    /* Light blue hover */
 }
 
 .status-item .period {
@@ -182,6 +122,7 @@
     color: #343a40;
 }
 
+/* --- Status Badges --- */
 .badge {
     padding: 6px 12px;
     border-radius: 20px;
@@ -191,7 +132,6 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-/* Status Colors and Visual Cues */
 .ready-badge {
     background-color: #28a745;
     color: #ffffff;
@@ -203,7 +143,7 @@
 }
 
 .processed-badge {
-    background-color: #17a2b8;
+    background-color: #14b8a6;
     color: #ffffff;
 }
 
@@ -212,7 +152,7 @@
     color: #ffffff;
 }
 
-/* Decorative Border for Status */
+/* --- Decorative Status Borders --- */
 .status-item.ready {
     border-left: 5px solid #28a745;
 }
@@ -222,15 +162,14 @@
 }
 
 .status-item.processed {
-    border-left: 5px solid #17a2b8;
+    border-left: 5px solid #14b8a6;
 }
 
 .status-item.missing {
     border-left: 5px solid #dc3545;
 }
 
-
-/* Responsive Adjustments */
+/* --- Responsive Adjustments --- */
 @media (max-width: 992px) {
     .report-selection-section {
         grid-template-columns: 1fr;
@@ -239,29 +178,6 @@
     .selection-card:hover,
     .status-summary-card:hover {
         transform: none;
-        /* Disable hover movement on smaller screens */
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     }
-}
-
-/* --- Back Button --- */
-.btn-back {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    color: #6c757d;
-    margin-bottom: 15px;
-    padding: 8px 15px;
-    border-radius: 8px;
-    transition: all 0.2s ease-in-out;
-    font-weight: 500;
-}
-
-.btn-back:hover {
-    color: #007bff;
-    background-color: #e9ecef;
-}
-
-.btn-back i {
-    margin-right: 8px;
 }

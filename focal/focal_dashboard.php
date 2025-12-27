@@ -78,14 +78,17 @@ $activityRes = $dataBaseConnection->query($activitySql);
               </div>
           </div>
 
-          <!-- Efficiency Card -->
-          <div class="stat-card warning">
+          <!-- System Status Card -->
+          <div class="stat-card success">
               <div class="stat-icon">
                   <i class="fa-solid fa-bolt"></i>
               </div>
               <div>
                   <h3>System Status</h3>
-                  <div class="value">Active</div>
+                  <div class="value" style="display: flex; align-items: center; gap: 0.75rem;">
+                      <span class="status-indicator"></span>
+                      Active
+                  </div>
                   <div class="trend text-success">
                       <i class="fa-solid fa-check-circle"></i> Operational
                   </div>

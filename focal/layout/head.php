@@ -5,8 +5,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Main CSS -->
-<link rel="stylesheet" href="focal_dashboard.css">
+<!-- Main CSS with cache busting -->
+<link rel="stylesheet" href="focal_dashboard.css?v=<?php echo time(); ?>">
+<!-- Shared Styles with cache busting -->
+<link rel="stylesheet" href="shared_styles.css?v=<?php echo time(); ?>">
 <style>
     /* Ensure Body takes full height/width */
     .dashboard-body {
