@@ -1,45 +1,14 @@
 /*
-** CSS for HMIS Report Generation Page (D-HEIRS)
-** Aim: Attractive, modern, professional, and readable interface.
-** Direct values - no CSS variables
+** Page-Specific CSS for HMIS Report Export (D-HEIRS)
+** Common styles are in shared_styles.css
 */
 
-/* --- Base Styles --- */
-.dashboard-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
-    color: #343a40;
-    margin: 0;
-    padding: 20px;
-    line-height: 1.6;
-    /* Smooth background transition */
-    transition: background-color 0.3s;
-}
-
-/* --- Main Content Layout --- */
-.main-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* --- Header Section (Enhanced Shadow) --- */
+/* --- Enhanced Header with Decorative Overlay --- */
 .dashboard-header {
-    background: linear-gradient(to right, #007BFF, #00b0ff);
-    color: white;
-    padding: 25px 30px;
     margin-bottom: 30px;
-    /* Increased margin */
-    border-radius: 12px;
-    /* Stronger, more defined shadow for elevation */
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     position: relative;
-    /* Context for pseudo-element */
     overflow: hidden;
-    /* Keep background linear-gradient contained */
 }
 
 /* Decorative diagonal stripe overlay on header */
@@ -62,54 +31,24 @@
 .dashboard-header h2,
 .actor-role {
     z-index: 2;
-    /* Ensure text is above decoration */
+    position: relative;
 }
 
 .dashboard-header h2 {
-    margin: 0;
-    font-size: 1.8em;
-    display: flex;
-    align-items: center;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.dashboard-header h2 i {
-    margin-right: 15px;
-    font-size: 1.2em;
 }
 
 .actor-role {
     background-color: rgba(255, 255, 255, 0.3);
-    /* Slightly brighter */
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 0.9em;
-    font-weight: 600;
 }
 
-/* --- Back Button (Subtle Hover Effect) --- */
+/* --- Enhanced Back Button --- */
 .btn-back {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    color: #6c757d;
-    margin-bottom: 15px;
-    padding: 8px 15px;
-    border-radius: 8px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    /* Smoother transition */
-    font-weight: 500;
 }
 
 .btn-back:hover {
-    color: #007BFF;
-    background-color: #e9ecef;
     transform: translateX(-5px);
-    /* Gentle slide effect */
-}
-
-.btn-back i {
-    margin-right: 8px;
 }
 
 /* --- Main Section Layout --- */
@@ -119,55 +58,27 @@
     gap: 30px;
 }
 
-/* --- Card Styles (Containers) - Lift on hover for main card --- */
-.selection-card,
-.status-card {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+/* --- Enhanced Card Hover Effect --- */
+.selection-card {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .selection-card:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    /* Subtle lift on hover */
     transform: translateY(-2px);
 }
 
-.selection-card h3,
-.status-card h3 {
-    border-bottom: 2px solid #dee2e6;
-    padding-bottom: 10px;
-    margin-top: 0;
-    margin-bottom: 20px;
-    color: #007BFF;
-    font-size: 1.5em;
-}
-
+/* --- Enhanced Description Block --- */
 .description {
-    color: #6c757d;
-    font-size: 0.95em;
-    margin-bottom: 25px;
     padding: 5px 10px;
-    /* Added padding */
-    border-left: 4px solid #007BFF;
-    /* Thicker border */
+    border-left: 4px solid #0d9488;
     background-color: #f8f9fa;
-    /* Light background for description block */
     border-radius: 4px;
 }
 
-/* --- Form Styles --- */
-.form-group label {
-    font-weight: 600;
-    color: #343a40;
-}
-
+/* --- Animated Form Icons --- */
 .form-group label i {
-    color: #007BFF;
     animation: pulse 2s infinite ease-in-out;
-    /* Subtle animation for icon */
 }
 
 @keyframes pulse {
@@ -187,44 +98,25 @@
     }
 }
 
-select {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    background-color: white;
-    font-size: 1em;
-    cursor: pointer;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
+/* --- Enhanced Select Styling --- */
 select:focus {
-    border-color: #007BFF;
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
-    /* Softer, broader focus ring */
+    box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.15);
 }
 
 select option[data-status="Ready"] {
-    font-weight: bold;
-    color: #28a745;
     background-color: #e6ffe6;
-    /* Light green background */
 }
 
-/* --- Report Format Group --- */
+/* --- Report Format Group with Icon Marker --- */
 .report-format-group {
     padding-top: 25px;
     margin-top: 20px;
     border-top: 1px solid #e9ecef;
-    /* Solid but light separator */
     position: relative;
 }
 
-/* Small, subtle icon marker for separation */
 .report-format-group::before {
     content: "\f02d";
-    /* fa-file-alt (book-open) or similar */
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     position: absolute;
@@ -232,49 +124,28 @@ select option[data-status="Ready"] {
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.2em;
-    color: #007BFF;
+    color: #0d9488;
     background: #ffffff;
     padding: 0 10px;
 }
 
-/* --- Action Button (Enhanced 3D Effect) --- */
+/* --- Enhanced Button with 3D Effect --- */
 .btn-primary-generate {
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.1s, box-shadow 0.3s;
-    /* Initial subtle 3D shadow */
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow: 0 5px 15px rgba(13, 148, 136, 0.4);
 }
 
 .btn-primary-generate:hover {
-    background-color: #0056b3;
-    /* Deeper shadow on hover */
-    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
+    box-shadow: 0 8px 20px rgba(15, 118, 110, 0.5);
 }
 
 .btn-primary-generate:active {
     transform: translateY(2px);
-    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.4);
-    /* Flatter shadow on press */
+    box-shadow: 0 2px 5px rgba(13, 148, 136, 0.4);
 }
 
-.btn-primary-generate i {
-    margin-right: 10px;
-}
-
-/* --- Log Display Styles (More defined) --- */
+/* --- Log Display Styles --- */
 .status-card.log-display {
-    /* Stronger visual cue that this is a log */
-    border-left: 5px solid #007BFF;
+    border-left: 5px solid #0d9488;
     background-color: #fcfcfc;
 }
 
@@ -282,7 +153,6 @@ select option[data-status="Ready"] {
     display: flex;
     align-items: center;
     padding: 12px 0;
-    /* Use a solid, lighter border for clearer separation */
     border-bottom: 1px solid #e9ecef;
     font-size: 0.95em;
 }
@@ -298,7 +168,7 @@ select option[data-status="Ready"] {
     flex-grow: 1;
 }
 
-/* Status-specific Log Colors (Color text for emphasis) */
+/* Status-specific Log Colors */
 .log-entry.ready .log-icon {
     color: #28a745;
 }
@@ -308,21 +178,19 @@ select option[data-status="Ready"] {
     color: #28a745;
 }
 
-
 .log-entry.processed .log-icon {
     color: #ffc107;
 }
 
 .log-entry.processed .log-text {
     color: #a07400;
-    /* Darker amber text */
 }
 
 .log-entry.archived .log-icon {
     color: #6c757d;
 }
 
-/* --- Responsive Design (Kept from original) --- */
+/* --- Responsive Design --- */
 @media (max-width: 900px) {
     .hmis-report-section {
         grid-template-columns: 1fr;
@@ -330,29 +198,5 @@ select option[data-status="Ready"] {
 
     .log-display {
         margin-top: 20px;
-    }
-
-    .dashboard-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .actor-role {
-        margin-top: 10px;
-    }
-
-    .btn-primary-generate {
-        width: 100%;
-    }
-}
-
-@media (max-width: 500px) {
-    .dashboard-body {
-        padding: 10px;
-    }
-
-    .selection-card,
-    .status-card {
-        padding: 20px;
     }
 }
