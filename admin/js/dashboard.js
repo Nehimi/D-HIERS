@@ -1,4 +1,4 @@
-// Admin Dashboard Logic - Enhanced with Real-Time Data
+// Admin Dashboard Logic
 document.addEventListener('DOMContentLoaded', function () {
     console.log('Admin Dashboard Enhanced - Loading Real Data...');
 

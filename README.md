@@ -5,6 +5,40 @@ D-HEIRS is a web-based platform designed to digitize the workflow of Health Exte
 
 ---
 
+## 🏗 System Architecture & Technical Breakdown
+
+### 🔄 Data Flow
+```mermaid
+graph TD
+    HEW[Health Extension Worker] -->|Submits Report| DB[(MySQL Database)]
+    DB -->|Real-time Sync| Focal[Focal Person Dashboard]
+    DB -->|Aggregated Data| Admin[Admin Portal]
+    Admin -->|Configures| Kebeles[Kebele/Unit Management]
+    Admin -->|Monitors| Logs[Audit Logging System]
+```
+
+### 💻 Tech Stack Deep Dive
+
+#### 1. Backend: Native PHP
+- **Why Native PHP?** High performance with minimal overhead, perfect for low-resource server environments.
+- **Data Handling**: Uses PDO or Prepared Statements to prevent SQL injection.
+- **Modularity**: Code is organized into `php/` (logic), `css/` (styling), and `js/` (interactivity).
+
+#### 2. Frontend: Vanilla JS & Custom CSS
+- **Asynchronous Updates**: Uses `fetch()` API and AJAX to update dashboard statistics (`dashboard_stats.php`) without full page reloads.
+- **Responsive UI**: Custom CSS variables for a "Pro" look, ensuring it works on tablets and desktops used by health workers.
+
+#### 3. Database: MySQL
+- **Relational Integrity**: Foreign key constraints ensure that every report is mapped to a valid Kebele and User ID.
+- **Auditability**: An `audit_logs` table records every critical action (`INSERT`, `UPDATE`, `DELETE`, `LOGIN`).
+
+### 🛡 Security & Reliability
+- **Role-Based Access Control (RBAC)**: Distinct views and capabilities for HEWs, Focal Persons, and Admins.
+- **Session Management**: Secure PHP sessions with timeout and role validation on every page.
+- **Input Validation**: Server-side filtering of all user-submitted data.
+
+---
+
 ## 📂 File Structure & Architecture
 The system follows a **modular architecture**, separating concerns by user role (Admin, HEW, Coordinator) and functionality (Authentication, API).
 
