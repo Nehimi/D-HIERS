@@ -1,4 +1,5 @@
 <?php
+session_start();
 header("Content-Type: application/json");
 include_once "../dataBaseConnection.php";
 
@@ -43,7 +44,8 @@ try {
                     'active_hews' => $activeHews,
                     'pending_reports' => $pendingReports,
                     'validated_today' => $validatedToday,
-                    'packages_forwarded' => $packages
+                    'packages_forwarded' => $packages,
+                    'user_name' => $_SESSION['full_name'] ?? 'Coordinator' // Dynamic Name
                 ]
             ];
             break;
@@ -66,7 +68,7 @@ try {
                     
                     $statsSql = "SELECT COUNT(*) as total, 
                                  SUM(CASE WHEN status='Pending' THEN 1 ELSE 0 END) as pending,
-                                 SUM(CASE WHEN service_type='ANC Visit' THEN 1 ELSE 0 END) as anc
+                                 SUM(CASE WHEN service_type='maternal_health' THEN 1 ELSE 0 END) as anc
                                  FROM health_data 
                                  WHERE kebele = '$kebele'";
                     
@@ -92,6 +94,7 @@ try {
             $kebele = isset($_GET['kebele']) ? $_GET['kebele'] : '';
             $dataType = isset($_GET['dataType']) ? $_GET['dataType'] : '';
             $status = isset($_GET['status']) ? $_GET['status'] : '';
+            $countOnly = isset($_GET['count_only']) && $_GET['count_only'] == '1';
 
             if(!$kebele && $kebele !== 'all') {
                  throw new Exception("Kebele is required");
@@ -100,20 +103,38 @@ try {
             $queryData = [];
             
             if ($dataType == 'household data') {
-                $sql = "SELECT householdId, memberName, age, sex FROM household WHERE kebele = ?";
+                if ($countOnly) {
+                    $sql = "SELECT COUNT(*) as total FROM household WHERE (kebele = ? OR ? = 'all')";
+                } else {
+                    $sql = "SELECT householdId, memberName, age, sex FROM household WHERE (kebele = ? OR ? = 'all')";
+                }
                 $stmt = $dataBaseConnection->prepare($sql);
-                $stmt->bind_param("s", $kebele);
+                $stmt->bind_param("ss", $kebele, $kebele);
             } else {
                 // Fetch health data with HEW name
-                $sql = "SELECT h.*, CONCAT(u.first_name, ' ', u.last_name) as hew_name 
-                        FROM health_data h 
-                        LEFT JOIN users u ON h.submitted_by_id = u.id 
-                        WHERE (h.kebele = ? OR ? = 'all')";
+                if ($countOnly) {
+                    $sql = "SELECT COUNT(*) as total FROM health_data h WHERE (h.kebele = ? OR ? = 'all')";
+                } else {
+                    $sql = "SELECT h.*, CONCAT(u.first_name, ' ', u.last_name) as hew_name 
+                            FROM health_data h 
+                            LEFT JOIN users u ON h.submitted_by_id = u.id 
+                            WHERE (h.kebele = ? OR ? = 'all')";
+                }
+                
+                // Add specific service type filter if not 'health_data' or 'General'
+                $lowerDataType = strtolower($dataType);
+                if ($lowerDataType != 'health_data' && $lowerDataType != 'general') {
+                    $sql .= " AND h.service_type = '" . $dataBaseConnection->real_escape_string($dataType) . "'";
+                }
                 
                 if ($status) {
                     $sql .= " AND h.status = ?";
                     $stmt = $dataBaseConnection->prepare($sql);
-                    $stmt->bind_param("sss", $kebele, $kebele, $status);
+                    if ($countOnly) {
+                        $stmt->bind_param("sss", $kebele, $kebele, $status);
+                    } else {
+                        $stmt->bind_param("sss", $kebele, $kebele, $status);
+                    }
                 } else {
                     $stmt = $dataBaseConnection->prepare($sql);
                     $stmt->bind_param("ss", $kebele, $kebele);
@@ -122,12 +143,28 @@ try {
             
             if ($stmt && $stmt->execute()) {
                 $res = $stmt->get_result();
-                while($row = $res->fetch_assoc()) {
-                    $queryData[] = $row;
+                if ($countOnly) {
+                    $rowCount = $res->fetch_assoc()['total'] ?? 0;
+                    $queryData = ['total' => $rowCount];
+                } else {
+                    while($row = $res->fetch_assoc()) {
+                        $queryData[] = $row;
+                    }
                 }
             }
 
-            $response = ['success' => true, 'data' => $queryData];
+            $debugInfo = [
+                'dataType' => $dataType,
+                'kebele' => $kebele,
+                'status' => $status
+            ];
+            
+            if ($dataType == 'household data') {
+                $countRes = $dataBaseConnection->query("SELECT COUNT(*) as count FROM household");
+                $debugInfo['total_households'] = $countRes->fetch_assoc()['count'];
+            }
+
+            $response = ['success' => true, 'data' => $queryData, 'debug' => $debugInfo];
             break;
 
         case 'mark_reviewed':
@@ -155,18 +192,33 @@ try {
             $type = $input['dataType'] ?? '';
             
             if (!$type) throw new Exception("Data type is required");
+            
+             // SPECIAL CASE: Household Data doesn't have status, so just say OK.
+            if ($type == 'household data') {
+                $response = ['success' => true, 'message' => "Household data verified for forwarding.", 'affected_rows' => 0];
+                break;
+            }
 
-            $stmt = $dataBaseConnection->prepare("UPDATE health_data SET status = 'Validated', updated_at = NOW() WHERE service_type = ? AND status IN ('Pending', 'Reviewed')");
+            // STRICTER VALIDATION: Only allow validating 'Reviewed' items. 
+            // Coordinator MUST review first.
+            $stmt = $dataBaseConnection->prepare("UPDATE health_data SET status = 'Validated', updated_at = NOW() WHERE service_type = ? AND status = 'Reviewed'");
             $stmt->bind_param("s", $type);
             
             if ($stmt->execute()) {
-                $response = ['success' => true, 'message' => "Records validated successfully", 'affected_rows' => $stmt->affected_rows];
+                $affected = $stmt->affected_rows;
+                if($affected == 0) {
+                     $response = ['success' => false, 'message' => "No 'Reviewed' data found for this category. Please Review reports first."];
+                } else {
+                     $response = ['success' => true, 'message' => "Records validated successfully", 'affected_rows' => $affected];
+                }
             } else {
                 throw new Exception("Validation failed: " . $stmt->error);
             }
             break;
 
+
         case 'notify_submission':
+            // ... (Existing implementation)
             $input = json_decode(file_get_contents('php://input'), true);
             $hewId = $input['hewId'] ?? '';
             $kebele = $input['kebele'] ?? '';
@@ -174,10 +226,14 @@ try {
 
             if (!$hewId || !$kebele) throw new Exception("HEW ID and Kebele are required");
 
-            // Create notification for the Coordinator
+            $updateStatusSql = "UPDATE health_data SET status = 'Pending' WHERE kebele = ? AND (status IS NULL OR status = 'Draft' OR status = 'New' OR status = '')";
+            $statusStmt = $dataBaseConnection->prepare($updateStatusSql);
+            $statusStmt->bind_param("s", $kebele);
+            $statusStmt->execute();
+
             $title = "New Report from $hewName";
             $message = "A new health activity report has been submitted from Kebele: $kebele.";
-            $actionUrl = "Review_HEW_Report.php"; // Coordinator's review page
+            $actionUrl = "Review_HEW_Report.php";
 
             $stmt = $dataBaseConnection->prepare("INSERT INTO activity_notifications (title, message, type, action_url) VALUES (?, ?, 'info', ?)");
             $stmt->bind_param("sss", $title, $message, $actionUrl);
@@ -190,7 +246,10 @@ try {
             break;
 
         case 'get_notifications':
-            $stmt = $dataBaseConnection->prepare("SELECT * FROM activity_notifications WHERE is_read = 0 ORDER BY created_at DESC LIMIT 5");
+            // Filter by role to ensure coordinator only sees their notifications
+            $role = $_SESSION['role'] ?? 'coordinator';
+            $stmt = $dataBaseConnection->prepare("SELECT * FROM activity_notifications WHERE (role = ? OR role IS NULL OR role = '') AND is_read = 0 ORDER BY created_at DESC LIMIT 5");
+            $stmt->bind_param("s", $role);
             $stmt->execute();
             $result = $stmt->get_result();
             $notifications = [];
@@ -201,90 +260,132 @@ try {
             break;
 
         case 'forward':
-            $input = json_decode(file_get_contents('php://input'), true);
-            $dataType = $input['dataType'] ?? 'General';
-            $notes = $input['notes'] ?? '';
+            // 33 Years Exp Dev Tip: Always use Transactions for complex state changes
+            $dataBaseConnection->begin_transaction();
+            try {
+                $input = json_decode(file_get_contents('php://input'), true);
+                $dataType = $input['dataType'] ?? 'General';
+                $notes = $input['notes'] ?? '';
 
-            // 1. GENERATE SUMMARY from Validated Data to verify we have content
-            // We only forward 'Validated' data
-            $summarySql = "SELECT service_type, COUNT(*) as count, kebele 
-                           FROM health_data 
-                           WHERE status = 'Validated'";
-            
-            // Apply filtering if specific DataType is selected
-            if ($dataType != 'General') {
-                $summarySql .= " AND service_type = '" . $dataBaseConnection->real_escape_string($dataType) . "'";
+                $summaryData = [];
+                $totalForwarded = 0;
+
+                // 2. COLLECT SUMMARY DATA
+                if ($dataType == 'household data') {
+                    $summarySql = "SELECT 'household data' as service_type, COUNT(*) as count, kebele, sex 
+                                   FROM household 
+                                   GROUP BY kebele, sex";
+                    $summaryRes = $dataBaseConnection->query($summarySql);
+                    while($row = $summaryRes->fetch_assoc()) {
+                        $summaryData[] = $row;
+                        $totalForwarded += $row['count'];
+                    }
+                    if ($totalForwarded == 0) throw new Exception("No Household data found to forward.");
+
+                } else {
+                    $summarySql = "SELECT service_type, COUNT(*) as count, kebele 
+                                   FROM health_data 
+                                   WHERE status = 'Validated'";
+                    
+                    if ($dataType != 'General') {
+                        $summarySql .= " AND service_type = '" . $dataBaseConnection->real_escape_string($dataType) . "'";
+                    }
+                    $summarySql .= " GROUP BY service_type, kebele";
+                    $summaryRes = $dataBaseConnection->query($summarySql);
+                    while($row = $summaryRes->fetch_assoc()) {
+                        $summaryData[] = $row;
+                        $totalForwarded += $row['count'];
+                    }
+                    
+                    if ($totalForwarded == 0) throw new Exception("No 'Validated' data found to forward.");
+                }
+
+                // 3. CREATE PACKAGE
+                $packageId = 'PKG-' . strtoupper(uniqid());
+                $period = date('Y-m');
+                $focalRes = $dataBaseConnection->query("SELECT id FROM users WHERE role IN ('focal', 'linkage') LIMIT 1");
+                $focalId = $focalRes->fetch_assoc()['id'] ?? 1;
+                
+                $jsonSummary = json_encode([
+                    "generated_by" => "HEW Coordinator",
+                    "forwarded_at" => date('Y-m-d H:i:s'),
+                    "notes" => $notes,
+                    "metrics" => $summaryData
+                ]);
+
+                $stmt = $dataBaseConnection->prepare("INSERT INTO statistical_packages (package_id, period, focal_person_id, status, data_summary) VALUES (?, ?, ?, 'Pending', ?)");
+                $stmt->bind_param("ssis", $packageId, $period, $focalId, $jsonSummary);
+                if (!$stmt->execute()) throw new Exception("Package creation failed");
+
+                // 4. BULK UPDATE STATUS
+                if ($dataType != 'household data') {
+                    $updateSql = "UPDATE health_data SET status = 'Forwarded' WHERE status = 'Validated'";
+                    if ($dataType != 'General') {
+                        $updateSql .= " AND service_type = '" . $dataBaseConnection->real_escape_string($dataType) . "'";
+                    }
+                    $dataBaseConnection->query($updateSql);
+                }
+
+                // 5. NOTIFY FOCAL PERSON
+                $notifTitle = "New Data Package: $dataType";
+                $notifMsg = "Period $period. $totalForwarded records forwarded.";
+                $notifSql = "INSERT INTO activity_notifications (role, title, message, action_url) VALUES ('linkage', ?, ?, 'validate_incoming_data.php')";
+                $notifStmt = $dataBaseConnection->prepare($notifSql);
+                $notifStmt->bind_param("ss", $notifTitle, $notifMsg);
+                $notifStmt->execute();
+
+                $dataBaseConnection->commit();
+                $response = ['success' => true, 'message' => "Successfully forwarded $totalForwarded records."];
+
+            } catch (Exception $e) {
+                $dataBaseConnection->rollback();
+                throw $e;
+            }
+            break;
+
+        case 'mark_notifications_seen':
+            // Mark all notifications for this coordinator as read
+            $coordinatorId = $_SESSION['user_id'] ?? null;
+            if (!$coordinatorId) {
+                $response = ['success' => false, 'message' => 'User not logged in'];
+                break;
             }
 
-            $summarySql .= " GROUP BY service_type, kebele";
-            
-            $summaryRes = $dataBaseConnection->query($summarySql);
-            $summaryData = [];
-            $totalForwarded = 0;
-            
-            while($row = $summaryRes->fetch_assoc()) {
-                $summaryData[] = $row;
-                $totalForwarded += $row['count'];
-            }
-            
-            if ($totalForwarded == 0) {
-                 throw new Exception("No 'Validated' data found to forward for this category.");
-            }
+            $updateSql = "UPDATE activity_notifications SET is_read = 1 WHERE role = 'coordinator' AND is_read = 0";
+            $updateResult = $dataBaseConnection->query($updateSql);
 
-            // 2. Create the Package (Notification / Batch Header)
-            $packageId = 'PKG-' . strtoupper(uniqid());
-            $period = date('Y-m');
-            $focalId = 1; 
-            
-            // Encode the summary for the record
-            $jsonSummary = json_encode([
-                "generated_by" => "HEW Coordinator",
-                "forwarded_at" => date('Y-m-d H:i:s'),
-                "notes" => $notes,
-                "metrics" => $summaryData
-            ]);
+            if ($updateResult) {
+                $response = [
+                    'success' => true,
+                    'message' => 'Notifications marked as seen'
+                ];
+            } else {
+                $response = ['success' => false, 'message' => 'Failed to update notifications'];
+            }
+            break;
 
-            $stmt = $dataBaseConnection->prepare("INSERT INTO statistical_packages (package_id, period, focal_person_id, status, data_summary) VALUES (?, ?, ?, 'Pending', ?)");
-            $stmt->bind_param("ssis", $packageId, $period, $focalId, $jsonSummary);
+        case 'mark_notification_read':
+            // Mark a specific notification as read
+            $notifId = isset($_GET['id']) ? intval($_GET['id']) : 0;
             
-            if (!$stmt->execute()) {
-                throw new Exception("Package creation failed: " . $stmt->error);
+            if ($notifId <= 0) {
+                $response = ['success' => false, 'message' => 'Invalid notification ID'];
+                break;
             }
 
-            // 3. Mark Rows as FORWARDED (Critical Step for Focal Person Flow)
-            $updateSql = "UPDATE health_data SET status = 'Forwarded' WHERE status = 'Validated'";
-            if ($dataType != 'General') {
-                $updateSql .= " AND service_type = '" . $dataBaseConnection->real_escape_string($dataType) . "'";
-            }
-            
-            if (!$dataBaseConnection->query($updateSql)) {
-                // Ideally rollback package creation here, but for now we throw error
-                throw new Exception("Failed to update row status to Forwarded: " . $dataBaseConnection->error);
-            }
-                throw new Exception("Failed to create package: " . $stmt->error);
-            }
+            $updateSql = "UPDATE activity_notifications SET is_read = 1 WHERE id = ?";
+            $stmt = $dataBaseConnection->prepare($updateSql);
+            $stmt->bind_param("i", $notifId);
+            $updateResult = $stmt->execute();
 
-            // 3. Create Notification for Focal Person
-            $notifTitle = "New Data Package from HEW Coordinator";
-            $notifMsg = "Period: $period. Data Type: $dataType. $totalForwarded records. Notes: " . substr($notes, 0, 50) . "...";
-            $notifSql = "INSERT INTO activity_notifications (role, title, message, action_url) VALUES ('linkage', ?, ?, 'validate_incoming_data.html')";
-            $notifStmt = $dataBaseConnection->prepare($notifSql);
-            $notifStmt->bind_param("ss", $notifTitle, $notifMsg);
-            $notifStmt->execute();
-
-            // 4. Update records to 'Forwarded' (Granular update)
-            $updateSql = "UPDATE health_data SET status = 'Forwarded' WHERE status = 'Validated'";
-            
-            if ($dataType != 'General') {
-                $updateSql .= " AND service_type = '" . $dataBaseConnection->real_escape_string($dataType) . "'";
+            if ($updateResult) {
+                $response = [
+                    'success' => true,
+                    'message' => 'Notification marked as read'
+                ];
+            } else {
+                $response = ['success' => false, 'message' => 'Failed to update notification'];
             }
-
-            $dataBaseConnection->query($updateSql);
-
-            $response = [
-                'success' => true, 
-                'message' => "Successfully forwarded $totalForwarded detailed records to the Linkage Focal Person."
-            ];
             break;
 
         default:

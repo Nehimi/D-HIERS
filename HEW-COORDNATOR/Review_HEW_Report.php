@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/logout.css">
   <link rel="stylesheet" href="../focal/focal_dashboard.css">
+  <link rel="stylesheet" href="coordinator_dashboard.css">
 
   <style>
     .split-layout {
@@ -114,10 +115,20 @@
     .review-table tr:hover {
       background: #f0fdfa;
     }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .split-layout {
+        grid-template-columns: 1fr; /* Stack vertically on small PC screens */
+      }
+      .selection-card {
+        margin-bottom: 0;
+      }
+    }
   </style>
 </head>
 
-<body>
+<body class="dashboard-body">
 
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -128,7 +139,7 @@
       <a href="coordinator_dashboard.html" class="nav-item"><i class="fa-solid fa-grid-2"></i>
         <span>Dashboard</span></a>
       <a href="monitor2.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> <span>Monitor Activity</span></a>
-      <a href="review.html" class="nav-item active"><i class="fa-solid fa-file-invoice"></i> <span>Review
+      <a href="Review_HEW_Report.php" class="nav-item active"><i class="fa-solid fa-file-invoice"></i> <span>Review
           Reports</span></a>
       <a href="validate2.html" class="nav-item"><i class="fa-solid fa-check-double"></i> <span>Validate Data</span></a>
       <a href="forward2.html" class="nav-item"><i class="fa-solid fa-paper-plane"></i> <span>Forward Data</span></a>
@@ -158,15 +169,19 @@
           <select id="kebeleSelect" class="form-select">
             <option value="">-- Choose Region --</option>
             <option value="Arade">Arade</option>
-            <option value="Lich-amba">Lich-Amba</option> <!-- Fixed Check casing matches DB -->
+            <option value="Lich-Amba">Lich-Amba</option> <!-- Fixed Check casing matches DB -->
             <option value="Lereba">Lereba</option>
           </select>
 
           <label for="dataTypeSelect" class="form-label">Data Type</label>
           <select id="dataTypeSelect" class="form-select">
-            <option value="">-- Choose Data Type --</option>
+            <option value="">-- Choose Data Category --</option>
             <option value="household data">Household Demographics</option>
-            <option value="health_data">Health & Disease Reports</option>
+            <option value="maternal_health">Maternal Health (ANC/PNC)</option>
+            <option value="child_health">Child Health</option>
+            <option value="immunization">Immunization (Child)</option>
+            <option value="sanitation">Environmental Sanitation</option>
+            <option value="disease_surveillance">Disease Surveillance (Malaria/TB)</option>
           </select>
 
           <button type="button" id="loadDataBtn" class="btn-review">

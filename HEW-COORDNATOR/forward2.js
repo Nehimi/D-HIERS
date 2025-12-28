@@ -16,15 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // We can use the 'review' action but with status='Validated' filter if we add it to API
-        // For now, let's assume we want a summary
-        fetch(`../api/hew_coordinator.php?action=review&kebele=all&dataType=${encodeURIComponent(selectedDataType)}&status=Validated`)
+        // Efficiently check for validated data using count_only mode
+        fetch(`../api/hew_coordinator.php?action=review&kebele=all&dataType=${encodeURIComponent(selectedDataType)}&status=Validated&count_only=1`)
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    if (data.data.length > 0) {
+                    const count = data.data.total || 0;
+                    if (count > 0) {
                         forwardBtn.disabled = false;
-                        console.log(`Ready to forward ${data.data.length} records.`);
+                        console.log(`Ready to forward ${count} records.`);
                     } else {
                         forwardBtn.disabled = true;
                         alert("No validated data found for this category. Please validate data in the previous step.");

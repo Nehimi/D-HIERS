@@ -16,32 +16,54 @@ if (!$dataBaseConnection) {
 try {
     switch ($action) {
         case 'fetch_forwarded':
-            // Fetch detailed records forwarded by Coordinator (Status = 'Forwarded')
-            $sql = "SELECT h.*, CONCAT(u.first_name, ' ', u.last_name) as hew_name 
+            // 1. Fetch detailed health records
+            $sqlH = "SELECT h.id, h.updated_at, h.kebele, h.service_type, 
+                           h.patient_name as details, h.status,
+                           CONCAT(u.first_name, ' ', u.last_name) as hew_name 
                     FROM health_data h 
                     LEFT JOIN users u ON h.submitted_by_id = u.id 
-                    WHERE h.status = 'Forwarded'"; // Only Forwarded items
+                    WHERE h.status = 'Forwarded'"; 
             
-            $result = $dataBaseConnection->query($sql);
+            $resH = $dataBaseConnection->query($sqlH);
             $data = [];
-            while($row = $result->fetch_assoc()) {
+            while($row = $resH->fetch_assoc()) {
                 $data[] = $row;
             }
+
+            // 2. Fetch aggregated statistical packages (e.g. Household Data)
+            $sqlP = "SELECT package_id as id, updated_at, 'All' as kebele, 
+                           'Household Data Package' as service_type,
+                           'Aggregated Demographic Data' as details, status,
+                           'Coordinator' as hew_name 
+                    FROM statistical_packages 
+                    WHERE status = 'Pending'";
+            
+            $resP = $dataBaseConnection->query($sqlP);
+            while($row = $resP->fetch_assoc()) {
+                $data[] = $row;
+            }
+
             $response = ['success' => true, 'data' => $data];
             break;
 
         case 'validate_row':
-            // Focal Person accepts a row -> Status becomes 'Focal-Validated'
             $input = json_decode(file_get_contents('php://input'), true);
             $id = $input['id'] ?? null;
             
             if (!$id) throw new Exception("Record ID required");
 
-            $stmt = $dataBaseConnection->prepare("UPDATE health_data SET status = 'Focal-Validated', updated_at = NOW() WHERE id = ?");
-            $stmt->bind_param("i", $id);
+            if (strpos($id, 'PKG-') === 0) {
+                // It's a package
+                $stmt = $dataBaseConnection->prepare("UPDATE statistical_packages SET status = 'Validated', updated_at = NOW() WHERE package_id = ?");
+                $stmt->bind_param("s", $id);
+            } else {
+                // It's a health_data row
+                $stmt = $dataBaseConnection->prepare("UPDATE health_data SET status = 'Focal-Validated', updated_at = NOW() WHERE id = ?");
+                $stmt->bind_param("i", $id);
+            }
             
             if ($stmt->execute()) {
-                $response = ['success' => true, 'message' => 'Record validated successfully'];
+                $response = ['success' => true, 'message' => 'Validation recorded successfully'];
             } else {
                 throw new Exception("Update failed: " . $stmt->error);
             }
@@ -83,6 +105,50 @@ try {
             
             // Allow generation even if empty? Ideally not.
             $response = ['success' => true, 'data' => $data, 'can_generate' => $hasData];
+            break;
+
+        case 'get_notifications':
+            // Fetch notifications for Focal Person (role='linkage' or role='focal')
+            $role = $_SESSION['role'] ?? 'linkage';
+            $stmt = $dataBaseConnection->prepare("SELECT * FROM activity_notifications WHERE (role = ? OR role = 'focal') AND is_read = 0 ORDER BY created_at DESC LIMIT 5");
+            $stmt->bind_param("s", $role);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $notifications = [];
+            while ($row = $result->fetch_assoc()) {
+                $notifications[] = $row;
+            }
+            $response = ['success' => true, 'data' => $notifications];
+            break;
+
+        case 'mark_notifications_seen':
+            $role = $_SESSION['role'] ?? 'linkage';
+            $updateSql = "UPDATE activity_notifications SET is_read = 1 WHERE (role = ? OR role = 'focal') AND is_read = 0";
+            $stmt = $dataBaseConnection->prepare($updateSql);
+            $stmt->bind_param("s", $role);
+            $updateResult = $stmt->execute();
+
+            if ($updateResult) {
+                $response = ['success' => true, 'message' => 'Notifications marked as seen'];
+            } else {
+                $response = ['success' => false, 'message' => 'Failed to update notifications'];
+            }
+            break;
+
+        case 'mark_notification_read':
+            $notifId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+            if ($notifId <= 0) {
+                $response = ['success' => false, 'message' => 'Invalid notification ID'];
+                break;
+            }
+
+            $stmt = $dataBaseConnection->prepare("UPDATE activity_notifications SET is_read = 1 WHERE id = ?");
+            $stmt->bind_param("i", $notifId);
+            if ($stmt->execute()) {
+                $response = ['success' => true, 'message' => 'Notification marked as read'];
+            } else {
+                $response = ['success' => false, 'message' => 'Failed to update notification'];
+            }
             break;
             
         default:

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <?php include 'layout/head.php'; ?>
+    <link rel="stylesheet" href="css/export_hmis_report.css">
     <title>Export HMIS Report | D-HEIRS</title>
 </head>
 

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/logout.css">
     <link rel="stylesheet" href="../focal/focal_dashboard.css">
+    <link rel="stylesheet" href="coordinator_dashboard.css">
 
     <style>
         .form-card {
@@ -116,7 +117,7 @@
     </style>
 </head>
 
-<body>
+<body class="dashboard-body">
 
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -163,11 +164,12 @@
                 <label for="dataSelect" class="form-label">Select Service Type to Validate</label>
                 <select id="dataSelect" class="form-select" required>
                     <option value="">-- Choose Data Category --</option>
-                    <option value="Malaria Check">Malaria & Disease Control</option>
-                    <option value="Maternal Health">Maternal Health (ANC/PNC)</option>
-                    <option value="Family Planning">Family Planning Services</option>
-                    <option value="Environmental Health">Environmental Sanitation</option>
-                    <option value="Immunization">Child Immunization Records</option>
+                    <option value="household data">Household Demographics</option>
+                    <option value="maternal_health">Maternal Health (ANC/PNC)</option>
+                    <option value="child_health">Child Health</option>
+                    <option value="immunization">Immunization (Child)</option>
+                    <option value="sanitation">Environmental Sanitation</option>
+                    <option value="disease_surveillance">Disease Surveillance (Malaria/TB)</option>
                 </select>
 
                 <label id="textareaLabel" for="validationDetailsTextarea" class="form-label">Validation Notes &
@@ -175,8 +177,7 @@
                 <textarea id="validationDetailsTextarea" class="form-textarea"
                     placeholder="Please select a data type first..." disabled></textarea>
 
-                <button type="submit" class="btn-action primary"
-                    style="width:100%; justify-content:center; margin-top:1rem;">
+                <button type="submit" class="btn-primary" style="width:100%; justify-content:center; margin-top:1rem;">
                     <i class="fa-solid fa-circle-check"></i> Mark as Validated
                 </button>
             </form>
