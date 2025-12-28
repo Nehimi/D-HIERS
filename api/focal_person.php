@@ -31,7 +31,7 @@ try {
             }
 
             // 2. Fetch aggregated statistical packages (e.g. Household Data)
-            $sqlP = "SELECT package_id as id, updated_at, 'All' as kebele, 
+            $sqlP = "SELECT package_id as id, received_at as updated_at, 'All' as kebele, 
                            'Household Data Package' as service_type,
                            'Aggregated Demographic Data' as details, status,
                            'Coordinator' as hew_name 
@@ -53,8 +53,8 @@ try {
             if (!$id) throw new Exception("Record ID required");
 
             if (strpos($id, 'PKG-') === 0) {
-                // It's a package
-                $stmt = $dataBaseConnection->prepare("UPDATE statistical_packages SET status = 'Validated', updated_at = NOW() WHERE package_id = ?");
+                // It's a package - No 'updated_at' column in this table
+                $stmt = $dataBaseConnection->prepare("UPDATE statistical_packages SET status = 'Validated' WHERE package_id = ?");
                 $stmt->bind_param("s", $id);
             } else {
                 // It's a health_data row

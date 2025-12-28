@@ -7,14 +7,21 @@ D-HEIRS is a web-based platform designed to digitize the workflow of Health Exte
 
 ## 🏗 System Architecture & Technical Breakdown
 
-### 🔄 Data Flow
+### 🔄 Information Architecture
 ```mermaid
 graph TD
-    HEW[Health Extension Worker] -->|Submits Report| DB[(MySQL Database)]
-    DB -->|Real-time Sync| Focal[Focal Person Dashboard]
-    DB -->|Aggregated Data| Admin[Admin Portal]
-    Admin -->|Configures| Kebeles[Kebele/Unit Management]
-    Admin -->|Monitors| Logs[Audit Logging System]
+    Land[Landing Page - index.html] -->|Login Request| Auth[Auth Controller - login.js]
+    Auth -->|Credentials| API1[API - login.php]
+    API1 -->|Valid Role| Dash[Dashboard Router]
+    
+    Dash -->|Admin| AdminDash[Admin Dashboard]
+    Dash -->|HEW| HEWDash[HEW Dashboard]
+    Dash -->|Coordinator| CoordDash[Coordinator Dashboard]
+    
+    AdminDash -->|AJAX| API2[User Status API]
+    HEWDash -->|POST| API3[Submit Reports API]
+    
+    API2 & API3 --> DB[(MySQL Database)]
 ```
 
 ### 💻 Tech Stack Deep Dive
@@ -36,6 +43,18 @@ graph TD
 - **Role-Based Access Control (RBAC)**: Distinct views and capabilities for HEWs, Focal Persons, and Admins.
 - **Session Management**: Secure PHP sessions with timeout and role validation on every page.
 - **Input Validation**: Server-side filtering of all user-submitted data.
+
+---
+
+## 🚀 The System Journey
+To understand D-HEIRS, one must follow the path of information:
+
+1.  **Entrance (The Landing Page)**: Users arrive at [index.html](file:///d:/D-HEIRS/index.html) where the mission and vision are presented.
+2.  **Gatekeeper (Authentication)**: Access is managed via a secure login. The system identifies the user's role (Admin, HEW, Coordinator).
+3.  **Command Center (Dashboard)**: After login, the user is redirected to their specific functional area.
+    *   **Admin**: Total control over users and system logs.
+    *   **HEW**: Front-line data entry and household registration.
+    *   **HMIS**: Statistical analysis and secondary reporting.
 
 ---
 
