@@ -62,48 +62,58 @@
             // Simulating API fetch
             fetch('../api/focal_person.php?action=fetch_forwarded')
                 .then(response => response.json())
-                .then(data => {
+                .then(res => {
+                    const data = res.data || []; // Handle {success:true, data: []} format
                     if(data.length > 0) {
                         tbody.innerHTML = data.map(row => `
                             <tr>
-                                <td>${row.date}</td>
+                                <td>${(row.updated_at || row.created_at || '').split(' ')[0]}</td>
                                 <td>${row.kebele}</td>
                                 <td>${row.hew_name}</td>
                                 <td>${row.service_type}</td>
-                                <td>${row.patient_name || row.value}</td>
-                                <td><span class="badge-blue">Forwarded</span></td>
+                                <td>${row.patient_name || row.details || row.value}</td>
+                                <td><span class="badge-blue">${row.status}</span></td>
                                 <td>
-                                    <button class="btn-success" onclick="validateRow(${row.id})">
+                                    <button class="btn-success" onclick="validateRow('${row.id}')">
                                         <i class="fa-solid fa-check"></i> Accept
                                     </button>
                                 </td>
                             </tr>
                         `).join('');
+                    } else {
+                        tbody.innerHTML = `<tr><td colspan="7" class="empty-state" style="text-align: center; padding: 3rem; color: var(--text-sec);">No incoming forwarded data found.</td></tr>`;
                     }
                 })
                 .catch(err => {
-                    console.log('Using demo data');
-                    tbody.innerHTML = `
-                         <tr>
-                            <td>2025-12-25</td>
-                            <td>Lich-Amba</td>
-                            <td>Sarah J.</td>
-                            <td>ANC Visit</td>
-                            <td>Abeba T.</td>
-                            <td><span class="badge-blue">Forwarded</span></td>
-                            <td>
-                                <button class="btn-success">
-                                    <i class="fa-solid fa-check"></i> Accept
-                                </button>
-                            </td>
-                        </tr>
-                    `;
+                    console.log('Error fetching data:', err);
+                    tbody.innerHTML = `<tr><td colspan="7" class="empty-state" style="text-align: center; color: red;">Error loading data.</td></tr>`;
                 });
         }
         
+        function validateRow(id) {
+            if(!confirm("Confirm validation of this record?")) return;
+
+            fetch('../api/focal_person.php?action=validate_row', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success) {
+                    // alert("Record Validated!");
+                    loadIncomingData(); // Refresh list
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(err => alert("Network Error"));
+        }
+
         // Load on start
         loadIncomingData();
     </script>
+    <script src="js/focal_dashboard.js"></script>
     <script src="../js/logout.js"></script>
 </body>
 </html>

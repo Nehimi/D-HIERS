@@ -42,6 +42,7 @@ if ($reportMonth) {
 <html lang="en">
 <head>
     <?php include 'layout/head.php'; ?>
+    <link rel="stylesheet" href="css/hmis_data_submission.css">
     <title>Review & Submit HMIS Report | Focal Person</title>
 </head>
 

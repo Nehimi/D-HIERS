@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/logout.css">
     <link rel="stylesheet" href="../focal/focal_dashboard.css">
+    <link rel="stylesheet" href="coordinator_dashboard.css">
 
     <style>
         .form-card {
@@ -131,7 +132,7 @@
     </style>
 </head>
 
-<body>
+<body class="dashboard-body">
 
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -186,9 +187,12 @@
                 <label for="forwardDataTypeSelect" class="form-label">Data Category Source</label>
                 <select id="forwardDataTypeSelect" class="form-select">
                     <option value="">-- Select Validated Data --</option>
-                    <option value="Malaria Check">Malaria & Disease Control</option>
-                    <option value="ANC Visit">Maternal Health (ANC)</option>
-                    <option value="Family Planning">Family Planning Statistics</option>
+                    <option value="household data">Household Demographics</option>
+                    <option value="maternal_health">Maternal Health (ANC)</option>
+                    <option value="child_health">Child Health</option>
+                    <option value="immunization">Immunization</option>
+                    <option value="sanitation">Sanitation</option>
+                    <option value="disease_surveillance">Disease Surveillance</option>
                     <option value="General">General / All Validated</option>
                 </select>
 

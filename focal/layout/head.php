@@ -1,21 +1,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>D-HEIRS | Focal Portal</title>
+
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Main CSS with cache busting -->
-<link rel="stylesheet" href="focal_dashboard.css?v=<?php echo time(); ?>">
-<!-- Shared Styles with cache busting -->
-<link rel="stylesheet" href="shared_styles.css?v=<?php echo time(); ?>">
-<style>
-    /* Ensure Body takes full height/width */
-    .dashboard-body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        background-color: var(--bg-body);
-        font-family: var(--font-body);
-    }
-</style>
+
+<!-- CSS -->
+<link rel="stylesheet" href="css/focal_dashboard.css">
+<link rel="stylesheet" href="../css/logout.css">

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <?php include 'layout/head.php'; ?>
+    <link rel="stylesheet" href="css/statistical_report.css">
     <title>Generate Statistical Report | D-HEIRS</title>
 </head>
 

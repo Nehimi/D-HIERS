@@ -1,7 +1,6 @@
 /*
 ** Shared Styles for Focal Module Pages (D-HEIRS)
 ** Common styles used across multiple pages to reduce duplication
-** Uses D-HEIRS teal/green branding
 */
 
 /* --- Base Styles --- */
@@ -18,7 +17,6 @@
 .main-content {
     flex: 1;
     margin-left: 280px;
-    /* CRITICAL: Account for fixed sidebar width */
     max-width: 1400px;
     margin-right: auto;
     padding: 2rem 2.5rem;

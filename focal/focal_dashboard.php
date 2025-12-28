@@ -10,10 +10,11 @@ if (!isset($_SESSION['user_db_id'])) {
 
 // --- DATA FETCHING FOR DASHBOARD ---
 
-// 1. Pending Validations
-$pendingSql = "SELECT COUNT(*) as count FROM health_data WHERE status = 'Forwarded'";
-$pendingRes = $dataBaseConnection->query($pendingSql);
-$pendingCount = $pendingRes->fetch_assoc()['count'] ?? 0;
+// 1. Pending Validations (Details + Packages)
+$pendingHealthSql = "SELECT COUNT(*) as count FROM health_data WHERE status = 'Forwarded'";
+$pendingPkgSql = "SELECT COUNT(*) as count FROM statistical_packages WHERE status = 'Pending'";
+$pendingCount = ($dataBaseConnection->query($pendingHealthSql)->fetch_assoc()['count'] ?? 0) + 
+                ($dataBaseConnection->query($pendingPkgSql)->fetch_assoc()['count'] ?? 0);
 
 // 2. Completed Reports (this month)
 $curMonth = date('Y-m');
@@ -21,8 +22,12 @@ $reportSql = "SELECT COUNT(*) as count FROM hmis_reports WHERE date_format(gener
 $reportRes = $dataBaseConnection->query($reportSql);
 $doneCount = $reportRes->fetch_assoc()['count'] ?? 0;
 
-// 3. Recent Activity (Last 5 validations)
-$activitySql = "SELECT * FROM health_data WHERE status = 'Focal-Validated' ORDER BY updated_at DESC LIMIT 5";
+// 3. Recent Activity (Last 5 validations from both sources)
+$activitySql = "
+    (SELECT service_type, updated_at, 'Detail' as type FROM health_data WHERE status = 'Focal-Validated')
+    UNION ALL
+    (SELECT 'Household Data Package' as service_type, updated_at, 'Package' as type FROM statistical_packages WHERE status = 'Validated')
+    ORDER BY updated_at DESC LIMIT 5";
 $activityRes = $dataBaseConnection->query($activitySql);
 ?>
 <!DOCTYPE html>
@@ -126,6 +131,7 @@ $activityRes = $dataBaseConnection->query($activitySql);
       </section>
 
   </main>
+  <script src="js/focal_dashboard.js"></script>
   <script src="../js/logout.js"></script>
 </body>
 </html>

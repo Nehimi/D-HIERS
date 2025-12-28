@@ -16,10 +16,11 @@
     <!-- Global & Dashboard CSS -->
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/logout.css">
+    <link rel="stylesheet" href="../focal/focal_dashboard.css">
     <link rel="stylesheet" href="coordinator_dashboard.css">
 </head>
 
-<body>
+<body class="dashboard-body">
 
     <!-- Sidebar -->
     <aside class="sidebar">
@@ -68,41 +69,35 @@
     <main class="main-content">
 
         <!-- Welcome Banner -->
-        <header class="dashboard-header">
+        <header class="dashboard-header-custom">
             <div class="welcome-text">
-                <h1>Welcome Back, Coordinator</h1>
+                <h1>Welcome Back, <span id="coordinatorName">Coordinator</span></h1>
                 <p>Oversee Health Extension Workers, validate field reports, and ensure data integrity across your
                     woreda.</p>
             </div>
 
             <!-- Notification Bell -->
-            <div class="header-actions"
-                style="position: absolute; top: 1.5rem; right: 1.5rem; display: flex; align-items: center; gap: 1rem;">
-                <div class="notification-wrapper" style="position: relative; cursor: pointer;" id="notifToggle">
-                    <i class="fa-solid fa-bell" style="font-size: 1.5rem; color: white;"></i>
-                    <span class="notif-badge" id="notifBadge"
-                        style="position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; display: none;">0</span>
+            <div class="header-actions-custom">
+                <div class="notification-wrapper" id="notifToggle">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="notif-badge" id="notifBadge" style="display: none;">0</span>
 
                     <!-- Dropdown -->
-                    <div class="notif-dropdown" id="notifDropdown"
-                        style="display: none; position: absolute; top: 40px; right: 0; width: 300px; background: white; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); z-index: 100; border: 1px solid #e2e8f0; color: #1e1e1e;">
-                        <div style="padding: 1rem; border-bottom: 1px solid #f1f5f9; font-weight: 700;">Notifications
-                        </div>
-                        <div id="notifList" style="max-height: 300px; overflow-y: auto;">
-                            <div style="padding: 1rem; text-align: center; color: #64748b;">No new notifications</div>
+                    <div class="notif-dropdown" id="notifDropdown">
+                        <div class="dropdown-header">Notifications</div>
+                        <div id="notifList" class="dropdown-content">
+                            <div class="empty-state">No new notifications</div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Artistic overlay image -->
             <img src="images/group-african.jpg" alt="Team" class="header-image">
-            </div>
         </header>
 
         <!-- Quick Stats Row -->
-        <section class="stats-grid">
-            <div class="stat-card">
+        <section class="stats-grid-custom">
+            <div class="stat-card-custom">
                 <div class="stat-info">
                     <h3>Active HEWs</h3>
                     <div class="stat-value" id="activeHewsCount">--</div>
@@ -112,7 +107,7 @@
                 </div>
             </div>
 
-            <div class="stat-card">
+            <div class="stat-card-custom">
                 <div class="stat-info">
                     <h3>Pending Reports</h3>
                     <div class="stat-value" id="pendingReportsCount">--</div>
@@ -122,7 +117,7 @@
                 </div>
             </div>
 
-            <div class="stat-card">
+            <div class="stat-card-custom">
                 <div class="stat-info">
                     <h3>Validated Today</h3>
                     <div class="stat-value" id="validatedTodayCount">--</div>
@@ -132,7 +127,7 @@
                 </div>
             </div>
 
-            <div class="stat-card">
+            <div class="stat-card-custom">
                 <div class="stat-info">
                     <h3>Packages Forwarded</h3>
                     <div class="stat-value" id="packagesForwardedCount">--</div>

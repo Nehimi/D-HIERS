@@ -6,7 +6,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <aside class="sidebar">
     <div class="sidebar-header">
         <div class="brand-icon">
-            <img src="image.jpg" alt="Logo">
+            <img src="../images/logo.png" alt="Logo">
         </div>
         <div class="brand-text">
             D-HEIRS
