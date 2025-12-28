@@ -26,7 +26,7 @@ $doneCount = $reportRes->fetch_assoc()['count'] ?? 0;
 $activitySql = "
     (SELECT service_type, updated_at, 'Detail' as type FROM health_data WHERE status = 'Focal-Validated')
     UNION ALL
-    (SELECT 'Household Data Package' as service_type, updated_at, 'Package' as type FROM statistical_packages WHERE status = 'Validated')
+    (SELECT 'Household Data Package' as service_type, received_at as updated_at, 'Package' as type FROM statistical_packages WHERE status = 'Validated')
     ORDER BY updated_at DESC LIMIT 5";
 $activityRes = $dataBaseConnection->query($activitySql);
 ?>

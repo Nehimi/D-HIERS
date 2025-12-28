@@ -17,7 +17,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/logout.css">
-  <link rel="stylesheet" href="../focal/focal_dashboard.css">
+  <link rel="stylesheet" href="../focal/css/focal_dashboard.css">
   <link rel="stylesheet" href="coordinator_dashboard.css">
 
   <style>
@@ -167,7 +167,7 @@
         <form id="reviewForm"> <!-- Preserving ID for ReviewCode.js -->
           <label for="kebeleSelect" class="form-label">Select Kebele</label>
           <select id="kebeleSelect" class="form-select">
-            <option value="">-- Choose Region --</option>
+            <option value="">-- Choose Kebele --</option>
             <option value="Arade">Arade</option>
             <option value="Lich-Amba">Lich-Amba</option> <!-- Fixed Check casing matches DB -->
             <option value="Lereba">Lereba</option>
