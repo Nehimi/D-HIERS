@@ -20,7 +20,7 @@ if ($reportMonth) {
     $sql = "SELECT service_type, COUNT(*) as count 
             FROM health_data 
             WHERE status = 'Focal-Validated' 
-            AND DATE_FORMAT(updated_at, '%Y-%m') = '" . $dataBaseConnection->real_escape_string($reportMonth) . "'";
+            AND DATE_FORMAT(created_at, '%Y-%m') = '" . $dataBaseConnection->real_escape_string($reportMonth) . "'";
 
     if ($kebeleFilter !== 'all') {
         $sql .= " AND kebele = '" . $dataBaseConnection->real_escape_string($kebeleFilter) . "'";

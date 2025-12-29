@@ -25,10 +25,11 @@ if (isset($_POST['GenerateReport'])) {
         // We aggregate data that has been validated by the Focal Person (Status='Focal-Validated')
         // Filter by date (approximate based on updated_at) and Kebele
         
+        // Check health_data
         $sql = "SELECT service_type, COUNT(*) as count 
                 FROM health_data 
                 WHERE status = 'Focal-Validated' 
-                AND DATE_FORMAT(updated_at, '%Y-%m') = '$reportMonth'";
+                AND DATE_FORMAT(created_at, '%Y-%m') = '$reportMonth'";
 
         if ($kebeleFilter !== 'all') {
             $sql .= " AND kebele = '" . $dataBaseConnection->real_escape_string($kebeleFilter) . "'";
@@ -43,6 +44,18 @@ if (isset($_POST['GenerateReport'])) {
         while($row = $result->fetch_assoc()) {
             $stats[] = $row;
             $totalRecords += $row['count'];
+        }
+
+        // --- ADDED: Check statistical_packages for this period ---
+        $pkgSql = "SELECT 'Household Data Package' as service_type, COUNT(*) as count 
+                   FROM statistical_packages 
+                   WHERE status = 'Validated' AND period = '$reportMonth'";
+        $pkgRes = $dataBaseConnection->query($pkgSql);
+        if ($pkgRow = $pkgRes->fetch_assoc()) {
+             if ($pkgRow['count'] > 0) {
+                 $stats[] = $pkgRow;
+                 $totalRecords += $pkgRow['count'];
+             }
         }
         
         if ($totalRecords > 0) {
@@ -68,13 +81,16 @@ if (isset($_POST['GenerateReport'])) {
                  $updateSql = "UPDATE health_data 
                                SET status = 'Processed' 
                                WHERE status = 'Focal-Validated' 
-                               AND DATE_FORMAT(updated_at, '%Y-%m') = '$reportMonth'";
+                               AND DATE_FORMAT(created_at, '%Y-%m') = '$reportMonth'";
                  
                  if ($kebeleFilter !== 'all') {
                     $updateSql .= " AND kebele = '" . $dataBaseConnection->real_escape_string($kebeleFilter) . "'";
                  }
                  
                  $dataBaseConnection->query($updateSql);
+
+                 // Also lock statistical packages (Set to 'Submitted' so HMIS picks it up)
+                 $dataBaseConnection->query("UPDATE statistical_packages SET status = 'Submitted' WHERE status = 'Validated' AND period = '$reportMonth'");
                  
                  $message = "Report generated successfully! $totalRecords records processed for $periodName.";
                  $messageType = "success";

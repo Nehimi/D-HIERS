@@ -61,12 +61,46 @@ To understand D-HEIRS, one must follow the path of information:
 ## 📂 File Structure & Architecture
 The system follows a **modular architecture**, separating concerns by user role (Admin, HEW, Coordinator) and functionality (Authentication, API).
 
-### **Root Directory (`/`)**
-- `index.html`: The landing page of the application.
-- `login.php`: The central login controller. It authenticates users and redirects them to their specific dashboard based on their role (`hew`, `admin`, `coordinator`, etc.).
-- `dataBaseConnection.php`: Global configuration file for database connectivity.
+### **Visual Folder Structure**
+```text
+D-HEIRS/
+├── admin/                 # Admin Dashboard & User Management
+│   ├── css/               # Admin specific styles
+│   ├── js/                # Admin interactive logic
+│   └── php/               # Backend logic for admin features
+├── HEW/                   # Health Extension Worker Module
+│   ├── css/               # HEW specific styles
+│   ├── images/            # Assets for HEW module
+│   ├── js/                # HEW interactive logic
+│   └── php/               # Backend logic for HEW features e.g., Household registration
+├── focal/                 # Focal Person Module
+│   ├── css/               # Focal specific styles
+│   ├── js/                # Focal interactive logic
+│   └── php/               # Backend logic for data validation & reporting
+├── hmis/                  # HMIS Module
+│   ├── css/               # HMIS specific styles
+│   ├── js/                # HMIS interactive logic
+│   └── php/               # Backend logic for report generation & DHIS2 submission
+├── api/                   # Dedicated JSON API Endpoints
+│   ├── dashboard_stats.php
+│   ├── user_status.php
+│   ├── search_users.php
+│   ├── focal_person.php
+│   └── hew_coordinator.php
+├── authentication/        # Public Auth Pages (Forgot Password, etc.)
+├── HEW-COORDNATOR/        # Health Extension Worker Coordinator Module
+├── supervisor/            # Supervisor Module
+├── css/                   # Global shared styles
+├── js/                    # Global shared JavaScript
+├── sql/                   # Database scripts & migration files
+├── images/                # Global image assets
+├── index.html             # Landing Page
+├── login.php              # Central Authentication Controller
+├── dataBaseConnection.php # Global Database Configuration
+└── README.md              # Project Documentation
+```
 
-### **Modules**
+### **Module Breakdown**
 
 #### **1. Admin Module (`/admin`)**
 Handles system configuration, user management, and high-level reporting.
@@ -82,23 +116,38 @@ The workspace for Health Extension Workers.
 - `images/`: Stores HEW module assets.
 - **Key Features**: Register households, enter patient health data, submit weekly reports.
 
-#### **3. Authentication (`/authentication`)**
-Handles public-facing auth pages.
-- `php/`: Files like `forgot_password.php`.
-- `js/`: Logic for auth forms (`auth_logic.js`).
-- `css/`: Styling for login/forgot password pages.
-#### **4. API (`/api`)**
+#### **3. Focal Person Module (`/focal`)**
+The module for Focal Persons to validate and process HEW data.
+- `php/`: Logic for report processing and data validation.
+- `js/`, `css/`: Module-specific UI and interactions.
+- **Key Features**: Data validation, report processing, coordination oversight.
+
+#### **4. HMIS Module (`/hmis`)**
+Dedicated module for Health Management Information System processing.
+- `php/`: Core report generation logic (e.g., `hmis_dashboard.php`, `generate_reports.php`).
+- `js/`, `css/`: Dashboard and UI components.
+- **Key Features**: Process statistical packages, generate official reports, log DHIS2 submissions.
+
+#### **5. API (`/api`)**
 A dedicated folder for JSON-based endpoints used by JavaScript for asynchronous operations (AJAX).
 - `dashboard_stats.php`: Returns JSON stats for dashboards.
 - `user_status.php`: Handles status toggling (Active/Inactive).
 - `search_users.php`: Backend for real-time user search variables.
 - `reset_password.php`: Handles password reset logic.
 
-#### **5. HMIS Module (`/hmis`)**
-Dedicated module for Health Management Information System processing.
-- `php/`: Core report generation logic (e.g., `hmis_dashboard.php`, `generate_reports.php`).
-- `js/`, `css/`: Dashboard and UI components.
-- **Key Features**: Process statistical packages, generate official reports, log DHIS2 submissions.
+#### **6. Coordinator Module (`/HEW-COORDNATOR`)**
+The interface for HEW Coordinators to review and oversee health reports.
+- **Key Features**: Review HEW reports, forward validated data, track community health trends.
+
+#### **7. Supervisor Module (`/supervisor`)**
+Provides oversight and support tools for system supervisors.
+- **Key Features**: System monitoring, supervisor-level reporting, support management.
+
+#### **8. Authentication (`/authentication`)**
+Handles public-facing auth pages.
+- `php/`: Files like `forgot_password.php`.
+- `js/`: Logic for auth forms (`auth_logic.js`).
+- `css/`: Styling for login/forgot password pages.
 
 ---
 

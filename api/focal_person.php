@@ -31,12 +31,12 @@ try {
             }
 
             // 2. Fetch aggregated statistical packages (e.g. Household Data)
-            $sqlP = "SELECT package_id as id, received_at as updated_at, 'All' as kebele, 
+            $sqlP = "SELECT package_id as id, received_at as updated_at, 'Woreda-wide' as kebele, 
                            'Household Data Package' as service_type,
                            'Aggregated Demographic Data' as details, status,
-                           'Coordinator' as hew_name 
+                           COALESCE(coordinator_name, 'Woreda Coordinator') as hew_name 
                     FROM statistical_packages 
-                    WHERE status = 'Pending'";
+                    WHERE (status = 'Pending' OR status = 'Submitted')";
             
             $resP = $dataBaseConnection->query($sqlP);
             while($row = $resP->fetch_assoc()) {

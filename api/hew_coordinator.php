@@ -307,14 +307,15 @@ try {
                 $focalId = $focalRes->fetch_assoc()['id'] ?? 1;
                 
                 $jsonSummary = json_encode([
-                    "generated_by" => "HEW Coordinator",
+                    "generated_by" => $_SESSION['full_name'] ?? "HEW Coordinator",
                     "forwarded_at" => date('Y-m-d H:i:s'),
                     "notes" => $notes,
                     "metrics" => $summaryData
                 ]);
 
-                $stmt = $dataBaseConnection->prepare("INSERT INTO statistical_packages (package_id, period, focal_person_id, status, data_summary) VALUES (?, ?, ?, 'Pending', ?)");
-                $stmt->bind_param("ssis", $packageId, $period, $focalId, $jsonSummary);
+                $coordName = $_SESSION['full_name'] ?? 'Woreda Coordinator';
+                $stmt = $dataBaseConnection->prepare("INSERT INTO statistical_packages (package_id, period, focal_person_id, status, data_summary, coordinator_name) VALUES (?, ?, ?, 'Pending', ?, ?)");
+                $stmt->bind_param("ssiss", $packageId, $period, $focalId, $jsonSummary, $coordName);
                 if (!$stmt->execute()) throw new Exception("Package creation failed");
 
                 // 4. BULK UPDATE STATUS

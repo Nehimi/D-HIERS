@@ -113,7 +113,7 @@ if ($notifRes) {
                 <div class="user-profile">
                     <img src="../../images/avatar.png" alt="User" onerror="this.src='https://ui-avatars.com/api/?name=<?php echo urlencode($fullName); ?>&background=0f766e&color=fff'">
                     <div class="user-info">
-                        <span class="name"><?php echo htmlspecialchars($fullName); ?></span>
+                        <span class="name"><?php echo htmlspecialchars($fullName ?? ''); ?></span>
                         <span class="role">HMIS Officer</span>
                     </div>
                 </div>
@@ -144,11 +144,11 @@ if ($notifRes) {
                         <?php foreach ($pendingSubmissions as $report): ?>
                         <div class="submission-item" style="border: 1px solid #f1f5f9; padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; transition: all 0.2s;">
                             <div>
-                                <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem; color: var(--text-main);"><?php echo htmlspecialchars($report['report_name']); ?></h3>
-                                <span style="font-size: 0.85rem; color: var(--text-muted);">Generated: <?php echo date('M j, Y', strtotime($report['generated_at'])); ?> | Report ID: #<?php echo htmlspecialchars($report['report_id']); ?></span>
+                                <h3 style="font-size: 1.1rem; margin-bottom: 0.25rem; color: var(--text-main);"><?php echo htmlspecialchars($report['report_name'] ?? ''); ?></h3>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Generated: <?php echo date('M j, Y', strtotime($report['generated_at'])); ?> | Report ID: #<?php echo htmlspecialchars($report['report_id'] ?? ''); ?></span>
                             </div>
                             <form action="process_dhis2.php" method="POST">
-                                <input type="hidden" name="report_id" value="<?php echo htmlspecialchars($report['report_id']); ?>">
+                                <input type="hidden" name="report_id" value="<?php echo htmlspecialchars($report['report_id'] ?? ''); ?>">
                                 <button type="submit" class="btn-action" style="background: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem;">
                                     <i class="fa-solid fa-cloud-arrow-up"></i> Sync to DHIS2
                                 </button>
@@ -178,11 +178,11 @@ if ($notifRes) {
                             <?php else: ?>
                                 <?php foreach ($history as $log): ?>
                                 <tr>
-                                    <td data-label="Submission ID"><strong>#<?php echo htmlspecialchars($log['submission_id']); ?></strong></td>
-                                    <td data-label="Report Name"><?php echo htmlspecialchars($log['report_name']); ?></td>
+                                    <td data-label="Submission ID"><strong>#<?php echo htmlspecialchars($log['submission_id'] ?? ''); ?></strong></td>
+                                    <td data-label="Report Name"><?php echo htmlspecialchars($log['report_name'] ?? ''); ?></td>
                                     <td data-label="Date"><?php echo date('M j, Y', strtotime($log['submitted_at'])); ?></td>
-                                    <td data-label="DHIS2 Reference"><code style="background: #f1f5f9; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.85rem;"><?php echo htmlspecialchars($log['dhis2_reference']); ?></code></td>
-                                    <td data-label="Status"><span class="status-badge completed"><?php echo htmlspecialchars($log['status']); ?></span></td>
+                                    <td data-label="DHIS2 Reference"><code style="background: #f1f5f9; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.85rem;"><?php echo htmlspecialchars($log['dhis2_reference'] ?? ''); ?></code></td>
+                                    <td data-label="Status"><span class="status-badge completed"><?php echo htmlspecialchars($log['status'] ?? ''); ?></span></td>
                                 </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
