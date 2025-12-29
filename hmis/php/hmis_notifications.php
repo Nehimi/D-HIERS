@@ -186,7 +186,7 @@ if ($notifListRes) {
                 <div class="user-profile">
                     <img src="../../images/avatar.png" alt="User" onerror="this.src='https://ui-avatars.com/api/?name=<?php echo urlencode($fullName); ?>&background=0f766e&color=fff'">
                     <div class="user-info">
-                        <span class="name"><?php echo htmlspecialchars($fullName); ?></span>
+                        <span class="name"><?php echo htmlspecialchars($fullName ?? ''); ?></span>
                         <span class="role">HMIS Officer</span>
                     </div>
                 </div>
@@ -228,7 +228,7 @@ if ($notifListRes) {
                                     <?php else: ?>
                                         <i class="fa-solid fa-circle-info" style="color: #3b82f6; margin-right: 8px;"></i>
                                     <?php endif; ?>
-                                    <?php echo htmlspecialchars($notif['title']); ?>
+                                    <?php echo htmlspecialchars($notif['title'] ?? ''); ?>
                                 </div>
                                 <div class="notif-time">
                                     <?php echo date('M d, H:i', strtotime($notif['created_at'])); ?>
@@ -237,12 +237,12 @@ if ($notifListRes) {
                             <div class="notif-message">
                                 <?php 
                                     // Use markdown-style bolding for names/IDs if they exist in message
-                                    $msg = htmlspecialchars($notif['message']);
+                                    $msg = htmlspecialchars($notif['message'] ?? '');
                                     echo str_replace(['**', 'STAT-'], ['<b>', 'STAT-'], $msg);
                                 ?>
                             </div>
                             <?php if ($notif['action_url']): ?>
-                                <a href="<?php echo htmlspecialchars($notif['action_url']); ?>" class="btn-primary" style="padding: 6px 15px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 5px;">
+                                <a href="<?php echo htmlspecialchars($notif['action_url'] ?? ''); ?>" class="btn-primary" style="padding: 6px 15px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 5px;">
                                     View Details <i class="fa-solid fa-arrow-right"></i>
                                 </a>
                             <?php endif; ?>

@@ -99,7 +99,7 @@ if ($notifRes) {
                 <div class="user-profile">
                     <img src="../../images/avatar.png" alt="User" onerror="this.src='https://ui-avatars.com/api/?name=<?php echo urlencode($fullName); ?>&background=0f766e&color=fff'">
                     <div class="user-info">
-                        <span class="name"><?php echo htmlspecialchars($fullName); ?></span>
+                        <span class="name"><?php echo htmlspecialchars($fullName ?? ''); ?></span>
                         <span class="role">HMIS Officer</span>
                     </div>
                 </div>
@@ -150,13 +150,13 @@ if ($notifRes) {
                                                 <i class="fa-solid <?php echo ($report['format'] == 'PDF' ? 'fa-file-pdf' : 'fa-file-excel'); ?>"></i>
                                             </div>
                                             <div>
-                                                <span style="display:block; font-weight:700;"><?php echo htmlspecialchars($report['report_name']); ?></span>
-                                                <span style="display:block; font-size:0.75rem; color:var(--text-muted);">ID: #<?php echo htmlspecialchars($report['report_id']); ?></span>
+                                                <span style="display:block; font-weight:700;"><?php echo htmlspecialchars($report['report_name'] ?? ''); ?></span>
+                                                <span style="display:block; font-size:0.75rem; color:var(--text-muted);">ID: #<?php echo htmlspecialchars($report['report_id'] ?? ''); ?></span>
                                             </div>
                                         </div>
                                     </td>
                                     <td data-label="Format">
-                                        <span class="status-badge generated"><?php echo htmlspecialchars($report['format']); ?></span>
+                                        <span class="status-badge generated"><?php echo htmlspecialchars($report['format'] ?? ''); ?></span>
                                     </td>
                                     <td data-label="Date Generated"><?php echo date('M j, Y H:i', strtotime($report['generated_at'])); ?></td>
                                     <td data-label="File Size">

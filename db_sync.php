@@ -75,7 +75,14 @@ try {
         mysqli_query($dataBaseConnection, "ALTER TABLE audit_logs ADD COLUMN status VARCHAR(20) DEFAULT 'success' AFTER ip_address");
     }
 
+    // 6. Ensure 'statistical_packages' has 'coordinator_name'
+    $colsRes = mysqli_query($dataBaseConnection, "SHOW COLUMNS FROM statistical_packages LIKE 'coordinator_name'");
+    if (mysqli_num_rows($colsRes) == 0) {
+        mysqli_query($dataBaseConnection, "ALTER TABLE statistical_packages ADD COLUMN coordinator_name VARCHAR(100) AFTER focal_person_name");
+    }
+
 } catch (Exception $e) {
+
     // Silent fail in production, but we could log it
     error_log("DB Sync Warning: " . $e->getMessage());
 } catch (mysqli_sql_exception $e) {

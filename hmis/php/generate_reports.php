@@ -11,7 +11,7 @@ $fullName = $_SESSION['full_name'] ?? 'HMIS Officer';
 
 // Fetch Pending Packages
 $pendingPackages = [];
-$res = $dataBaseConnection->query("SELECT * FROM statistical_packages WHERE status = 'Pending' ORDER BY received_at DESC");
+$res = $dataBaseConnection->query("SELECT * FROM statistical_packages WHERE status = 'Submitted' ORDER BY received_at DESC");
 if ($res) {
     while ($row = $res->fetch_assoc()) {
         $pendingPackages[] = $row;
@@ -99,7 +99,7 @@ if ($notifRes) {
                 <div class="user-profile">
                     <img src="../../images/avatar.png" alt="User" onerror="this.src='https://ui-avatars.com/api/?name=<?php echo urlencode($fullName); ?>&background=0f766e&color=fff'">
                     <div class="user-info">
-                        <span class="name"><?php echo htmlspecialchars($fullName); ?></span>
+                        <span class="name"><?php echo htmlspecialchars($fullName ?? ''); ?></span>
                         <span class="role">HMIS Officer</span>
                     </div>
                 </div>
@@ -136,10 +136,10 @@ if ($notifRes) {
                             <?php else: ?>
                                 <?php foreach ($pendingPackages as $pkg): ?>
                                 <tr>
-                                    <td data-label="Package ID"><strong>#<?php echo htmlspecialchars($pkg['package_id']); ?></strong></td>
-                                    <td data-label="Period"><?php echo htmlspecialchars($pkg['period']); ?></td>
-                                    <td data-label="Received From"><?php echo htmlspecialchars($pkg['focal_person_name']); ?></td>
-                                    <td data-label="Status"><span class="status-badge pending"><?php echo htmlspecialchars($pkg['status']); ?></span></td>
+                                    <td data-label="Package ID"><strong>#<?php echo htmlspecialchars($pkg['package_id'] ?? ''); ?></strong></td>
+                                    <td data-label="Period"><?php echo htmlspecialchars($pkg['period'] ?? ''); ?></td>
+                                    <td data-label="Received From"><?php echo htmlspecialchars($pkg['focal_person_name'] ?? ''); ?></td>
+                                    <td data-label="Status"><span class="status-badge pending"><?php echo htmlspecialchars($pkg['status'] ?? ''); ?></span></td>
                                     <form action="process_generation.php" method="POST">
                                         <td data-label="Select Format">
                                             <select name="reportFormat" style="padding: 0.4rem; border-radius: 6px; border: 1px solid #e2e8f0; font-size: 0.85rem;">
@@ -148,7 +148,7 @@ if ($notifRes) {
                                             </select>
                                         </td>
                                         <td data-label="Action">
-                                            <input type="hidden" name="package_id" value="<?php echo htmlspecialchars($pkg['package_id']); ?>">
+                                            <input type="hidden" name="package_id" value="<?php echo htmlspecialchars($pkg['package_id'] ?? ''); ?>">
                                             <button type="submit" class="btn-action" style="background: var(--primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem;">
                                                 Generate
                                             </button>

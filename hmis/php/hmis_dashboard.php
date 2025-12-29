@@ -138,7 +138,7 @@ if ($notifRes) {
                 <div class="user-profile">
                     <img src="../../images/avatar.png" alt="User" onerror="this.src='https://ui-avatars.com/api/?name=<?php echo urlencode($fullName); ?>&background=0f766e&color=fff'">
                     <div class="user-info">
-                        <span class="name"><?php echo htmlspecialchars($fullName); ?></span>
+                        <span class="name"><?php echo htmlspecialchars($fullName ?? ''); ?></span>
                         <span class="role">HMIS Officer</span>
                     </div>
                 </div>
@@ -215,16 +215,16 @@ if ($notifRes) {
                                 <?php else: ?>
                                     <?php foreach ($recentSubmissions as $sub): ?>
                                     <tr>
-                                        <td data-label="Package ID"><strong>#<?php echo htmlspecialchars($sub['package_id']); ?></strong></td>
-                                        <td data-label="Period"><?php echo htmlspecialchars($sub['period']); ?></td>
-                                        <td data-label="Source"><?php echo htmlspecialchars($sub['focal_person_name']); ?></td>
+                                        <td data-label="Package ID"><strong>#<?php echo htmlspecialchars($sub['package_id'] ?? ''); ?></strong></td>
+                                        <td data-label="Period"><?php echo htmlspecialchars($sub['period'] ?? ''); ?></td>
+                                        <td data-label="Source"><?php echo htmlspecialchars($sub['focal_person_name'] ?? ''); ?></td>
                                         <td data-label="Status">
                                             <span class="status-badge <?php echo strtolower($sub['status']); ?>">
-                                                <?php echo htmlspecialchars($sub['status']); ?>
+                                                <?php echo htmlspecialchars($sub['status'] ?? ''); ?>
                                             </span>
                                         </td>
                                         <td data-label="Action">
-                                            <?php if ($sub['status'] === 'Pending'): ?>
+                                            <?php if ($sub['status'] === 'Submitted'): ?>
                                                 <a href="generate_reports.php?id=<?php echo $sub['package_id']; ?>" 
                                                    style="background: var(--primary); color: white; padding: 0.4rem 0.8rem; border-radius: 6px; text-decoration: none; font-size: 0.85rem; font-weight: 600;">Process</a>
                                             <?php else: ?>
