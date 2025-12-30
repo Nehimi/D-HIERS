@@ -141,11 +141,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['save_health_data'])) {
           <label for="serviceType">Health Service Type</label>
           <select name="serviceType" id="serviceType" required>
             <option value="">-- Select Service --</option>
-            <option value="maternal_health">Maternal Health</option>
-            <option value="child_health">Child Health</option>
-            <option value="immunization">Immunization</option>
-            <option value="sanitation">Sanitation</option>
-            <option value="disease_surveillance">Disease Surveillance</option>
+            <option value="ANC Visit">ANC Visit</option>
+            <option value="New Patient">New Patient</option>
+            <option value="Delivery">Delivery</option>
+            <option value="Immunization">Immunization</option>
+            <option value="Sanitation">Sanitation</option>
+            <option value="Disease Surveillance">Disease Surveillance</option>
           </select>
         </div>
         <div class="form-group">
