@@ -221,7 +221,6 @@ fetch('../api/dashboard_stats.php')
 ## 🛠 Setup & Installation
 1.  **Database**:
     *   Import `sql/complete_database_setup.sql` into your MySQL server.
-    *   Import `sql/hmis_module_setup.sql` to initialize the HMIS tables.
     *   Ensure the database name matches `lichamba_database`.
 2.  **Server**:
     *   Place the project folder in `htdocs` (XAMPP) or `www` (WAMP).
